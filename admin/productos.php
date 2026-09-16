@@ -71,8 +71,14 @@ $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <tr>
                     <td><?= $p['id'] ?></td>
                     <td>
-                        <?php if ($p['img']): ?>
-                            <img src="../<?= htmlspecialchars($p['img']) ?>" class="item-img" onerror="this.src='../assets/placeholder.jpg'" />
+                        <?php 
+                        $img = $p['img'] ?? '';
+                        if ($img && strpos($img, 'http') !== 0 && strpos($img, 'v1/cotizaciones/') !== 0) {
+                            $img = 'v1/cotizaciones/' . $img;
+                        }
+                        ?>
+                        <?php if ($img): ?>
+                            <img src="../<?= htmlspecialchars($img) ?>" class="item-img" onerror="this.src='../assets/placeholder.jpg'" />
                         <?php else: ?>
                             <div class="item-img" style="display:inline-block"></div>
                         <?php endif; ?>
