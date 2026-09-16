@@ -84,7 +84,7 @@ $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         }
                         ?>
                         <?php if ($img): ?>
-                            <img src="../<?= htmlspecialchars($img) ?>" class="item-img" onerror="this.onerror=null; this.src=''; this.style.display='none'; this.nextElementSibling.style.display='inline-block';" />
+                            <img src="../<?= htmlspecialchars($img) ?>" class="item-img" onerror="this.onerror=null; this.removeAttribute('src'); this.style.display='none'; this.nextElementSibling.style.display='inline-block';" />
                             <div class="item-img" style="display:none; text-align:center; line-height:40px; color:#a0aec0; font-size:10px;">IMG</div>
                         <?php else: ?>
                             <div class="item-img" style="display:inline-block"></div>
