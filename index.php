@@ -47,6 +47,9 @@ $productosJson = json_encode($productos);
 <meta name="theme-color" content="#c62828"/>
 <link rel="icon" type="image/png" href="assets/logo.png">
 <script src="./support.js"></script>
+<?php if ($entorno === "PRODUCCION"): ?>
+<script src="https://www.google.com/recaptcha/api.js?render=6LdwI0caAAAAABxkaOIz-E3bMo55MJ8pgxDx2-QE"></script>
+<?php endif; ?>
 </head>
 <body>
 <x-dc>
@@ -126,6 +129,7 @@ $productosJson = json_encode($productos);
       <img src="assets/logo.png" alt="Fitness Life S.A.S" onClick="{{goHome}}" style="height:{{logoH}};width:auto;cursor:pointer;flex-shrink:0"/>
       <nav style="display:{{navDisplay}};align-items:center;gap:24px;flex-wrap:wrap">
         <a href="#inicio" onClick="{{goHome}}" style="font-size:13px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:oklch(14% .005 270)">Inicio</a>
+        <a href="#catalogo" onClick="{{goToCatalogo}}" style="font-size:13px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:oklch(14% .005 270)">Catálogo</a>
         <div style="position:relative;display:flex;align-items:center" onMouseEnter="{{openEquipos}}" onMouseLeave="{{closeEquipos}}">
           <a href="#categorias" onClick="{{scrollTo_categorias}}" style="font-size:13px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:oklch(14% .005 270);display:flex;align-items:center;gap:6px">Equipos<svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="transform:{{equiposArrow}};transition:transform .25s ease"><path d="M6 9l6 6 6-6"></path></svg></a>
           <div style="display:{{equiposMenuDisplay}};position:absolute;top:100%;left:-12px;padding-top:14px;z-index:60">
@@ -143,7 +147,12 @@ $productosJson = json_encode($productos);
         <a href="#clientes" onClick="{{scrollTo_clientes}}" style="font-size:13px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:oklch(14% .005 270)">Clientes</a>
         <a href="#" onClick="{{goToContacto}}" style="font-size:13px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:oklch(14% .005 270)">Contacto</a>
       </nav>
-      <button onClick="{{goToContacto}}" style="display:{{ctaDisplay}};background:linear-gradient(135deg, oklch(58% .22 25), oklch(65% .24 27));color:white;border:none;padding:11px 22px;font-weight:700;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;flex-shrink:0">Cotizar</button>
+      <div style="display:flex;align-items:center;gap:12px;flex-shrink:0">
+        <button onClick="{{openGlobalSearch}}" aria-label="Buscar" style="width:40px;height:40px;border-radius:999px;background:oklch(96% .01 270);border:1px solid oklch(90% .006 270);color:oklch(20% .005 270);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s ease" style-hover="background:oklch(58% .22 25);color:white;border-color:oklch(58% .22 25)">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </button>
+        <button onClick="{{goToContacto}}" style="display:{{ctaDisplay}};background:linear-gradient(135deg, oklch(58% .22 25), oklch(65% .24 27));color:white;border:none;padding:11px 22px;font-weight:700;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;flex-shrink:0">Cotizar</button>
+      </div>
       <button onClick="{{toggleMenu}}" aria-label="Menú" style="display:{{burgerDisplay}};flex-direction:column;justify-content:center;gap:5px;width:44px;height:44px;background:none;border:none;cursor:pointer;padding:0;flex-shrink:0">
         <span style="display:block;height:2px;width:24px;background:oklch(14% .005 270);transition:transform .3s ease,opacity .3s ease;transform:{{bar1}}"></span>
         <span style="display:block;height:2px;width:24px;background:oklch(14% .005 270);transition:opacity .3s ease;opacity:{{bar2Opacity}}"></span>
@@ -153,6 +162,7 @@ $productosJson = json_encode($productos);
     <div style="display:{{mobileMenuDisplay}};border-top:1px solid oklch(90% .006 270);background:oklch(99% 0 0);padding:8px 24px 20px">
       <nav style="display:flex;flex-direction:column">
         <a href="#inicio" onClick="{{goHome}}" style="font-size:15px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:oklch(14% .005 270);padding:14px 0;border-bottom:1px solid oklch(90% .006 270);display:block">Inicio</a>
+        <a href="#catalogo" onClick="{{goToCatalogo}}" style="font-size:15px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:oklch(14% .005 270);padding:14px 0;border-bottom:1px solid oklch(90% .006 270);display:block">Catálogo</a>
         <a href="#categorias" onClick="{{scrollTo_categorias}}" style="font-size:15px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:oklch(14% .005 270);padding:14px 0;border-bottom:1px solid oklch(90% .006 270);display:block">Equipos</a>
         <a href="#" onClick="{{goCat_elipticas}}" style="font-size:13px;font-weight:500;color:oklch(38% .008 270);padding:11px 0 11px 18px;border-bottom:1px solid oklch(93% .004 270);display:block">Elípticas</a>
         <a href="#" onClick="{{goCat_bicicletas}}" style="font-size:13px;font-weight:500;color:oklch(38% .008 270);padding:11px 0 11px 18px;border-bottom:1px solid oklch(93% .004 270);display:block">Bicicletas Estáticas</a>
@@ -537,7 +547,7 @@ $productosJson = json_encode($productos);
           
           <div style="margin-bottom:24px">
             <h3 style="font-family:Oswald,sans-serif;font-size:18px;margin:0 0 12px;color:oklch(20% .005 270)">Buscar Equipo</h3>
-            <input type="text" placeholder="Ej. Cybex, Abdominal..." onInput="{{onCatalogoSearch}}" value="{{catalogoSearch}}" style="width:100%;box-sizing:border-box;padding:12px;border:1px solid oklch(85% 0 0);border-radius:6px;font-size:14px;outline:none" />
+            <input type="text" id="catalogoSearchInput" placeholder="Ej. Cybex, Abdominal..." onInput="{{onCatalogoSearch}}" value="{{catalogoSearch}}" style="width:100%;box-sizing:border-box;padding:12px;border:1px solid oklch(85% 0 0);border-radius:6px;font-size:14px;outline:none" />
           </div>
 
           
@@ -690,7 +700,8 @@ $productosJson = json_encode($productos);
           </div>
           <div>
             <div style="font-size:11px;letter-spacing:0.15em;color:oklch(58% .22 25);font-weight:700;text-transform:uppercase;margin-bottom:8px">Ubicación</div>
-            <div style="font-size:18px;font-weight:600">Colombia · Cobertura nacional</div>
+            <div style="font-size:18px;font-weight:600;margin-bottom:6px">Colombia · Cobertura nacional</div>
+            <div style="font-size:14px;color:oklch(40% .01 270);display:flex;align-items:center;gap:16px"><a href="tel:3128011838" style="color:inherit;text-decoration:none">📞 312 8011838</a> <a href="tel:3127199008" style="color:inherit;text-decoration:none">📞 312 7199008</a></div>
           </div>
           <div style="height:240px;border:1px solid oklch(85% 0 0);border-radius:12px;overflow:hidden"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127402.13110996841!2d-76.62002306766453!3d3.411681283626245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e30a6f0cc4bb3f1%3A0x1f0fb5e952ae6168!2sCali%2C%20Valle%20del%20Cauca!5e0!3m2!1sen!2sco!4v1700000000000!5m2!1sen!2sco" width="100%" height="100%" style="border:0;filter:grayscale(1) contrast(1.2)" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
         </div>
@@ -725,7 +736,7 @@ $productosJson = json_encode($productos);
 
   <button onClick="{{scrollTop}}" aria-label="Volver arriba" style="position:fixed;left:16px;bottom:16px;z-index:120;width:46px;height:46px;border-radius:999px;background:oklch(20% .006 270);color:white;border:1px solid oklch(38% .008 270);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:{{topBtnOpacity}};pointer-events:{{topBtnPointer}};box-shadow:0 10px 24px -10px oklch(20% .01 270 / .5);transition:opacity .35s ease,transform .3s cubic-bezier(.2,.8,.2,1),background .3s ease" style-hover="transform:translateY(-4px);background:oklch(58% .22 25)"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"></path></svg></button>
 
-  <a href="https://wa.me/573128011838" target="_blank" rel="noopener" aria-label="WhatsApp" style="position:fixed;right:24px;bottom:24px;z-index:120;width:58px;height:58px;border-radius:999px;background:#25D366;color:white;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px -8px oklch(20% .01 270 / .5);transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s ease" style-hover="transform:scale(1.09);box-shadow:0 18px 34px -10px oklch(20% .01 270 / .6)"><svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M12 2a9.9 9.9 0 00-8.5 15L2 22l5.2-1.4A10 10 0 1012 2zm5.6 14.1c-.2.7-1.3 1.3-1.9 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.4.5c-.1.1-.3.3-.1.6.1.3.6 1.1 1.4 1.8 1 .9 1.8 1.1 2 1.2.3.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l2 1c.2.1.4.2.4.3.1.2.1.7-.1 1.3z"></path></svg></a>
+  <a href="https://wa.me/573128011838" target="_blank" rel="noopener" aria-label="WhatsApp" style="position:fixed;right:24px;bottom:100px;z-index:120;width:58px;height:58px;border-radius:999px;background:#25D366;color:white;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px -8px oklch(20% .01 270 / .5);transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s ease" style-hover="transform:scale(1.09);box-shadow:0 18px 34px -10px oklch(20% .01 270 / .6)"><svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M12 2a9.9 9.9 0 00-8.5 15L2 22l5.2-1.4A10 10 0 1012 2zm5.6 14.1c-.2.7-1.3 1.3-1.9 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.4.5c-.1.1-.3.3-.1.6.1.3.6 1.1 1.4 1.8 1 .9 1.8 1.1 2 1.2.3.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l2 1c.2.1.4.2.4.3.1.2.1.7-.1 1.3z"></path></svg></a>
 
   <footer style="background:oklch(19% .004 265);color:oklch(92% .003 270);padding:72px 24px 34px">
     <div style="max-width:1280px;margin:0 auto">
@@ -799,7 +810,7 @@ $productosJson = json_encode($productos);
 
   <!-- Floating Cart -->
   <sc-if value="{{hasCartItems}}">
-    <div onClick="{{goToCart}}" style="position:fixed;bottom:30px;right:30px;background:oklch(58% .22 25);color:white;padding:16px 24px;border-radius:999px;box-shadow:0 12px 24px -8px oklch(58% .22 25 / .5);cursor:pointer;display:flex;align-items:center;gap:12px;z-index:999;transition:transform .3s cubic-bezier(.2,.8,.2,1)" style-hover="transform:translateY(-5px) scale(1.05)">
+    <div onClick="{{goToCart}}" style="position:fixed;bottom:24px;right:24px;background:oklch(58% .22 25);color:white;padding:16px 24px;border-radius:999px;box-shadow:0 12px 24px -8px oklch(58% .22 25 / .5);cursor:pointer;display:flex;align-items:center;gap:12px;z-index:999;transition:transform .3s cubic-bezier(.2,.8,.2,1)" style-hover="transform:translateY(-5px) scale(1.05)">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
       <div style="display:flex;flex-direction:column">
         <span style="font-size:14px;font-weight:700;line-height:1">Ver Cotización</span>
@@ -1125,6 +1136,16 @@ class Component extends DCLogic {
   };
 
 
+
+  openGlobalSearch = (e) => {
+    if (e) e.preventDefault();
+    this.goToCatalogo(e);
+    setTimeout(() => {
+      const el = document.getElementById('catalogoSearchInput');
+      if (el) { el.focus(); el.scrollIntoView({behavior: 'smooth', block: 'center'}); }
+    }, 150);
+  };
+
   goToCatalogo = (e) => {
     if (e) e.preventDefault();
     window.history.pushState(null, '', '#catalogo');
@@ -1415,7 +1436,7 @@ class Component extends DCLogic {
       const cartBorder = inCart ? '1px solid oklch(80% 0 0)' : '1px solid transparent';
       
       const waMsg = encodeURIComponent('Hola, estoy interesado en recibir información y precios del equipo ' + p.name + ' (SKU: ' + item_no + ').');
-      const waLink = 'https://wa.me/573001234567?text=' + waMsg;
+      const waLink = 'https://wa.me/573128011838?text=' + waMsg;
       
       
       const onOpen = this.openModal({ ...p, image, item_no, hasDims, hasWeight, waLink, inCart, cartText, cartBg, cartBgHover, cartColor, cartBorder });
@@ -1561,6 +1582,7 @@ class Component extends DCLogic {
       goToCatalogo: this.goToCatalogo,
       isContacto: this.state.page === 'contacto',
       goBackHistory: this.goBackHistory,
+      openGlobalSearch: this.openGlobalSearch,
       formSubmitted: this.state.formSubmitted,
       formNotSubmitted: !this.state.formSubmitted,
       categoriasRef: this.setCategoriasRef,
