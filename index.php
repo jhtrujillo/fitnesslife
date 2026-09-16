@@ -39,13 +39,13 @@ $productosJson = json_encode($productos);
 <meta property="og:site_name" content="Fitness Life S.A.S"/>
 <meta property="og:title" content="Fitness Life S.A.S — Equipos de gimnasio en Colombia"/>
 <meta property="og:description" content="Importadores directos de equipos 100% americanos: Life Fitness, Precor, Hoist, Matrix, Cybex y Free Motion. Cali, cobertura nacional."/>
-<meta property="og:image" content="https://www.fitnesslife.com.co/assets/logo.png"/>
+<meta property="og:image" content="https://www.fitnesslife.com.co/assets/logo.webp"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Fitness Life S.A.S — Equipos de gimnasio en Colombia"/>
 <meta name="twitter:description" content="Importadores directos de equipos 100% americanos para gimnasios, hoteles y hogares."/>
-<meta name="twitter:image" content="https://www.fitnesslife.com.co/assets/logo.png"/>
+<meta name="twitter:image" content="https://www.fitnesslife.com.co/assets/logo.webp"/>
 <meta name="theme-color" content="#c62828"/>
-<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="icon" type="image/png" href="assets/logo.webp">
 <script src="./support.js"></script>
 <?php if ($entorno === "PRODUCCION"): ?>
 <script src="https://www.google.com/recaptcha/api.js?render=6LdwI0caAAAAABxkaOIz-E3bMo55MJ8pgxDx2-QE"></script>
@@ -63,44 +63,44 @@ $productosJson = json_encode($productos);
 <meta property="og:site_name" content="Fitness Life S.A.S"/>
 <meta property="og:title" content="Fitness Life S.A.S — Equipos de gimnasio en Colombia"/>
 <meta property="og:description" content="Importadores directos de equipos 100% americanos: Life Fitness, Precor, Hoist, Matrix, Cybex y Free Motion. Cali, cobertura nacional."/>
-<meta property="og:image" content="assets/logo.png"/>
+<meta property="og:image" content="assets/logo.webp"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Fitness Life S.A.S — Equipos de gimnasio en Colombia"/>
 <meta name="twitter:description" content="Importadores directos de equipos 100% americanos para gimnasios, hoteles y hogares."/>
-<meta name="twitter:image" content="assets/logo.png"/>
+<meta name="twitter:image" content="assets/logo.webp"/>
 <meta name="theme-color" content="#c62828"/>
-<meta name="ext-resource-dependency" content="assets/cat_eliptica_main.jpeg" data-resource-id="assets/cat_eliptica_main.jpeg"/>
-<meta name="ext-resource-dependency" content="assets/cat_bici_main.jpeg" data-resource-id="assets/cat_bici_main.jpeg"/>
-<meta name="ext-resource-dependency" content="assets/cat_trotadora_main.jpeg" data-resource-id="assets/cat_trotadora_main.jpeg"/>
-<meta name="ext-resource-dependency" content="assets/cat_pesas_main.jpeg" data-resource-id="assets/cat_pesas_main.jpeg"/>
-<meta name="ext-resource-dependency" content="assets/hero_hoist.png" data-resource-id="assets/hero_hoist.png"/>
+<meta name="ext-resource-dependency" content="assets/cat_eliptica_main.webp" data-resource-id="assets/cat_eliptica_main.webp"/>
+<meta name="ext-resource-dependency" content="assets/cat_bici_main.webp" data-resource-id="assets/cat_bici_main.webp"/>
+<meta name="ext-resource-dependency" content="assets/cat_trotadora_main.webp" data-resource-id="assets/cat_trotadora_main.webp"/>
+<meta name="ext-resource-dependency" content="assets/cat_pesas_main.webp" data-resource-id="assets/cat_pesas_main.webp"/>
+<meta name="ext-resource-dependency" content="assets/hero_hoist.webp" data-resource-id="assets/hero_hoist.webp"/>
 <meta name="ext-resource-dependency" content="uploads/elipticas.jpeg" data-resource-id="uploads/elipticas.jpeg"/>
 <meta name="ext-resource-dependency" content="uploads/trotadoras.jpeg" data-resource-id="uploads/trotadoras.jpeg"/>
 <meta name="ext-resource-dependency" content="uploads/estaticas.webp" data-resource-id="uploads/estaticas.webp"/>
 <meta name="ext-resource-dependency" content="uploads/selectorizado.jpeg" data-resource-id="uploads/selectorizado.jpeg"/>
 <meta name="ext-resource-dependency" content="uploads/escaleras.jpeg" data-resource-id="uploads/escaleras.jpeg"/>
-<meta name="ext-resource-dependency" content="assets/cat_escaleras_v3.jpeg" data-resource-id="assets/cat_escaleras_v3.jpeg"/>
+<meta name="ext-resource-dependency" content="assets/cat_escaleras_v3.webp" data-resource-id="assets/cat_escaleras_v3.webp"/>
 <meta name="ext-resource-dependency" content="uploads/spinning.jpeg" data-resource-id="uploads/spinning.jpeg"/>
 <meta name="ext-resource-dependency" content="uploads/circuito.jpeg" data-resource-id="uploads/circuito.jpeg"/>
 <meta name="ext-resource-dependency" content="uploads/funcional.jpeg" data-resource-id="uploads/funcional.jpeg"/>
-<meta name="ext-resource-dependency" content="assets/sol_comercial.png" data-resource-id="assets/sol_comercial.png"/>
-<meta name="ext-resource-dependency" content="assets/sol_institucional.png" data-resource-id="assets/sol_institucional.png"/>
-<meta name="ext-resource-dependency" content="assets/sol_hogar.png" data-resource-id="assets/sol_hogar.png"/>
-<meta name="ext-resource-dependency" content="assets/sol_accesorios.png" data-resource-id="assets/sol_accesorios.png"/>
-<meta name="ext-resource-dependency" content="assets/trim_brand_lifefitness.png" data-resource-id="assets/trim_brand_lifefitness.png"/>
-<meta name="ext-resource-dependency" content="assets/trim_brand_precor.png" data-resource-id="assets/trim_brand_precor.png"/>
-<meta name="ext-resource-dependency" content="assets/trim_brand_hoist.png" data-resource-id="assets/trim_brand_hoist.png"/>
-<meta name="ext-resource-dependency" content="assets/trim_brand_keiser.png" data-resource-id="assets/trim_brand_keiser.png"/>
-<meta name="ext-resource-dependency" content="assets/trim_brand_truefitness.png" data-resource-id="assets/trim_brand_truefitness.png"/>
-<meta name="ext-resource-dependency" content="assets/trim_brand_freemotion.png" data-resource-id="assets/trim_brand_freemotion.png"/>
-<meta name="ext-resource-dependency" content="assets/trim_brand_realleader.png" data-resource-id="assets/trim_brand_realleader.png"/>
-<meta name="ext-resource-dependency" content="assets/trim_client_mundofitness2.png" data-resource-id="assets/trim_client_mundofitness2.png"/>
-<meta name="ext-resource-dependency" content="assets/trim_client_powerhouse.png" data-resource-id="assets/trim_client_powerhouse.png"/>
-<meta name="ext-resource-dependency" content="assets/trim_client_energym.png" data-resource-id="assets/trim_client_energym.png"/>
-<meta name="ext-resource-dependency" content="assets/trim_client_arena.png" data-resource-id="assets/trim_client_arena.png"/>
-<meta name="ext-resource-dependency" content="assets/trim_client_nhhoteles.png" data-resource-id="assets/trim_client_nhhoteles.png"/>
-<meta name="ext-resource-dependency" content="assets/trim_client_colegiobolivar.png" data-resource-id="assets/trim_client_colegiobolivar.png"/>
-<meta name="ext-resource-dependency" content="assets/trim_client_unicoc.png" data-resource-id="assets/trim_client_unicoc.png"/>
+<meta name="ext-resource-dependency" content="assets/sol_comercial.webp" data-resource-id="assets/sol_comercial.webp"/>
+<meta name="ext-resource-dependency" content="assets/sol_institucional.webp" data-resource-id="assets/sol_institucional.webp"/>
+<meta name="ext-resource-dependency" content="assets/sol_hogar.webp" data-resource-id="assets/sol_hogar.webp"/>
+<meta name="ext-resource-dependency" content="assets/sol_accesorios.webp" data-resource-id="assets/sol_accesorios.webp"/>
+<meta name="ext-resource-dependency" content="assets/trim_brand_lifefitness.webp" data-resource-id="assets/trim_brand_lifefitness.webp"/>
+<meta name="ext-resource-dependency" content="assets/trim_brand_precor.webp" data-resource-id="assets/trim_brand_precor.webp"/>
+<meta name="ext-resource-dependency" content="assets/trim_brand_hoist.webp" data-resource-id="assets/trim_brand_hoist.webp"/>
+<meta name="ext-resource-dependency" content="assets/trim_brand_keiser.webp" data-resource-id="assets/trim_brand_keiser.webp"/>
+<meta name="ext-resource-dependency" content="assets/trim_brand_truefitness.webp" data-resource-id="assets/trim_brand_truefitness.webp"/>
+<meta name="ext-resource-dependency" content="assets/trim_brand_freemotion.webp" data-resource-id="assets/trim_brand_freemotion.webp"/>
+<meta name="ext-resource-dependency" content="assets/trim_brand_realleader.webp" data-resource-id="assets/trim_brand_realleader.webp"/>
+<meta name="ext-resource-dependency" content="assets/trim_client_mundofitness2.webp" data-resource-id="assets/trim_client_mundofitness2.webp"/>
+<meta name="ext-resource-dependency" content="assets/trim_client_powerhouse.webp" data-resource-id="assets/trim_client_powerhouse.webp"/>
+<meta name="ext-resource-dependency" content="assets/trim_client_energym.webp" data-resource-id="assets/trim_client_energym.webp"/>
+<meta name="ext-resource-dependency" content="assets/trim_client_arena.webp" data-resource-id="assets/trim_client_arena.webp"/>
+<meta name="ext-resource-dependency" content="assets/trim_client_nhhoteles.webp" data-resource-id="assets/trim_client_nhhoteles.webp"/>
+<meta name="ext-resource-dependency" content="assets/trim_client_colegiobolivar.webp" data-resource-id="assets/trim_client_colegiobolivar.webp"/>
+<meta name="ext-resource-dependency" content="assets/trim_client_unicoc.webp" data-resource-id="assets/trim_client_unicoc.webp"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap"/>
@@ -126,7 +126,7 @@ $productosJson = json_encode($productos);
 
   <header style="position:sticky;top:0;z-index:40;background:oklch(98% 0 0 / .96);backdrop-filter:blur(10px);border-bottom:1px solid oklch(28% .008 270)">
     <div style="max-width:1280px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:24px">
-      <img src="assets/logo.png" alt="Fitness Life S.A.S" onClick="{{goHome}}" style="height:{{logoH}};width:auto;cursor:pointer;flex-shrink:0"/>
+      <img src="assets/logo.webp" alt="Fitness Life S.A.S" onClick="{{goHome}}" style="height:{{logoH}};width:auto;cursor:pointer;flex-shrink:0"/>
       <div style="display:{{headerSearchDisplay}};flex:1;margin:0 8px;max-width:600px">
         <input type="text" id="headerSearchInput" placeholder="Ej. Cybex, Abdominal..." value="{{catalogoSearch}}" onInput="{{onHeaderSearch}}" style="width:100%;box-sizing:border-box;padding:10px 16px;border:1px solid oklch(85% 0 0);border-radius:999px;font-size:14px;outline:none;box-shadow:0 4px 12px rgba(0,0,0,0.05)" />
       </div>
@@ -188,7 +188,7 @@ $productosJson = json_encode($productos);
       <sc-for list="{{heroSlides}}" as="slide" hint-placeholder-count="2">
         <div style="position:absolute;inset:0;opacity:{{slide.opacity}};transition:opacity 1s ease;background:oklch(10% .005 270)">
           <sc-if value="{{slide.isImage}}" hint-placeholder-val="{{true}}">
-            <img src="assets/hero_hoist.png" data-src="{{slide.img}}" alt="{{slide.alt}}" ref="{{heroImgRef}}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:{{slide.fit}}"/>
+            <img src="assets/hero_hoist.webp" data-src="{{slide.img}}" alt="{{slide.alt}}" ref="{{heroImgRef}}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:{{slide.fit}}"/>
           </sc-if>
           <sc-if value="{{slide.showVideo}}" hint-placeholder-val="{{false}}">
             <video ref="{{videoRef}}" src="{{slide.videoSrc}}" autoPlay="{{true}}" muted="{{true}}" loop="{{true}}" playsInline="{{true}}" preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video>
@@ -824,7 +824,7 @@ $productosJson = json_encode($productos);
     <div style="max-width:1280px;margin:0 auto">
       <div style="display:grid;grid-template-columns:{{footerGrid}};gap:40px;margin-bottom:48px">
         <div>
-          <img src="assets/logo.png" alt="Fitness Life S.A.S" style="height:80px;width:auto;margin-bottom:16px;filter:brightness(0) invert(1)"/>
+          <img src="assets/logo.webp" alt="Fitness Life S.A.S" style="height:80px;width:auto;margin-bottom:16px;filter:brightness(0) invert(1)"/>
           <p style="color:oklch(70% .006 270);font-size:14px;line-height:1.6;margin:0 0 20px;max-width:280px">Inspirando al mundo a entrenar. Importadores directos de equipamiento deportivo comercial de las marcas líderes en EE.UU.</p>
           <div style="font-size:11px;letter-spacing:0.12em;color:oklch(98% 0 0);text-transform:uppercase;font-weight:700;margin-bottom:10px">Recibe nuestros catálogos</div>
           <div style="display:flex;gap:8px;margin-bottom:24px;max-width:300px">
@@ -910,7 +910,7 @@ window.DB_PRODUCTS = <?php echo $productosJson; ?>;
 const R = (p) => (window.__resources && window.__resources[p]) || p;
 const CATEGORIES = {
   elipticas: {
-    slug: 'elipticas', name: 'Elípticas', tag: 'Cardio de bajo impacto', img: R('assets/cat_eliptica_main.jpeg'), badge: '01',
+    slug: 'elipticas', name: 'Elípticas', tag: 'Cardio de bajo impacto', img: R('assets/cat_eliptica_main.webp'), badge: '01',
     longDesc: 'Entrenamiento cardiovascular suave con las articulaciones, ideal para sesiones largas de alta quema calórica sin desgaste físico. Nuestras elípticas comerciales incorporan biomecánica de movimiento natural y consolas robustas para uso intensivo en gimnasios de alto tráfico.',
     features: [
       {title:'Bajo impacto articular', desc:'Movimiento elíptico natural que protege rodillas y caderas durante sesiones largas.'},
@@ -920,7 +920,7 @@ const CATEGORIES = {
     ],
   },
   bicicletas: {
-    slug: 'bicicletas', name: 'Escaleras', tag: 'Cardio de alta intensidad', img: R('assets/cat_escaleras_v3.jpeg'), badge: '02',
+    slug: 'bicicletas', name: 'Escaleras', tag: 'Cardio de alta intensidad', img: R('assets/cat_escaleras_v3.webp'), badge: '02',
     longDesc: 'Bicicletas indoor y de spinning con sistemas de resistencia magnética y freno de precisión para clases grupales o entrenamiento individual. Estructura reforzada pensada para el uso constante de estudios y gimnasios comerciales.',
     features: [
       {title:'Resistencia magnética', desc:'Ajuste preciso y silencioso para clases grupales de alta intensidad.'},
@@ -930,7 +930,7 @@ const CATEGORIES = {
     ],
   },
   trotadoras: {
-    slug: 'trotadoras', name: 'Trotadoras', tag: 'Caminadoras profesionales', img: R('assets/cat_trotadora_main.jpeg'), badge: '03',
+    slug: 'trotadoras', name: 'Trotadoras', tag: 'Caminadoras profesionales', img: R('assets/cat_trotadora_main.webp'), badge: '03',
     longDesc: 'Caminadoras de alto tráfico con motores comerciales, bandas amortiguadas y consolas robustas para uso intensivo en gimnasios, hoteles y centros deportivos que operan todo el día.',
     features: [
       {title:'Motor comercial', desc:'Potencia continua diseñada para operación de alto tráfico sin sobrecalentarse.'},
@@ -940,7 +940,7 @@ const CATEGORIES = {
     ],
   },
   pesas: {
-    slug: 'pesas', name: 'Máquinas de Pesas', tag: 'Fuerza y musculación', img: R('assets/cat_pesas_main.jpeg'), badge: '04',
+    slug: 'pesas', name: 'Máquinas de Pesas', tag: 'Fuerza y musculación', img: R('assets/cat_pesas_main.webp'), badge: '04',
     longDesc: 'Equipos de musculación selectorizados y de placas libres, diseñados para construir fuerza con biomecánica segura. Ideal para dotar zonas de fuerza comerciales, institucionales y residenciales.',
     features: [
       {title:'Biomecánica segura', desc:'Trayectorias de movimiento diseñadas para minimizar el riesgo de lesión.'},
@@ -950,7 +950,7 @@ const CATEGORIES = {
     ],
   },
   comercial: {
-    slug: 'comercial', name: 'Línea Comercial', tag: 'Dotación para gimnasios', img: R('assets/sol_comercial.png'), badge: '',
+    slug: 'comercial', name: 'Línea Comercial', tag: 'Dotación para gimnasios', img: R('assets/sol_comercial.webp'), badge: '',
     longDesc: 'Equipos profesionales de uso intensivo con la mejor biomecánica y durabilidad para tu negocio.',
     features: [
       {title:'Alto Tráfico', desc:'Diseñados para uso 24/7 en gimnasios comerciales.'},
@@ -958,7 +958,7 @@ const CATEGORIES = {
     ]
   },
   institucional: {
-    slug: 'institucional', name: 'Línea Institucional', tag: 'Hoteles y Clubes', img: R('assets/sol_institucional.png'), badge: '',
+    slug: 'institucional', name: 'Línea Institucional', tag: 'Hoteles y Clubes', img: R('assets/sol_institucional.webp'), badge: '',
     longDesc: 'Soluciones optimizadas para espacios institucionales, condominios y clubes que buscan calidad sin ocupar áreas excesivas.',
     features: [
       {title:'Diseño Compacto', desc:'Máquinas multi-estación y duales que maximizan el espacio.'},
@@ -966,7 +966,7 @@ const CATEGORIES = {
     ]
   },
   hogar: {
-    slug: 'hogar', name: 'Equipos para Hogar', tag: 'Entrena en casa', img: R('assets/sol_hogar.png'), badge: '',
+    slug: 'hogar', name: 'Equipos para Hogar', tag: 'Entrena en casa', img: R('assets/sol_hogar.webp'), badge: '',
     longDesc: 'Lleva la calidad del gimnasio a la comodidad de tu hogar con equipos residenciales premium.',
     features: [
       {title:'Silenciosos', desc:'Motores y sistemas de fricción diseñados para no interrumpir tu entorno.'},
@@ -974,7 +974,7 @@ const CATEGORIES = {
     ]
   },
   accesorios: {
-    slug: 'accesorios', name: 'Accesorios', tag: 'Complementos', img: R('assets/sol_accesorios.png'), badge: '',
+    slug: 'accesorios', name: 'Accesorios', tag: 'Complementos', img: R('assets/sol_accesorios.webp'), badge: '',
     longDesc: 'Pesas libres, barras, discos y elementos de entrenamiento funcional para completar tus zonas de fuerza.',
     features: [
       {title:'Alta Durabilidad', desc:'Materiales resistentes al sudor y al impacto continuo.'},
@@ -1356,14 +1356,14 @@ class Component extends DCLogic {
 
   renderVals() {
     const heroData = [
-      { img: R('assets/hero_hoist.png'), alt: 'Disciplina, enfoque, consistencia y resultados', fit: 'cover', label1: 'BIOMECÁNICA', label2: 'REVOLUCIONARIA' },
+      { img: R('assets/hero_hoist.webp'), alt: 'Disciplina, enfoque, consistencia y resultados', fit: 'cover', label1: 'BIOMECÁNICA', label2: 'REVOLUCIONARIA' },
       { video: 'https://www.realleadermex.com/galeriavideo/inicio3.mp4', alt: 'Real Leader — equipos de fuerza comercial', label1: 'FUERZA', label2: 'REAL LEADER' },
     ];
     const heroSlides = heroData.map((h, i) => {
       const active = i === this.state.heroIndex;
       return {
         ...h,
-        img: h.img || R('assets/hero_hoist.png'),
+        img: h.img || R('assets/hero_hoist.webp'),
         fit: h.fit || 'cover',
         opacity: active ? 1 : 0,
         isImage: !h.video,
@@ -1399,10 +1399,10 @@ class Component extends DCLogic {
       { img: R('uploads/escaleras.jpeg'), name: 'Escaleras', tag: 'Cardio de alta intensidad', slug: 'trotadoras', pad: '4px' },
       { img: R('uploads/spinning.jpeg'), name: 'Spinning', tag: 'Clases grupales', slug: 'bicicletas' },
       { img: R('uploads/selectorizado.jpeg'), name: 'Máquinas de Pesas', tag: 'Fuerza selectorizada', slug: 'pesas' },
-      { img: R('assets/cat_peso_libre.png'), name: 'Peso Libre', tag: 'Placa cargada y banco ajustable', slug: 'pesas', pad: '0px', zoom: 1.05 },
+      { img: R('assets/cat_peso_libre.webp'), name: 'Peso Libre', tag: 'Placa cargada y banco ajustable', slug: 'pesas', pad: '0px', zoom: 1.05 },
       { img: R('uploads/circuito.jpeg'), name: 'Circuitos', tag: 'Fuerza en circuito', slug: 'pesas' },
       { img: R('uploads/funcional.jpeg'), name: 'Entrenamiento Funcional', tag: 'Synrgy360 — Life Fitness', slug: 'pesas' },
-      { img: R('assets/cat_accesorios_v3.png'), name: 'Accesorios', tag: 'Mancuernas, barras y discos', slug: 'pesas', pad: '0px' },
+      { img: R('assets/cat_accesorios_v3.webp'), name: 'Accesorios', tag: 'Mancuernas, barras y discos', slug: 'pesas', pad: '0px' },
     ];
 
     const carouselCards = [...carouselItems, ...carouselItems].map((c, i) => ({
@@ -1553,7 +1553,7 @@ class Component extends DCLogic {
     ].map((s, i) => {
       const hov = this.state.isMobile ? this.state.activeSolution === i : this.state.hoveredSolution === i;
       const imageVisible = this.state.isMobile ? this.state.solucionesVisible : hov;
-      const bgImgs = [R('assets/sol_comercial.png'), R('assets/sol_institucional.png'), R('assets/sol_hogar.png'), R('assets/sol_accesorios.png')];
+      const bgImgs = [R('assets/sol_comercial.webp'), R('assets/sol_institucional.webp'), R('assets/sol_hogar.webp'), R('assets/sol_accesorios.webp')];
       return {
         ...s,
         onClick: () => this.goToCategory(s.slug),
@@ -1593,13 +1593,13 @@ class Component extends DCLogic {
     }));
 
     const brandsData = [
-      { name: 'Life Fitness', img: R('assets/trim_brand_lifefitness.png'), w: '150px', h: '25px' },
-      { name: 'Precor', img: R('assets/trim_brand_precor.png'), w: '150px', h: '24px' },
-      { name: 'Hoist', img: R('assets/trim_brand_hoist.png'), w: '150px', h: '42px' },
-      { name: 'Keiser', img: R('assets/trim_brand_keiser.png'), w: '150px', h: '24px' },
-      { name: 'True Fitness', img: R('assets/trim_brand_truefitness.png'), w: '150px', h: '20px' },
-      { name: 'Freemotion', img: R('assets/trim_brand_freemotion.png'), w: '150px', h: '26px' },
-      { name: 'Realleader USA', img: R('assets/trim_brand_realleader.png'), w: '150px', h: '34px' },
+      { name: 'Life Fitness', img: R('assets/trim_brand_lifefitness.webp'), w: '150px', h: '25px' },
+      { name: 'Precor', img: R('assets/trim_brand_precor.webp'), w: '150px', h: '24px' },
+      { name: 'Hoist', img: R('assets/trim_brand_hoist.webp'), w: '150px', h: '42px' },
+      { name: 'Keiser', img: R('assets/trim_brand_keiser.webp'), w: '150px', h: '24px' },
+      { name: 'True Fitness', img: R('assets/trim_brand_truefitness.webp'), w: '150px', h: '20px' },
+      { name: 'Freemotion', img: R('assets/trim_brand_freemotion.webp'), w: '150px', h: '26px' },
+      { name: 'Realleader USA', img: R('assets/trim_brand_realleader.webp'), w: '150px', h: '34px' },
     ].map((b, i) => ({
       ...b,
       revealOpacity: this.state.marcasVisible ? 1 : 0,
@@ -1608,13 +1608,13 @@ class Component extends DCLogic {
     }));
 
     const clientsData = [
-      { name: 'Mundo Fitness', img: R('assets/trim_client_mundofitness2.png'), w: '59px', h: '62px' },
-      { name: 'Powerhouse', img: R('assets/trim_client_powerhouse.png'), w: '150px', h: '27px' },
-      { name: 'Energym Club', img: R('assets/trim_client_energym.png'), w: '150px', h: '49px' },
-      { name: 'Arena', img: R('assets/trim_client_arena.png'), w: '89px', h: '62px' },
-      { name: 'NH Hoteles', img: R('assets/trim_client_nhhoteles.png'), w: '72px', h: '62px' },
-      { name: 'Colegio Bolívar', img: R('assets/trim_client_colegiobolivar.png'), w: '150px', h: '28px' },
-      { name: 'Unicoc', img: R('assets/trim_client_unicoc.png'), w: '150px', h: '46px' },
+      { name: 'Mundo Fitness', img: R('assets/trim_client_mundofitness2.webp'), w: '59px', h: '62px' },
+      { name: 'Powerhouse', img: R('assets/trim_client_powerhouse.webp'), w: '150px', h: '27px' },
+      { name: 'Energym Club', img: R('assets/trim_client_energym.webp'), w: '150px', h: '49px' },
+      { name: 'Arena', img: R('assets/trim_client_arena.webp'), w: '89px', h: '62px' },
+      { name: 'NH Hoteles', img: R('assets/trim_client_nhhoteles.webp'), w: '72px', h: '62px' },
+      { name: 'Colegio Bolívar', img: R('assets/trim_client_colegiobolivar.webp'), w: '150px', h: '28px' },
+      { name: 'Unicoc', img: R('assets/trim_client_unicoc.webp'), w: '150px', h: '46px' },
     ].map((c, i) => ({
       ...c,
       revealOpacity: this.state.clientesVisible ? 1 : 0,
