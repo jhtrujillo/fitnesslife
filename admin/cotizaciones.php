@@ -31,6 +31,18 @@ $cotizaciones = $stmt->fetchAll(PDO::FETCH_ASSOC);
         th, td { padding: 16px; text-align: left; border-bottom: 1px solid #e2e8f0; font-size: 14px; }
         th { background: #f7fafc; font-weight: 600; color: #718096; text-transform: uppercase; font-size: 12px; letter-spacing: 0.05em; }
         .badge { background: #e2e8f0; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 600; color: #4a5568; }
+    
+        @media (max-width: 768px) {
+            .sidebar { position: relative; width: 100%; height: auto; display: flex; flex-direction: row; flex-wrap: wrap; border-right: none; border-bottom: 1px solid #e2e8f0; }
+            .sidebar-header { padding: 15px; width: 100%; text-align: center; }
+            .nav-item { flex: 1; padding: 12px; text-align: center; font-size: 13px; border-bottom: none; border-left: none !important; border-bottom: 4px solid transparent; }
+            .nav-item.active { border-bottom: 4px solid #c92026; background: transparent; padding-left: 12px; }
+            .nav-item:hover { padding-left: 12px; }
+            .main-content { margin-left: 0; padding: 15px; }
+            .header { flex-direction: column; align-items: flex-start; gap: 15px; }
+            table { display: block; overflow-x: auto; white-space: nowrap; }
+            .card { padding: 20px; }
+        }
     </style>
 </head>
 <body>

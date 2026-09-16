@@ -30,6 +30,18 @@ if ($id) {
         label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 14px; }
         input[type="text"], input[type="number"] { width: 100%; padding: 10px; border: 1px solid #e2e8f0; border-radius: 6px; box-sizing: border-box; }
         .btn { padding: 10px 20px; background: #c92026; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer; text-decoration: none; }
+    
+        @media (max-width: 768px) {
+            .sidebar { position: relative; width: 100%; height: auto; display: flex; flex-direction: row; flex-wrap: wrap; border-right: none; border-bottom: 1px solid #e2e8f0; }
+            .sidebar-header { padding: 15px; width: 100%; text-align: center; }
+            .nav-item { flex: 1; padding: 12px; text-align: center; font-size: 13px; border-bottom: none; border-left: none !important; border-bottom: 4px solid transparent; }
+            .nav-item.active { border-bottom: 4px solid #c92026; background: transparent; padding-left: 12px; }
+            .nav-item:hover { padding-left: 12px; }
+            .main-content { margin-left: 0; padding: 15px; }
+            .header { flex-direction: column; align-items: flex-start; gap: 15px; }
+            table { display: block; overflow-x: auto; white-space: nowrap; }
+            .card { padding: 20px; }
+        }
     </style>
 </head>
 <body>

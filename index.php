@@ -127,7 +127,7 @@ $productosJson = json_encode($productos);
   <header style="position:sticky;top:0;z-index:40;background:oklch(98% 0 0 / .96);backdrop-filter:blur(10px);border-bottom:1px solid oklch(28% .008 270)">
     <div style="max-width:1280px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:24px">
       <img src="assets/logo.png" alt="Fitness Life S.A.S" onClick="{{goHome}}" style="height:{{logoH}};width:auto;cursor:pointer;flex-shrink:0"/>
-      <div style="display:{{headerSearchDisplay}};flex:1;margin:0 24px;max-width:600px">
+      <div style="display:{{headerSearchDisplay}};flex:1;margin:0 8px;max-width:600px">
         <input type="text" id="headerSearchInput" placeholder="Ej. Cybex, Abdominal..." value="{{catalogoSearch}}" onInput="{{onHeaderSearch}}" style="width:100%;box-sizing:border-box;padding:10px 16px;border:1px solid oklch(85% 0 0);border-radius:999px;font-size:14px;outline:none;box-shadow:0 4px 12px rgba(0,0,0,0.05)" />
       </div>
       <nav style="display:{{navDisplay}};align-items:center;gap:24px;flex-wrap:wrap">
@@ -543,10 +543,10 @@ $productosJson = json_encode($productos);
       </section>
       
       
-      <section style="max-width:1280px;margin:0 auto;padding:40px 24px;display:flex;gap:40px;flex-direction:row;align-items:flex-start" media-max-width-900="flex-direction:column">
+      <section style="max-width:1280px;margin:0 auto;padding:40px 24px;display:flex;gap:40px;flex-direction:{{catLayoutDir}};align-items:flex-start">
         
         <!-- BARRA LATERAL (Filtros) -->
-        <aside style="width:260px;flex-shrink:0;background:white;padding:24px;border-radius:12px;border:1px solid oklch(90% 0 0);position:sticky;top:80px" media-max-width-900="width:100%;position:relative;top:0">
+        <aside style="width:{{catAsideWidth}};flex-shrink:0;background:white;padding:24px;border-radius:12px;border:1px solid oklch(90% 0 0);position:{{catAsidePos}};top:{{catAsideTop}};">
           
           <div style="margin-bottom:24px">
             <h3 style="font-family:Oswald,sans-serif;font-size:18px;margin:0 0 12px;color:oklch(20% .005 270)">Buscar Equipo</h3>
@@ -1637,6 +1637,10 @@ class Component extends DCLogic {
       whyUsHeaderTransform: 'translateY(0)',
       whyUsBannerOpacity: 1,
       whyUsBannerTransform: 'translateY(0)',
+      catLayoutDir: this.state.isMobile ? 'column' : 'row',
+      catAsideWidth: this.state.isMobile ? '100%' : '260px',
+      catAsidePos: this.state.isMobile ? 'relative' : 'sticky',
+      catAsideTop: this.state.isMobile ? '0' : '80px',
       goHome: this.goHome,
       logoH: this.state.isMobile ? '62px' : '96px',
       navDisplay: this.state.globalSearchOpen ? 'none' : (this.state.isMobile ? 'none' : 'flex'),
