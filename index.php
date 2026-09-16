@@ -546,7 +546,7 @@ $productosJson = json_encode($productos);
       <section style="max-width:1280px;margin:0 auto;padding:40px 24px;display:flex;gap:40px;flex-direction:{{catLayoutDir}};align-items:flex-start">
         
         <!-- BARRA LATERAL (Filtros) -->
-        <aside style="width:{{catAsideWidth}};flex-shrink:0;background:white;padding:24px;border-radius:12px;border:1px solid oklch(90% 0 0);position:{{catAsidePos}};top:{{catAsideTop}};">
+        <aside style="width:{{catAsideWidth}};box-sizing:border-box;flex-shrink:0;background:white;padding:24px;border-radius:12px;border:1px solid oklch(90% 0 0);position:{{catAsidePos}};top:{{catAsideTop}};">
           
           <div style="margin-bottom:24px">
             <h3 style="font-family:Oswald,sans-serif;font-size:18px;margin:0 0 12px;color:oklch(20% .005 270)">Buscar Equipo</h3>
@@ -651,6 +651,85 @@ $productosJson = json_encode($productos);
 
         </div>
       </section>
+
+
+      <sc-if value="{{modalOpen}}">
+        <div style="position:fixed;inset:0;background:rgba(0,0,0,0.6);backdrop-filter:blur(5px);z-index:999;display:flex;align-items:center;justify-content:center;padding:20px;box-sizing:border-box">
+          <div style="background:white;width:100%;max-width:1100px;border-radius:16px;display:flex;flex-direction:{{catLayoutDir}};overflow-y:auto;box-shadow:0 30px 60px -15px oklch(20% .01 270 / .4);position:relative;max-height:90vh;animation:slideFade .3s ease-out">
+            
+            <button onClick="{{closeModal}}" aria-label="Cerrar" style="position:absolute;top:20px;right:20px;z-index:20;width:36px;height:36px;border-radius:999px;background:oklch(96% 0 0);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s" style-hover="background:oklch(90% 0 0)">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+            </button>
+
+            <!-- Foto -->
+            <div style="flex:1.2;background:oklch(99% .002 270);padding:{{modalImgPadding}};display:flex;align-items:center;justify-content:center;border-right:{{modalBorderR}};border-bottom:{{modalBorderB}};min-height:{{modalImgMinH}}">
+               <img src="{{modalProd.image}}" style="max-width:100%;max-height:400px;object-fit:contain" />
+            </div>
+
+            <!-- Centro: Detalles -->
+            <div style="flex:1.5;padding:{{modalPadding}};display:flex;flex-direction:column">
+               <h2 style="font-family:Oswald,sans-serif;font-size:32px;margin:0 0 16px;color:oklch(20% .005 270);line-height:1.2;text-transform:uppercase">{{modalProd.name}}</h2>
+               
+               <div style="display:flex;align-items:center;gap:4px;margin-bottom:24px;color:#FFB800">
+                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                 <span style="color:oklch(60% 0 0);font-size:13px;margin-left:8px">(6 Reviews)</span>
+               </div>
+
+               <p style="font-size:15px;color:oklch(40% .005 270);line-height:1.6;margin-bottom:32px;flex-grow:1">
+                 Equipamiento profesional ideal para trabajo pesado en gimnasios de alto tráfico. Diseñado biomecánicamente para resultados superiores y construido para resistir el paso del tiempo.
+               </p>
+
+               <div style="display:flex;gap:16px;margin-bottom:32px">
+                 <button onClick="{{modalProd.onToggleCart}}" style="flex:1;background:{{modalProd.cartBg}};color:{{modalProd.cartColor}};border:{{modalProd.cartBorder}};padding:16px;border-radius:8px;font-size:15px;font-weight:700;letter-spacing:0.05em;cursor:pointer;text-transform:uppercase;transition:all .3s ease">
+                   {{modalProd.cartText}}
+                 </button>
+               </div>
+               
+               <div style="font-size:13px;color:oklch(50% 0 0);line-height:1.8;border-top:1px solid oklch(92% 0 0);padding-top:16px">
+                 <div><b>Marca / Serie:</b> {{modalProd.series}}</div>
+                 <div><b>SKU:</b> {{modalProd.item_no}}</div>
+               </div>
+            </div>
+
+            <!-- Derecha: Beneficios -->
+            <div style="flex:1;padding:{{modalPadding}};background:oklch(98% .002 270);border-left:{{modalBorderL}};border-top:{{modalBorderB}};display:flex;flex-direction:column;gap:24px;justify-content:center">
+               
+               <div style="display:flex;align-items:center;gap:16px">
+                 <div style="width:48px;height:48px;border-radius:50%;background:white;border:1px solid oklch(90% 0 0);display:flex;align-items:center;justify-content:center;color:oklch(20% .01 270)">
+                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.92-10.3l5.58 3.19"/></svg>
+                 </div>
+                 <div style="font-size:12px;font-weight:700;letter-spacing:0.05em;color:oklch(30% .01 270);text-transform:uppercase">Producto<br>Remanufacturado</div>
+               </div>
+
+               <div style="display:flex;align-items:center;gap:16px">
+                 <div style="width:48px;height:48px;border-radius:50%;background:white;border:1px solid oklch(90% 0 0);display:flex;align-items:center;justify-content:center;color:oklch(20% .01 270)">
+                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg>
+                 </div>
+                 <div style="font-size:12px;font-weight:700;letter-spacing:0.05em;color:oklch(30% .01 270);text-transform:uppercase">Envío a todo<br>El País</div>
+               </div>
+
+               <div style="display:flex;align-items:center;gap:16px">
+                 <div style="width:48px;height:48px;border-radius:50%;background:white;border:1px solid oklch(90% 0 0);display:flex;align-items:center;justify-content:center;color:oklch(20% .01 270)">
+                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                 </div>
+                 <div style="font-size:12px;font-weight:700;letter-spacing:0.05em;color:oklch(30% .01 270);text-transform:uppercase">Los Mejores<br>Precios</div>
+               </div>
+
+               <div style="display:flex;align-items:center;gap:16px">
+                 <div style="width:48px;height:48px;border-radius:50%;background:white;border:1px solid oklch(90% 0 0);display:flex;align-items:center;justify-content:center;color:oklch(20% .01 270)">
+                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                 </div>
+                 <div style="font-size:12px;font-weight:700;letter-spacing:0.05em;color:oklch(30% .01 270);text-transform:uppercase">Respaldo y<br>Garantía</div>
+               </div>
+
+            </div>
+          </div>
+        </div>
+      </sc-if>
 
     </main>
   </sc-if>
@@ -1642,6 +1721,12 @@ class Component extends DCLogic {
       catAsidePos: this.state.isMobile ? 'relative' : 'sticky',
       catListDir: this.state.isMobile ? 'row' : 'column',
       catListWrap: this.state.isMobile ? 'wrap' : 'nowrap',
+      modalPadding: this.state.isMobile ? '24px' : '40px',
+      modalImgPadding: this.state.isMobile ? '20px' : '40px',
+      modalImgMinH: this.state.isMobile ? '280px' : '300px',
+      modalBorderR: this.state.isMobile ? 'none' : '1px solid oklch(92% 0 0)',
+      modalBorderB: this.state.isMobile ? '1px solid oklch(92% 0 0)' : 'none',
+      modalBorderL: this.state.isMobile ? 'none' : '1px solid oklch(92% 0 0)',
       catAsideTop: this.state.isMobile ? '0' : '80px',
       goHome: this.goHome,
       logoH: this.state.isMobile ? '62px' : '96px',
