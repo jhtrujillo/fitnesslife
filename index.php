@@ -33,6 +33,19 @@ $productosJson = json_encode($productos);
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fitness Life S.A.S — Equipos de gimnasio en Colombia</title>
+<meta name="description" content="Equipos de entrenamiento físico para gimnasios, hoteles y hogares. Importadores directos de las mejores marcas en Colombia."/>
+<meta property="og:type" content="website"/>
+<meta property="og:site_name" content="Fitness Life S.A.S"/>
+<meta property="og:title" content="Fitness Life S.A.S — Equipos de gimnasio en Colombia"/>
+<meta property="og:description" content="Importadores directos de equipos 100% americanos: Life Fitness, Precor, Hoist, Matrix, Cybex y Free Motion. Cali, cobertura nacional."/>
+<meta property="og:image" content="https://www.fitnesslife.com.co/assets/logo.png"/>
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:title" content="Fitness Life S.A.S — Equipos de gimnasio en Colombia"/>
+<meta name="twitter:description" content="Importadores directos de equipos 100% americanos para gimnasios, hoteles y hogares."/>
+<meta name="twitter:image" content="https://www.fitnesslife.com.co/assets/logo.png"/>
+<meta name="theme-color" content="#c62828"/>
+<link rel="icon" type="image/png" href="assets/logo.png">
 <script src="./support.js"></script>
 </head>
 <body>
