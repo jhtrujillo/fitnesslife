@@ -127,7 +127,10 @@ $productosJson = json_encode($productos);
   <header style="position:sticky;top:0;z-index:40;background:oklch(98% 0 0 / .96);backdrop-filter:blur(10px);border-bottom:1px solid oklch(28% .008 270)">
     <div style="max-width:1280px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:24px">
       <img src="assets/logo.png" alt="Fitness Life S.A.S" onClick="{{goHome}}" style="height:{{logoH}};width:auto;cursor:pointer;flex-shrink:0"/>
-      <nav style="display:{{navDisplay}};align-items:center;gap:24px;flex-wrap:wrap">
+      <div style="display:{{headerSearchDisplay}};flex:1;margin:0 16px">
+        <input type="text" id="headerSearchInput" placeholder="Ej. Cybex, Abdominal..." value="{{catalogoSearch}}" onInput="{{onHeaderSearch}}" style="width:100%;box-sizing:border-box;padding:10px 16px;border:1px solid oklch(85% 0 0);border-radius:999px;font-size:14px;outline:none;box-shadow:0 4px 12px rgba(0,0,0,0.05)" />
+      </div>
+      <nav style="display:{{navDisplay}};visibility:{{navVisibility}};align-items:center;gap:24px;flex-wrap:wrap">
         <a href="#inicio" onClick="{{goHome}}" style="font-size:13px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:oklch(14% .005 270)">Inicio</a>
         <a href="#catalogo" onClick="{{goToCatalogo}}" style="font-size:13px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:oklch(14% .005 270)">Catálogo</a>
         <div style="position:relative;display:flex;align-items:center" onMouseEnter="{{openEquipos}}" onMouseLeave="{{closeEquipos}}">
@@ -931,6 +934,7 @@ class Component extends DCLogic {
     quoteSending: false,
     quoteName: '',
     showTop: false,
+    globalSearchOpen: false,
     solucionesVisible: false,
     circuitosVisible: false,
     processVisible: false,
@@ -1139,12 +1143,25 @@ class Component extends DCLogic {
 
   openGlobalSearch = (e) => {
     if (e) e.preventDefault();
-    this.goToCatalogo(e);
-    setTimeout(() => {
-      const el = document.getElementById('catalogoSearchInput');
-      if (el) { el.focus(); el.scrollIntoView({behavior: 'smooth', block: 'center'}); }
-    }, 150);
+    this.setState({ globalSearchOpen: !this.state.globalSearchOpen });
+    if (!this.state.globalSearchOpen) {
+      setTimeout(() => {
+        const el = document.getElementById('headerSearchInput');
+        if (el) el.focus();
+      }, 50);
+    }
   };
+  
+  onHeaderSearch = (e) => {
+    const val = e.target.value;
+    this.setState({ catalogoSearch: val });
+    if (this.state.page !== 'catalogo') {
+      window.history.pushState(null, '', '#catalogo');
+      this.setState({ page: 'catalogo', categorySlug: null, catalogoLimit: 6, menuOpen: false });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
 
   goToCatalogo = (e) => {
     if (e) e.preventDefault();
@@ -1583,6 +1600,9 @@ class Component extends DCLogic {
       isContacto: this.state.page === 'contacto',
       goBackHistory: this.goBackHistory,
       openGlobalSearch: this.openGlobalSearch,
+      onHeaderSearch: this.onHeaderSearch,
+      headerSearchDisplay: this.state.globalSearchOpen ? "block" : "none",
+      navVisibility: this.state.globalSearchOpen ? "hidden" : "visible",
       formSubmitted: this.state.formSubmitted,
       formNotSubmitted: !this.state.formSubmitted,
       categoriasRef: this.setCategoriasRef,
