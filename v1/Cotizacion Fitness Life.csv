@@ -1,0 +1,9 @@
+﻿Ítem;Descripción;Cantidad;Vr. Unitario;Vr. Total
+Elíptica Comercial Life Fitness;"Serie Integrity — remanufacturada, garantía Fitness Life.";2;12500000;=C2*D2
+Trotadora Profesional;"Integrity Series INTDC — consola LED, uso comercial.";3;15800000;=C3*D3
+Bicicleta Estática Matrix;"Resistencia magnética, apta para rehabilitación.";2;8900000;=C4*D4
+Torre de Pesas Dual Adjustable;"Polea dual ajustable, cables de grado aeronáutico.";1;19400000;=C5*D5
+;;;;
+;;;Subtotal;=SUM(E2:E5)
+;;;IVA (19%);=E7*0.19
+;;;TOTAL;=E7+E8

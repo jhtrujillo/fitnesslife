@@ -1,0 +1,14 @@
+# Ignore macOS files
+.DS_Store
+
+# Ignore large standalone HTML exports
+*.html
+!index.php
+
+# Ignore temporary patching and testing scripts
+patch_*.js
+fix_*.js
+test_render.js
+setup_db.php
+restore_api.js
+generate_static_products.js

@@ -1,0 +1,4 @@
+# Bloquea el acceso directo a config.php (credenciales)
+<Files "config.php">
+    Require all denied
+</Files>
