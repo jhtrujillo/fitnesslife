@@ -127,10 +127,10 @@ $productosJson = json_encode($productos);
   <header style="position:sticky;top:0;z-index:40;background:oklch(98% 0 0 / .96);backdrop-filter:blur(10px);border-bottom:1px solid oklch(28% .008 270)">
     <div style="max-width:1280px;margin:0 auto;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;gap:24px">
       <img src="assets/logo.png" alt="Fitness Life S.A.S" onClick="{{goHome}}" style="height:{{logoH}};width:auto;cursor:pointer;flex-shrink:0"/>
-      <div style="display:{{headerSearchDisplay}};flex:1;margin:0 16px">
+      <div style="display:{{headerSearchDisplay}};flex:1;margin:0 24px;max-width:600px">
         <input type="text" id="headerSearchInput" placeholder="Ej. Cybex, Abdominal..." value="{{catalogoSearch}}" onInput="{{onHeaderSearch}}" style="width:100%;box-sizing:border-box;padding:10px 16px;border:1px solid oklch(85% 0 0);border-radius:999px;font-size:14px;outline:none;box-shadow:0 4px 12px rgba(0,0,0,0.05)" />
       </div>
-      <nav style="display:{{navDisplay}};visibility:{{navVisibility}};align-items:center;gap:24px;flex-wrap:wrap">
+      <nav style="display:{{navDisplay}};align-items:center;gap:24px;flex-wrap:wrap">
         <a href="#inicio" onClick="{{goHome}}" style="font-size:13px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:oklch(14% .005 270)">Inicio</a>
         <a href="#catalogo" onClick="{{goToCatalogo}}" style="font-size:13px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:oklch(14% .005 270)">Catálogo</a>
         <div style="position:relative;display:flex;align-items:center" onMouseEnter="{{openEquipos}}" onMouseLeave="{{closeEquipos}}">
@@ -1639,7 +1639,7 @@ class Component extends DCLogic {
       whyUsBannerTransform: 'translateY(0)',
       goHome: this.goHome,
       logoH: this.state.isMobile ? '62px' : '96px',
-      navDisplay: this.state.isMobile ? 'none' : 'flex',
+      navDisplay: this.state.globalSearchOpen ? 'none' : (this.state.isMobile ? 'none' : 'flex'),
       ctaDisplay: this.state.isMobile ? 'none' : 'block',
       burgerDisplay: this.state.isMobile ? 'flex' : 'none',
       mobileMenuDisplay: this.state.isMobile && this.state.menuOpen ? 'block' : 'none',
