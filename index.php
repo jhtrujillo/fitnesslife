@@ -556,7 +556,7 @@ $productosJson = json_encode($productos);
           
           <div style="margin-bottom:24px">
             <h3 style="font-family:Oswald,sans-serif;font-size:18px;margin:0 0 12px;color:oklch(20% .005 270)">Categorías</h3>
-            <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;flex-direction:{{catListDir}};flex-wrap:{{catListWrap}};gap:8px">
               <sc-for list="{{catalogoFilters}}" as="f">
                 <button onClick="{{f.onClick}}" style="text-align:left;background:{{f.bg}};color:{{f.color}};border:1px solid {{f.border}};padding:8px 16px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s ease">{{f.label}}</button>
               </sc-for>
@@ -1640,6 +1640,8 @@ class Component extends DCLogic {
       catLayoutDir: this.state.isMobile ? 'column' : 'row',
       catAsideWidth: this.state.isMobile ? '100%' : '260px',
       catAsidePos: this.state.isMobile ? 'relative' : 'sticky',
+      catListDir: this.state.isMobile ? 'row' : 'column',
+      catListWrap: this.state.isMobile ? 'wrap' : 'nowrap',
       catAsideTop: this.state.isMobile ? '0' : '80px',
       goHome: this.goHome,
       logoH: this.state.isMobile ? '62px' : '96px',
