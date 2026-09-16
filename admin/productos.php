@@ -7,7 +7,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 // Fetch all products
-$stmt = $pdo->query("SELECT id, name, item_no, series, price, img FROM productos ORDER BY id DESC LIMIT 500");
+$stmt = $pdo->query("SELECT id, name, item_no, series, price, img, media_json FROM productos ORDER BY id DESC LIMIT 500");
 $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
@@ -73,12 +73,19 @@ $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <td>
                         <?php 
                         $img = $p['img'] ?? '';
+                        if (empty($img) && !empty($p['media_json'])) {
+                            $media = json_decode($p['media_json'], true);
+                            if (is_array($media) && count($media) > 0 && isset($media[0]['url'])) {
+                                $img = $media[0]['url'];
+                            }
+                        }
                         if ($img && strpos($img, 'http') !== 0 && strpos($img, 'v1/cotizaciones/') !== 0) {
                             $img = 'v1/cotizaciones/' . $img;
                         }
                         ?>
                         <?php if ($img): ?>
-                            <img src="../<?= htmlspecialchars($img) ?>" class="item-img" onerror="this.src='../assets/placeholder.jpg'" />
+                            <img src="../<?= htmlspecialchars($img) ?>" class="item-img" onerror="this.onerror=null; this.src=''; this.style.display='none'; this.nextElementSibling.style.display='inline-block';" />
+                            <div class="item-img" style="display:none; text-align:center; line-height:40px; color:#a0aec0; font-size:10px;">IMG</div>
                         <?php else: ?>
                             <div class="item-img" style="display:inline-block"></div>
                         <?php endif; ?>
