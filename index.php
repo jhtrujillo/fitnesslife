@@ -46,7 +46,7 @@ $productosJson = json_encode($productos);
 <meta name="twitter:image" content="https://www.fitnesslife.com.co/assets/logo.webp"/>
 <meta name="theme-color" content="#c62828"/>
 <link rel="icon" type="image/png" href="assets/logo.webp">
-<script src="./support.js"></script>
+<script src="js/support.js"></script>
 </head>
 <body>
 <x-dc>
