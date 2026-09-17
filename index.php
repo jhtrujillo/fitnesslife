@@ -770,7 +770,7 @@ $productosJson = json_encode($productos);
         </div>
       </sc-if>
 
-      <div style="display:grid;grid-template-columns:1fr 1.3fr;gap:48px">
+      <div style="display:grid;grid-template-columns:{{contactGrid}};gap:48px">
         <div style="display:flex;flex-direction:column;gap:28px">
           <div>
             <div style="font-size:11px;letter-spacing:0.15em;color:oklch(58% .22 25);font-weight:700;text-transform:uppercase;margin-bottom:8px">Teléfono</div>
@@ -1726,6 +1726,7 @@ class Component extends DCLogic {
       modalImgMinH: this.state.isMobile ? '280px' : '300px',
       modalBorderR: this.state.isMobile ? 'none' : '1px solid oklch(92% 0 0)',
       modalBorderB: this.state.isMobile ? '1px solid oklch(92% 0 0)' : 'none',
+      contactGrid: this.state.isNarrow ? '1fr' : '1fr 1.3fr',
       modalBorderL: this.state.isMobile ? 'none' : '1px solid oklch(92% 0 0)',
       catAsideTop: this.state.isMobile ? '0' : '80px',
       goHome: this.goHome,
