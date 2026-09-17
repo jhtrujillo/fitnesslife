@@ -771,7 +771,7 @@ $productosJson = json_encode($productos);
       </sc-if>
 
       <div style="display:grid;grid-template-columns:{{contactGrid}};gap:48px">
-        <div style="display:flex;flex-direction:column;gap:28px">
+        <div style="display:flex;flex-direction:column;gap:28px;order:{{contactInfoOrder}}">
           <div>
             <div style="font-size:11px;letter-spacing:0.15em;color:oklch(58% .22 25);font-weight:700;text-transform:uppercase;margin-bottom:8px">Teléfono</div>
             <div style="font-size:18px;font-weight:600">+57 (1) 555-0100</div>
@@ -787,7 +787,7 @@ $productosJson = json_encode($productos);
           </div>
           <div style="height:240px;border:1px solid oklch(85% 0 0);border-radius:12px;overflow:hidden"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127402.13110996841!2d-76.62002306766453!3d3.411681283626245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e30a6f0cc4bb3f1%3A0x1f0fb5e952ae6168!2sCali%2C%20Valle%20del%20Cauca!5e0!3m2!1sen!2sco!4v1700000000000!5m2!1sen!2sco" width="100%" height="100%" style="border:0;filter:grayscale(1) contrast(1.2)" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
         </div>
-        <div style="background:oklch(98% 0 0);border:1px solid oklch(83% .006 270);padding:40px">
+        <div style="background:oklch(98% 0 0);border:1px solid oklch(83% .006 270);padding:{{modalPadding}};order:{{contactFormOrder}}">
           <sc-if value="{{formSubmitted}}" hint-placeholder-val="{{false}}">
             <div style="text-align:center;padding:40px 0">
               <h3 style="font-family:Oswald,sans-serif;font-size:24px;font-weight:600;margin:0 0 12px;color:oklch(58% .22 25)">¡Solicitud enviada!</h3>
@@ -1727,6 +1727,8 @@ class Component extends DCLogic {
       modalBorderR: this.state.isMobile ? 'none' : '1px solid oklch(92% 0 0)',
       modalBorderB: this.state.isMobile ? '1px solid oklch(92% 0 0)' : 'none',
       contactGrid: this.state.isNarrow ? '1fr' : '1fr 1.3fr',
+      contactInfoOrder: this.state.isNarrow ? 2 : 1,
+      contactFormOrder: this.state.isNarrow ? 1 : 2,
       modalBorderL: this.state.isMobile ? 'none' : '1px solid oklch(92% 0 0)',
       catAsideTop: this.state.isMobile ? '0' : '80px',
       goHome: this.goHome,
