@@ -889,7 +889,7 @@ $productosJson = json_encode($productos);
 
   <!-- Floating Cart -->
   <sc-if value="{{hasCartItems}}">
-    <div onClick="{{goToCart}}" style="position:fixed;bottom:24px;right:24px;background:oklch(58% .22 25);color:white;padding:16px 24px;border-radius:999px;box-shadow:0 12px 24px -8px oklch(58% .22 25 / .5);cursor:pointer;display:flex;align-items:center;gap:12px;z-index:999;transition:transform .3s cubic-bezier(.2,.8,.2,1)" style-hover="transform:translateY(-5px) scale(1.05)">
+    <div onClick="{{goToCart}}" style="position:fixed;bottom:32px;right:20px;background:oklch(58% .22 25);color:white;padding:16px 24px;border-radius:999px;box-shadow:0 12px 24px -8px oklch(58% .22 25 / .5);cursor:pointer;display:flex;align-items:center;gap:12px;z-index:9999;transition:transform .3s cubic-bezier(.2,.8,.2,1)" style-hover="transform:translateY(-5px) scale(1.05)">
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
       <div style="display:flex;flex-direction:column">
         <span style="font-size:14px;font-weight:700;line-height:1">Ver Cotización</span>
@@ -1254,9 +1254,21 @@ class Component extends DCLogic {
     e.stopPropagation();
     const cart = [...this.state.cart];
     const idx = cart.findIndex(p => p.item_no === prod.item_no);
-    if (idx >= 0) cart.splice(idx, 1);
-    else cart.push({ ...prod, qty: 1 });
+    let added = false;
+    if (idx >= 0) {
+      cart.splice(idx, 1);
+    } else {
+      cart.push({ ...prod, qty: 1 });
+      added = true;
+    }
     this.setState({ cart });
+    
+    // Si lo agregó desde el modal, cerramos el modal para que vea el carrito flotante
+    if (added && this.state.modalProduct && this.state.modalProduct.item_no === prod.item_no) {
+      setTimeout(() => {
+        this.setState({ modalProduct: null });
+      }, 300);
+    }
   };
   
 
