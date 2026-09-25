@@ -1447,7 +1447,7 @@ class Component extends DCLogic {
       return false;
     }).map(p => {
       let image = p.img || '';
-      if (p.media_json && p.media_json.length > 0 && p.media_json[0].url) {
+      if (!image && p.media_json && p.media_json.length > 0 && p.media_json[0].url) {
          image = p.media_json[0].url;
       }
       if (image && !image.startsWith('http') && !image.startsWith('v1/cotizaciones/')) { image = 'v1/cotizaciones/' + image; }
@@ -1539,7 +1539,7 @@ class Component extends DCLogic {
       return true;
     }).map(p => {
       let image = p.img || '';
-      if (p.media_json && p.media_json.length > 0 && p.media_json[0].url) {
+      if (!image && p.media_json && p.media_json.length > 0 && p.media_json[0].url) {
          image = p.media_json[0].url;
       }
       if (image && !image.startsWith('http') && !image.startsWith('v1/cotizaciones/')) { image = 'v1/cotizaciones/' + image; }
