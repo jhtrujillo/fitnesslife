@@ -913,119 +913,24 @@ window.DB_MARCAS = <?php echo $marcasJson; ?>;
 </script>
 <script type="text/x-dc" data-dc-script>
 const R = (p) => (window.__resources && window.__resources[p]) || p;
-const CATEGORIES = {
-  elipticas: {
-    slug: 'elipticas', name: 'Elípticas', tag: 'Cardio de bajo impacto', img: R('assets/cat_eliptica_main.webp'), badge: '01',
-    longDesc: 'Entrenamiento cardiovascular suave con las articulaciones, ideal para sesiones largas de alta quema calórica sin desgaste físico. Nuestras elípticas comerciales incorporan biomecánica de movimiento natural y consolas robustas para uso intensivo en gimnasios de alto tráfico.',
-    features: [
-      {title:'Bajo impacto articular', desc:'Movimiento elíptico natural que protege rodillas y caderas durante sesiones largas.'},
-      {title:'Resistencia comercial', desc:'Sistemas de frenado magnético de grado profesional para uso continuo.'},
-      {title:'Consolas robustas', desc:'Pantallas resistentes con programas de entrenamiento preconfigurados.'},
-      {title:'Bajo mantenimiento', desc:'Componentes sellados que reducen el desgaste y las paradas por servicio.'},
-    ],
-  },
-  bicicletas: {
-    slug: 'bicicletas', name: 'Escaleras', tag: 'Cardio de alta intensidad', img: R('assets/cat_escaleras_v3.webp'), badge: '02',
-    longDesc: 'Bicicletas indoor y de spinning con sistemas de resistencia magnética y freno de precisión para clases grupales o entrenamiento individual. Estructura reforzada pensada para el uso constante de estudios y gimnasios comerciales.',
-    features: [
-      {title:'Resistencia magnética', desc:'Ajuste preciso y silencioso para clases grupales de alta intensidad.'},
-      {title:'Postura ajustable', desc:'Manubrio y asiento con múltiples puntos de ajuste para todo tipo de usuario.'},
-      {title:'Estructura reforzada', desc:'Chasis de acero pensado para sesiones intensivas todo el día.'},
-      {title:'Bajo mantenimiento', desc:'Transmisión por correa de larga duración, sin cadenas que lubricar.'},
-    ],
-  },
-  trotadoras: {
-    slug: 'trotadoras', name: 'Trotadoras', tag: 'Caminadoras profesionales', img: R('assets/cat_trotadora_main.webp'), badge: '03',
-    longDesc: 'Caminadoras de alto tráfico con motores comerciales, bandas amortiguadas y consolas robustas para uso intensivo en gimnasios, hoteles y centros deportivos que operan todo el día.',
-    features: [
-      {title:'Motor comercial', desc:'Potencia continua diseñada para operación de alto tráfico sin sobrecalentarse.'},
-      {title:'Amortiguación premium', desc:'Sistema de suspensión que protege articulaciones a cualquier velocidad.'},
-      {title:'Banda de uso pesado', desc:'Superficie de carrera reforzada para miles de horas de uso.'},
-      {title:'Consolas interactivas', desc:'Programas y métricas en tiempo real para todo tipo de usuarios.'},
-    ],
-  },
-  pesas: {
-    slug: 'pesas', name: 'Máquinas de Pesas', tag: 'Fuerza y musculación', img: R('assets/cat_pesas_main.webp'), badge: '04',
-    longDesc: 'Equipos de musculación selectorizados y de placas libres, diseñados para construir fuerza con biomecánica segura. Ideal para dotar zonas de fuerza comerciales, institucionales y residenciales.',
-    features: [
-      {title:'Biomecánica segura', desc:'Trayectorias de movimiento diseñadas para minimizar el riesgo de lesión.'},
-      {title:'Selectorizado o libre', desc:'Opciones de placas selectorizadas y pesas libres según tu espacio.'},
-      {title:'Tapicería de alto tráfico', desc:'Materiales de uso pesado que resisten el desgaste diario.'},
-      {title:'Grado comercial', desc:'Construcción robusta certificada para gimnasios de alto volumen.'},
-    ],
-  },
-  comercial: {
-    slug: 'comercial', name: 'Línea Comercial', tag: 'Dotación para gimnasios', img: R('assets/sol_comercial.webp'), badge: '',
-    longDesc: 'Equipos profesionales de uso intensivo con la mejor biomecánica y durabilidad para tu negocio.',
-    features: [
-      {title:'Alto Tráfico', desc:'Diseñados para uso 24/7 en gimnasios comerciales.'},
-      {title:'Garantía Extendida', desc:'Respaldo directo de fábrica y servicio técnico especializado.'}
-    ]
-  },
-  institucional: {
-    slug: 'institucional', name: 'Línea Institucional', tag: 'Hoteles y Clubes', img: R('assets/sol_institucional.webp'), badge: '',
-    longDesc: 'Soluciones optimizadas para espacios institucionales, condominios y clubes que buscan calidad sin ocupar áreas excesivas.',
-    features: [
-      {title:'Diseño Compacto', desc:'Máquinas multi-estación y duales que maximizan el espacio.'},
-      {title:'Fácil Uso', desc:'Biomécánica intuitiva para usuarios de cualquier nivel.'}
-    ]
-  },
-  hogar: {
-    slug: 'hogar', name: 'Equipos para Hogar', tag: 'Entrena en casa', img: R('assets/sol_hogar.webp'), badge: '',
-    longDesc: 'Lleva la calidad del gimnasio a la comodidad de tu hogar con equipos residenciales premium.',
-    features: [
-      {title:'Silenciosos', desc:'Motores y sistemas de fricción diseñados para no interrumpir tu entorno.'},
-      {title:'Plegables', desc:'Opciones de almacenamiento fácil para ahorrar espacio en casa.'}
-    ]
-  },
-  accesorios: {
-    slug: 'accesorios', name: 'Accesorios', tag: 'Complementos', img: R('assets/sol_accesorios.webp'), badge: '',
-    longDesc: 'Pesas libres, barras, discos y elementos de entrenamiento funcional para completar tus zonas de fuerza.',
-    features: [
-      {title:'Alta Durabilidad', desc:'Materiales resistentes al sudor y al impacto continuo.'},
-      {title:'Variedad', desc:'Kits completos de mancuernas, bumpers y agarres.'}
-    ]
-  }
-};
-
-class Component extends DCLogic {
-  state = {
-    page: 'home',
-    categorySlug: null,
-    heroIndex: 0,
-    formSubmitted: false,
-    cart: [],
-    cartOpen: false,
-    catalogoFilter: 'todos',
-    catalogoSearch: '',
-    catalogoLimit: 6,
-    categoryLimit: 6,
-    catalogoSort: 'name_asc',
-    modalProduct: null,
-    catalogoBrands: [],
-    categoriesVisible: false,
-    hoveredSolution: null,
-    activeSolution: null,
-    videoMuted: true,
-    isMobile: false,
-    isNarrow: false,
-    menuOpen: false,
-    equiposOpen: false,
-    quote: { name: '', company: '', email: '', phone: '', type: '', message: '' },
-    allProducts: [],
-    quoteErrors: {},
-    quoteSent: false,
-    quoteSending: false,
-    quoteName: '',
-    showTop: false,
-    globalSearchOpen: false,
-    solucionesVisible: false,
-    circuitosVisible: false,
-    processVisible: false,
-    marcasVisible: false,
-    clientesVisible: false,
-    whyUsVisible: false,
-  };
+const DB_CATS = window.DB_CATEGORIAS || [];
+const CATEGORIES = {};
+DB_CATS.forEach((c, idx) => {
+    CATEGORIES[c.slug] = {
+        slug: c.slug,
+        name: c.name,
+        tag: c.tag || 'Equipos profesionales',
+        img: c.img || '',
+        badge: c.badge || ('0' + (idx+1)),
+        longDesc: 'Colección de equipos de alto rendimiento y durabilidad. Equipos de uso rudo diseñados para soportar el trabajo diario en los gimnasios, conjuntos y hogares.',
+        features: [
+            {title:'Grado comercial', desc:'Construcción robusta y materiales de alta calidad para un rendimiento continuo.'},
+            {title:'Biomecánica natural', desc:'Trayectorias de movimiento diseñadas para minimizar el riesgo de lesión y proteger las articulaciones.'},
+            {title:'Durabilidad probada', desc:'Superficies y estructuras reforzadas ideales para miles de horas de uso.'},
+            {title:'Bajo mantenimiento', desc:'Componentes diseñados para minimizar los tiempos de parada y costos de servicio.'}
+        ]
+    };
+});
 
   componentDidMount() {
         this.setState({ allProducts: window.DB_PRODUCTS || [] });
@@ -1440,7 +1345,7 @@ class Component extends DCLogic {
       img: c.img, name: c.name, tag: c.tag, pad: c.pad || '18px', zoom: c.zoom || 1, onClick: () => this.goToCategory(c.slug), key: i,
     }));
 
-    const currentCategory = CATEGORIES[this.state.categorySlug] || CATEGORIES.elipticas;
+    const currentCategory = CATEGORIES[this.state.categorySlug] || Object.values(CATEGORIES)[0];
     const categoryProductsFull = (this.state.allProducts || []).filter(p => {
       const slug = this.state.categorySlug;
       const name = (p.name || '').toLowerCase();
