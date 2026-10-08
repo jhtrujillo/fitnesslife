@@ -1479,7 +1479,7 @@ class Component extends DCLogic {
 
 
     const allBrandsRaw = (this.state.allProducts || []).map(p => p.series).filter(b => b && b.trim() !== '');
-    const uniqueBrands = [...new Set(allBrandsRaw)].sort();
+    const uniqueBrands = [...new Set(allBrandsRaw)].filter(b => b.toLowerCase() !== 'full rom' && b.toLowerCase() !== 'cardio').sort();
     const catalogoBrandsList = uniqueBrands.map(b => ({
       name: b,
       checked: this.state.catalogoBrands.includes(b),
