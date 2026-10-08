@@ -1409,7 +1409,7 @@ class Component extends DCLogic {
       onClick: () => this.setState({ heroIndex: i }, () => this.scheduleHero()),
     }));
 
-    const categories = Object.values(CATEGORIES).filter(c => ['elipticas', 'bicicletas', 'trotadoras', 'pesas'].includes(c.slug)).map((c, i) => ({
+    const categories = Object.values(CATEGORIES).filter(c => c.slug !== 'todos').map((c, i) => ({
       slug: c.slug, name: c.name, tag: c.tag, img: c.img, badge: c.badge,
       onClick: () => this.goToCategory(c.slug),
       revealOpacity: 1,
@@ -1492,17 +1492,9 @@ class Component extends DCLogic {
       onChange: this.toggleCatalogoBrand(m.name)
     }));
 
-        const filterDefs = [
-      { id: 'todos', label: 'Todos' },
-      { id: 'comercial', label: 'Línea Comercial' },
-      { id: 'institucional', label: 'Línea Institucional' },
-      { id: 'hogar', label: 'Equipos para Hogar' },
-      { id: 'elipticas', label: 'Elípticas' },
-      { id: 'trotadoras', label: 'Trotadoras' },
-      { id: 'bicicletas', label: 'Bicicletas / Escaleras' },
-      { id: 'pesas', label: 'Máquinas de Pesas' },
-      { id: 'accesorios', label: 'Accesorios' }
-    ];
+        const filterDefs = [{ id: 'todos', label: 'Todos' }].concat(
+        (window.DB_CATEGORIAS || []).map(c => ({ id: c.slug, label: c.name }))
+    );
     
     const catalogoFilters = filterDefs.map(f => {
       const active = this.state.catalogoFilter === f.id;
@@ -1518,21 +1510,9 @@ class Component extends DCLogic {
     const catalogoProductsFull = (this.state.allProducts || []).filter(p => {
       const f = this.state.catalogoFilter;
       if (f !== 'todos') {
-        const name = (p.name || '').toLowerCase();
-        const series = (p.series || '').toLowerCase();
-        const search = name + ' ' + series;
-        if (f === 'elipticas' && !(search.includes('elliptical') || search.includes('elíptica') || search.includes('eliptica') || search.includes('cross trainer'))) return false;
-        if (f === 'trotadoras' && !(search.includes('treadmill') || search.includes('trotadora') || search.includes('caminadora') || search.includes('run'))) return false;
-        if (f === 'bicicletas' && !(search.includes('bike') || search.includes('bicicleta') || search.includes('spin') || search.includes('cycle') || search.includes('stair') || search.includes('escalera') || search.includes('climb') || search.includes('step'))) return false;
-        if (f === 'accesorios' && !(search.includes('mancuerna') || search.includes('barra') || search.includes('disco') || search.includes('accesorio') || search.includes('grip') || search.includes('kettlebell') || search.includes('banda') || search.includes('peso'))) return false;
-                if (f === 'pesas' && (search.includes('elliptical') || search.includes('eliptica') || search.includes('treadmill') || search.includes('trotadora') || search.includes('caminadora') || search.includes('bike') || search.includes('bicicleta') || search.includes('spin') || search.includes('cycle') || search.includes('stair') || search.includes('escalera') || search.includes('climb') || search.includes('accesorio') || search.includes('mancuerna'))) return false;
-        // The following lines ensure that 'comercial', 'institucional', 'hogar' show all products for now,
-        // since we don't have a strict DB column for it, or you can adjust logic later.
-        if (f === 'comercial' || f === 'institucional' || f === 'hogar') {
-           // currently return all, so no 'return false'
-        }
+        const cat = (window.DB_CATEGORIAS || []).find(c => c.slug === f);
+        if (cat && p.categoria_id != cat.id) return false;
       }
-      
       const q = this.state.catalogoSearch.trim().toLowerCase();
       if (q) {
         const searchStr = ((p.name||'') + ' ' + (p.series||'') + ' ' + (p.item_no||'')).toLowerCase();
