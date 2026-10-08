@@ -932,6 +932,45 @@ DB_CATS.forEach((c, idx) => {
     };
 });
 
+class Component extends DCLogic {
+  state = {
+    page: 'home',
+    categorySlug: null,
+    heroIndex: 0,
+    formSubmitted: false,
+    cart: [],
+    cartOpen: false,
+    catalogoFilter: 'todos',
+    catalogoSearch: '',
+    catalogoLimit: 6,
+    categoryLimit: 6,
+    catalogoSort: 'name_asc',
+    modalProduct: null,
+    catalogoBrands: [],
+    categoriesVisible: false,
+    hoveredSolution: null,
+    activeSolution: null,
+    videoMuted: true,
+    isMobile: false,
+    isNarrow: false,
+    menuOpen: false,
+    equiposOpen: false,
+    quote: { name: '', company: '', email: '', phone: '', type: '', message: '' },
+    allProducts: [],
+    quoteErrors: {},
+    quoteSent: false,
+    quoteSending: false,
+    quoteName: '',
+    showTop: false,
+    globalSearchOpen: false,
+    solucionesVisible: false,
+    circuitosVisible: false,
+    processVisible: false,
+    marcasVisible: false,
+    clientesVisible: false,
+    whyUsVisible: false,
+  };
+
   componentDidMount() {
         this.setState({ allProducts: window.DB_PRODUCTS || [] });
     this.scheduleHero();
