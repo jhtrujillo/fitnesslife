@@ -23,10 +23,16 @@ try {
     foreach($productos as &$p) {
         $p['media_json'] = (array_key_exists('media_json', $p) && !empty($p['media_json'])) ? json_decode($p['media_json'], true) : [];
     }
+    $categorias = $pdo->query("SELECT * FROM categorias ORDER BY pos ASC")->fetchAll(PDO::FETCH_ASSOC);
+    $marcas = $pdo->query("SELECT * FROM marcas ORDER BY pos ASC")->fetchAll(PDO::FETCH_ASSOC);
 } catch (Exception $e) {
-    $productos = []; // Fallback
+    $productos = [];
+    $categorias = [];
+    $marcas = [];
 }
 $productosJson = json_encode($productos);
+$categoriasJson = json_encode($categorias);
+$marcasJson = json_encode($marcas);
 ?>
 <!DOCTYPE html>
 <html>
@@ -902,6 +908,8 @@ $productosJson = json_encode($productos);
 </x-dc>
 <script>
 window.DB_PRODUCTS = <?php echo $productosJson; ?>;
+window.DB_CATEGORIAS = <?php echo $categoriasJson; ?>;
+window.DB_MARCAS = <?php echo $marcasJson; ?>;
 </script>
 <script type="text/x-dc" data-dc-script>
 const R = (p) => (window.__resources && window.__resources[p]) || p;
@@ -1478,12 +1486,10 @@ class Component extends DCLogic {
 
 
 
-    const allBrandsRaw = (this.state.allProducts || []).map(p => p.series).filter(b => b && b.trim() !== '');
-    const uniqueBrands = [...new Set(allBrandsRaw)].filter(b => b.toLowerCase() !== 'full rom' && b.toLowerCase() !== 'cardio').sort();
-    const catalogoBrandsList = uniqueBrands.map(b => ({
-      name: b,
-      checked: this.state.catalogoBrands.includes(b),
-      onChange: this.toggleCatalogoBrand(b)
+    const catalogoBrandsList = (window.DB_MARCAS || []).map(m => ({
+      name: m.name,
+      checked: this.state.catalogoBrands.includes(m.name),
+      onChange: this.toggleCatalogoBrand(m.name)
     }));
 
         const filterDefs = [
