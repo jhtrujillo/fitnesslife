@@ -1,6 +1,13 @@
 <?php
 require_once 'config.php';
 if (!isset($_SESSION['user_id'])) { header("Location: login.php"); exit; }
+
+if (isset($_GET['delete'])) {
+    $stmt = $pdo->prepare("DELETE FROM productos WHERE id = ?");
+    $stmt->execute([$_GET['delete']]);
+    header("Location: productos.php"); exit;
+}
+
 $sql = "SELECT id, name, item_no, series, categoria_id, price, img, media_json FROM productos ORDER BY id DESC LIMIT 1000";
 $stmt = $pdo->query($sql);
 $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -34,7 +41,7 @@ include 'header.php';
                     <th style="width: 100px">SERIE</th>
                     <th>NOMBRE DEL EQUIPO</th>
                     <th style="width: 120px">PRECIO REF.</th>
-                    <th style="width: 100px; text-align: right">ACCIONES</th>
+                    <th style="width: 120px; text-align: right">ACCIONES</th>
                 </tr>
             </thead>
             <tbody>
@@ -61,8 +68,9 @@ include 'header.php';
                         <td class="searchable" data-label="Serie"><?= htmlspecialchars($p['series'] ?? '-') ?></td>
                         <td class="searchable" data-label="Nombre"><strong><?= htmlspecialchars($p['name'] ?? '') ?></strong></td>
                         <td data-label="Precio Ref.">$<?= number_format((float)$p['price'], 2) ?></td>
-                        <td class="actions-cell" data-label="Acciones" style="text-align: right;">
+                        <td class="actions-cell" data-label="Acciones" style="text-align: right; display:flex; gap:8px; justify-content:flex-end;">
                             <a href="producto_form.php?id=<?= $p['id'] ?>" class="action-link" style="margin:0;">Editar</a>
+                            <a href="productos.php?delete=<?= $p['id'] ?>" class="action-link danger" style="margin:0;" onclick="return confirm('¿Estás seguro de eliminar este producto? Esta acción no se puede deshacer.');">Eliminar</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
