@@ -1,23 +1,8 @@
 <?php
 require_once 'config.php';
 if (!isset($_SESSION['user_id'])) { header("Location: login.php"); exit; }
-$q = $_GET['q'] ?? '';
-$cat = $_GET['cat'] ?? '';
-$sql = "SELECT id, name, item_no, series, categoria_id, price, img, media_json FROM productos WHERE 1=1";
-$params = [];
-if ($q !== '') {
-    $sql .= " AND (name LIKE ? OR item_no LIKE ? OR series LIKE ?)";
-    $params[] = "%$q%";
-    $params[] = "%$q%";
-    $params[] = "%$q%";
-}
-if ($cat !== '') {
-    $sql .= " AND categoria_id = ?";
-    $params[] = $cat;
-}
-$sql .= " ORDER BY id DESC LIMIT 500";
-$stmt = $pdo->prepare($sql);
-$stmt->execute($params);
+$sql = "SELECT id, name, item_no, series, categoria_id, price, img, media_json FROM productos ORDER BY id DESC LIMIT 1000";
+$stmt = $pdo->query($sql);
 $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $cats = $pdo->query("SELECT id, name FROM categorias ORDER BY pos ASC")->fetchAll(PDO::FETCH_ASSOC);
 include 'header.php';
@@ -25,21 +10,23 @@ include 'header.php';
 <div class="panel-card">
     <div style="display:flex; justify-content:space-between; margin-bottom:20px; align-items:flex-end; flex-wrap:wrap; gap:16px;">
         <h2 style="margin:0;font-family:Oswald;text-transform:uppercase;color:#1d3557;">Inventario de Máquinas</h2>
-        <form method="GET" style="display:flex; gap:12px; align-items:center;">
-            <select name="cat" class="form-group" style="margin:0; padding:8px 12px; background:#f7f7f7; border:1px solid #e5e5e5; border-radius:6px; outline:none; font-size:13px;" onchange="this.form.submit()">
+        
+        <div style="display:flex; gap:12px; align-items:center;">
+            <select id="catFilter" class="form-group" style="margin:0; padding:8px 12px; background:#f7f7f7; border:1px solid #e5e5e5; border-radius:6px; outline:none; font-size:13px;">
                 <option value="">Todas las categorías</option>
                 <?php foreach ($cats as $c): ?>
-                    <option value="<?= $c['id'] ?>" <?= $cat == $c['id'] ? 'selected' : '' ?>><?= htmlspecialchars($c['name']) ?></option>
+                    <option value="<?= $c['id'] ?>"><?= htmlspecialchars($c['name']) ?></option>
                 <?php endforeach; ?>
             </select>
-            <input type="text" name="q" value="<?= htmlspecialchars($q) ?>" placeholder="Buscar equipo o SKU..." style="padding:8px 12px; background:#f7f7f7; border:1px solid #e5e5e5; border-radius:6px; outline:none; font-size:13px; width:200px;">
-            <button type="submit" class="btn-primary" style="padding:8px 16px;">Buscar</button>
-            <?php if($q !== '' || $cat !== ''): ?><a href="productos.php" class="btn-nav">Limpiar</a><?php endif; ?>
-        </form>
+            
+            <input type="text" id="searchInput" placeholder="Buscar equipo o SKU..." style="padding:8px 12px; background:#f7f7f7; border:1px solid #e5e5e5; border-radius:6px; outline:none; font-size:13px; width:250px;">
+        </div>
+        
         <a href="producto_form.php" class="btn-primary">+ Agregar Equipo</a>
     </div>
+    
     <div class="table-wrapper">
-        <table class="products-table">
+        <table class="products-table" id="productsTable">
             <thead>
                 <tr>
                     <th style="width: 60px">IMG</th>
@@ -52,7 +39,7 @@ include 'header.php';
             </thead>
             <tbody>
                 <?php foreach ($productos as $p): ?>
-                    <tr>
+                    <tr class="product-row" data-cat="<?= htmlspecialchars($p['categoria_id'] ?? '') ?>">
                         <td class="img-cell" data-label="IMG">
                             <?php 
                             $img = $p['img'] ?? '';
@@ -70,20 +57,62 @@ include 'header.php';
                                 <?php endif; ?>
                             </div>
                         </td>
-                        <td data-label="Código"><?= htmlspecialchars($p['item_no'] ?? '-') ?></td>
-                        <td data-label="Serie"><?= htmlspecialchars($p['series'] ?? '-') ?></td>
-                        <td data-label="Nombre"><strong><?= htmlspecialchars($p['name'] ?? '') ?></strong></td>
+                        <td class="searchable" data-label="Código"><?= htmlspecialchars($p['item_no'] ?? '-') ?></td>
+                        <td class="searchable" data-label="Serie"><?= htmlspecialchars($p['series'] ?? '-') ?></td>
+                        <td class="searchable" data-label="Nombre"><strong><?= htmlspecialchars($p['name'] ?? '') ?></strong></td>
                         <td data-label="Precio Ref.">$<?= number_format((float)$p['price'], 2) ?></td>
                         <td class="actions-cell" data-label="Acciones" style="text-align: right;">
                             <a href="producto_form.php?id=<?= $p['id'] ?>" class="action-link" style="margin:0;">Editar</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
-                <?php if (count($productos) === 0): ?>
-                    <tr><td colspan="6" style="text-align:center; padding:40px; color:#718096;">No se encontraron productos con esos filtros.</td></tr>
-                <?php endif; ?>
+                <tr id="noResultsRow" style="display:none;"><td colspan="6" style="text-align:center; padding:40px; color:#718096;">No se encontraron productos.</td></tr>
             </tbody>
         </table>
     </div>
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchInput');
+    const catFilter = document.getElementById('catFilter');
+    const rows = document.querySelectorAll('.product-row');
+    const noResultsRow = document.getElementById('noResultsRow');
+
+    function filterTable() {
+        const query = searchInput.value.toLowerCase().trim();
+        const cat = catFilter.value;
+        let visibleCount = 0;
+
+        rows.forEach(row => {
+            let show = true;
+            
+            if (cat !== '' && row.getAttribute('data-cat') !== cat) {
+                show = false;
+            }
+
+            if (show && query !== '') {
+                const searchData = Array.from(row.querySelectorAll('.searchable'))
+                                      .map(td => td.textContent.toLowerCase())
+                                      .join(' ');
+                if (!searchData.includes(query)) {
+                    show = false;
+                }
+            }
+
+            if (show) {
+                row.style.display = '';
+                visibleCount++;
+            } else {
+                row.style.display = 'none';
+            }
+        });
+
+        noResultsRow.style.display = (visibleCount === 0) ? '' : 'none';
+    }
+
+    searchInput.addEventListener('input', filterTable);
+    catFilter.addEventListener('change', filterTable);
+});
+</script>
 </body></html>
