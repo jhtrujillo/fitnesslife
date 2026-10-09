@@ -18,10 +18,11 @@ foreach ($cats as $c) { $catMap[$c['id']] = $c['name']; }
 include 'header.php';
 ?>
 <div class="panel-card">
-    <div style="display:flex; justify-content:space-between; margin-bottom:20px; align-items:flex-end; flex-wrap:wrap; gap:16px;">
-        <h2 style="margin:0;font-family:'Oswald', sans-serif;text-transform:uppercase;color:#1d3557;font-size:24px;">📦 Catálogo de Equipos</h2>
+    <div style="margin-bottom:20px;">
+        <h2 style="margin:0 0 16px 0; font-family:'Oswald', sans-serif; text-transform:uppercase; color:#1d3557; font-size:24px; border-bottom:1px solid #eee; padding-bottom:12px;">📦 Catálogo de Equipos</h2>
         
-        <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+            <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
             <select id="catFilter" class="form-group" style="margin:0; padding:8px 12px; background:#f7f7f7; border:1px solid #e5e5e5; border-radius:6px; outline:none; font-size:13px;">
                 <option value="">Todas las categorías</option>
                 <?php foreach ($cats as $c): ?>
@@ -36,11 +37,14 @@ include 'header.php';
                     <option value="<?= htmlspecialchars($m['name']) ?>"><?= htmlspecialchars($m['name']) ?></option>
                 <?php endforeach; ?>
             </select>
-            <input type="text" id="searchInput" placeholder="Buscar equipo o SKU..." style="padding:8px 12px; background:#f7f7f7; border:1px solid #e5e5e5; border-radius:6px; outline:none; font-size:13px; width:250px;">
+                <input type="text" id="searchInput" placeholder="Buscar equipo o SKU..." style="padding:8px 12px; background:#f7f7f7; border:1px solid #e5e5e5; border-radius:6px; outline:none; font-size:13px; width:250px;">
+            </div>
+            
+            <div style="display:flex; gap:12px; align-items:center;">
+                <button id="viewToggleBtn" style="background: #eee; color: #333; border: 1px solid #ccc; padding: 0 15px; border-radius: 6px; cursor: pointer; height: 41px; display: flex; align-items: center; font-weight: 600; font-family: 'Inter', sans-serif;">🔲 Bloques</button>
+                <a href="producto_form.php" style="background: #457b9d; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-family: 'Oswald', sans-serif; font-weight: 600; text-transform: uppercase; cursor: pointer; white-space: nowrap; height: 41px; box-sizing: border-box; text-decoration: none; display: flex; align-items: center;">+ Añadir</a>
+            </div>
         </div>
-        
-        <button id="viewToggleBtn" style="background: #eee; color: #333; border: 1px solid #ccc; padding: 0 15px; border-radius: 6px; cursor: pointer; height: 41px; display: flex; align-items: center; font-weight: 600; font-family: 'Inter', sans-serif;">🔲 Bloques</button>
-        <a href="producto_form.php" style="background: #457b9d; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-family: 'Oswald', sans-serif; font-weight: 600; text-transform: uppercase; cursor: pointer; white-space: nowrap; height: 41px; box-sizing: border-box; text-decoration: none; display: flex; align-items: center;">+ Añadir</a>
     </div>
     
     <div class="table-wrapper" id="tableView">
