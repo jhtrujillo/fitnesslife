@@ -14,8 +14,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $img = $_POST['img'] ?? '';
     
+    $uploadErrorMsg = '';
     // File upload logic for product image
-    if (isset($_FILES['img_file']) && $_FILES['img_file']['error'] === UPLOAD_ERR_OK) {
+    if (isset($_FILES['img_file']) && $_FILES['img_file']['error'] !== UPLOAD_ERR_NO_FILE) {
+        if ($_FILES['img_file']['error'] === UPLOAD_ERR_OK) {
+            $uploadDir = '../v1/cotizaciones/uploads/';
+            if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
+            $filename = uniqid('prod_') . '_' . basename($_FILES['img_file']['name']);
+            $filename = preg_replace('/[^a-zA-Z0-9_.-]/', '', $filename);
+            $destPath = $uploadDir . $filename;
+            if (move_uploaded_file($_FILES['img_file']['tmp_name'], $destPath)) {
+                $img = 'uploads/' . $filename;
+            } else {
+                $uploadErrorMsg = "Error al mover el archivo subido al servidor.";
+            }
+        } else {
+            $uploadErrorMsg = "Error al subir la imagen. Código de error PHP: " . $_FILES['img_file']['error'] . " (Probablemente la imagen es muy pesada).";
+        }
+    }
+    
+    if (false) { // dummy to keep bracket balance
         $uploadDir = '../v1/cotizaciones/uploads/';
         if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
         
@@ -56,6 +74,7 @@ include 'header.php';
 <div class="panel-card" style="max-width:600px; margin: 0 auto;">
     <h2 style="margin-top:0;font-family:Oswald;text-transform:uppercase;color:#1d3557;border-bottom:1px solid #eee;padding-bottom:12px"><?= $id ? 'Editar Equipo' : 'Nuevo Equipo' ?></h2>
     <?php if ($success): ?><div style="background:#e6fffa;color:#234e52;padding:12px;border-radius:6px;margin-bottom:20px;border:1px solid #b2f5ea;">✅ Los cambios se han guardado correctamente.</div><?php endif; ?>
+    <?php if (!empty($uploadErrorMsg)): ?><div style="background:#fff5f5;color:#c53030;padding:12px;border-radius:6px;margin-bottom:20px;border:1px solid #feb2b2;">❌ <?= $uploadErrorMsg ?></div><?php endif; ?>
     <form method="POST" action="" enctype="multipart/form-data">
         <div class="form-group">
             <label>Nombre del Equipo</label>
@@ -103,7 +122,7 @@ include 'header.php';
                 ?>
                 <?php if ($producto['img']): ?>
                     <div style="width:120px; height:120px; border-radius:6px; border:1px solid #ccc; background:#fff; display:flex; align-items:center; justify-content:center; overflow:hidden; flex-shrink:0; padding:4px;">
-                        <img src="<?= htmlspecialchars($imgSrc) ?>" style="max-width:100%; max-height:100%; object-fit:contain;" onerror="this.style.display='none'">
+                        <img src="<?= htmlspecialchars($imgSrc) ?>" style="max-width:100%; max-height:100%; object-fit:contain;" alt="Imagen rota o no encontrada">
                     </div>
                 <?php endif; ?>
                 
