@@ -28,12 +28,14 @@ include 'header.php';
             <div id="topFilters" style="display:none; gap:12px; align-items:center; flex-wrap:wrap;">
                 <select id="catFilterTop" class="form-group" style="margin:0; padding:8px 12px; background:#f7f7f7; border:1px solid #e5e5e5; border-radius:6px; outline:none; font-size:13px;">
                     <option value="">Todas las categorías</option>
+                    <option value="NONE">- Sin categoría -</option>
                     <?php foreach ($cats as $c): ?>
                         <option value="<?= $c['id'] ?>"><?= htmlspecialchars($c['name']) ?></option>
                     <?php endforeach; ?>
                 </select>
                 <select id="brandFilterTop" class="form-group" style="margin:0; padding:8px 12px; background:#f7f7f7; border:1px solid #e5e5e5; border-radius:6px; outline:none; font-size:13px;">
                     <option value="">Todas las marcas</option>
+                    <option value="NONE">- Sin marca -</option>
                     <?php foreach ($marcas as $m): ?>
                         <option value="<?= htmlspecialchars($m['name']) ?>"><?= htmlspecialchars($m['name']) ?></option>
                     <?php endforeach; ?>
@@ -61,6 +63,8 @@ include 'header.php';
                             <span>CATEGORÍA</span>
                             <select id="catFilter" style="padding:4px 8px; background:#f7f7f7; border:1px solid #ccc; border-radius:4px; outline:none; font-size:11px; font-weight:normal; width:100%;">
                                 <option value="">Todas (Filtro)</option>
+                                <option value="NONE">- Sin marca -</option>
+                                <option value="NONE">- Sin categoría -</option>
                                 <?php foreach ($cats as $c): ?>
                                     <option value="<?= $c['id'] ?>"><?= htmlspecialchars($c['name']) ?></option>
                                 <?php endforeach; ?>
@@ -217,8 +221,8 @@ document.addEventListener('DOMContentLoaded', function() {
         // Filter Table Rows
         rows.forEach(row => {
             let show = true;
-            if (cat !== '' && row.getAttribute('data-cat') !== cat) show = false;
-            if (brand !== '' && row.getAttribute('data-brand') !== brand) show = false;
+            if (cat === 'NONE') { if (row.getAttribute('data-cat') !== '') show = false; } else if (cat !== '' && row.getAttribute('data-cat') !== cat) show = false;
+            if (brand === 'NONE') { if (row.getAttribute('data-brand') !== '') show = false; } else if (brand !== '' && row.getAttribute('data-brand') !== brand) show = false;
 
             if (show && query !== '') {
                 const searchData = Array.from(row.querySelectorAll('.searchable'))
@@ -240,8 +244,8 @@ document.addEventListener('DOMContentLoaded', function() {
         let gridVisibleCount = 0;
         cards.forEach(card => {
             let show = true;
-            if (cat !== '' && card.getAttribute('data-cat') !== cat) show = false;
-            if (brand !== '' && card.getAttribute('data-brand') !== brand) show = false;
+            if (cat === 'NONE') { if (card.getAttribute('data-cat') !== '') show = false; } else if (cat !== '' && card.getAttribute('data-cat') !== cat) show = false;
+            if (brand === 'NONE') { if (card.getAttribute('data-brand') !== '') show = false; } else if (brand !== '' && card.getAttribute('data-brand') !== brand) show = false;
 
             if (show && query !== '') {
                 const searchData = Array.from(card.querySelectorAll('.searchable-card'))
