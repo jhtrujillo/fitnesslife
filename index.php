@@ -650,7 +650,7 @@ $marcasJson = json_encode($marcas);
           
           
           <sc-if value="{{isViewGrid}}">
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:24px">
+            <div style="display:grid;grid-template-columns:{{gridCols}};gap:24px">
             <sc-for list="{{catalogoProducts}}" as="prod">
               <div style="position:relative;border:1px solid oklch(88% .006 270);border-radius:12px;overflow:hidden;background:white;transition:transform .3s ease,box-shadow .3s ease;display:flex;flex-direction:column;height:100%" style-hover="transform:translateY(-5px);box-shadow:0 16px 32px -12px oklch(20% .01 270 / .15)">
                 
@@ -1787,6 +1787,7 @@ class Component extends DCLogic {
       tableItemDir: this.state.isMobile ? 'column' : 'row',
       tableItemWidth: this.state.isMobile ? '100%' : '240px',
       tableItemHeight: this.state.isMobile ? '240px' : 'auto',
+      gridCols: this.state.isMobile ? 'repeat(auto-fill, minmax(160px, 1fr))' : 'repeat(4, minmax(0, 1fr))',
 
       noCatalogoProducts: catalogoProducts.length === 0,
       goToCatalogo: this.goToCatalogo,
