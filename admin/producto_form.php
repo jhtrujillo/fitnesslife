@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // File upload logic for product image
     if (isset($_FILES['img_file']) && $_FILES['img_file']['error'] !== UPLOAD_ERR_NO_FILE) {
         if ($_FILES['img_file']['error'] === UPLOAD_ERR_OK) {
-            $uploadDir = '../v1/cotizaciones/uploads/';
+            $uploadDir = '../cotizaciones/uploads/';
             if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
             $filename = uniqid('prod_') . '_' . basename($_FILES['img_file']['name']);
             $filename = preg_replace('/[^a-zA-Z0-9_.-]/', '', $filename);
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     
     if (false) { // dummy to keep bracket balance
-        $uploadDir = '../v1/cotizaciones/uploads/';
+        $uploadDir = '../cotizaciones/uploads/';
         if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
         
         $filename = uniqid('prod_') . '_' . basename($_FILES['img_file']['name']);
