@@ -13,6 +13,8 @@ $stmt = $pdo->query($sql);
 $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $cats = $pdo->query("SELECT id, name FROM categorias ORDER BY pos ASC")->fetchAll(PDO::FETCH_ASSOC);
 $marcas = $pdo->query("SELECT name FROM marcas ORDER BY name ASC")->fetchAll(PDO::FETCH_ASSOC);
+$catMap = [];
+foreach ($cats as $c) { $catMap[$c['id']] = $c['name']; }
 include 'header.php';
 ?>
 <div class="panel-card">
@@ -47,7 +49,8 @@ include 'header.php';
                 <tr>
                     <th style="width: 60px">IMG</th>
                     <th style="width: 100px">CÓDIGO</th>
-                    <th style="width: 100px">SERIE</th>
+                    <th style="width: 100px">MARCA</th>
+                    <th style="width: 120px">CATEGORÍA</th>
                     <th>NOMBRE DEL EQUIPO</th>
                     <th style="width: 120px">PRECIO REF.</th>
                     <th style="width: 120px; text-align: right">ACCIONES</th>
@@ -74,7 +77,8 @@ include 'header.php';
                             </div>
                         </td>
                         <td class="searchable" data-label="Código" style="font-weight: 600; color: #457b9d;"><?= htmlspecialchars($p['item_no'] ?? '-') ?></td>
-                        <td class="searchable" data-label="Serie"><?= htmlspecialchars($p['series'] ?? '-') ?></td>
+                        <td class="searchable" data-label="Marca"><?= htmlspecialchars($p['series'] ?: '-') ?></td>
+                        <td class="searchable" data-label="Categoría"><span style="background:#e0ebf3; color:#1d3557; padding:2px 6px; border-radius:4px; font-size:11px; font-weight:600;"><?= htmlspecialchars($catMap[$p['categoria_id']] ?? 'Sin Categoría') ?></span></td>
                         <td class="searchable" data-label="Nombre" style="font-weight: 500;"><?= htmlspecialchars($p['name'] ?? '') ?></td>
                         <td data-label="Precio Ref.">$ <?= number_format((float)$p['price'], 0, ',', '.') ?></td>
                         <td class="actions-cell" data-label="Acciones" style="text-align: right; white-space: nowrap;">
@@ -109,7 +113,7 @@ include 'header.php';
                 </div>
                 <div style="padding: 16px; display: flex; flex-direction: column; flex-grow: 1; border-top: 1px solid #f0f0f0;">
                     <div class="searchable-card" style="font-size: 12px; color: #888; margin-bottom: 6px; font-weight: 600; letter-spacing: 0.05em;">
-                        <?= htmlspecialchars($p['series'] ?? 'Sin Serie') ?> • <?= htmlspecialchars($p['item_no'] ?? '-') ?>
+                        <?= htmlspecialchars($p['series'] ?: 'Sin Marca') ?> • <?= htmlspecialchars($catMap[$p['categoria_id']] ?? 'Sin Categoría') ?> • <?= htmlspecialchars($p['item_no'] ?? '-') ?>
                     </div>
                     <div class="searchable-card" style="font-weight: 600; font-size: 16px; color: #1d3557; margin-bottom: 12px; line-height: 1.3;">
                         <?= htmlspecialchars($p['name'] ?? '') ?>
