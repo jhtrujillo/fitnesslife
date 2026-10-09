@@ -786,8 +786,8 @@ $marcasJson = json_encode($marcas);
             <div style="display:flex;flex-direction:column;gap:16px;">
               <sc-for list="{{catalogoProducts}}" as="prod">
                 
-              <div style="display:flex;flex-direction:{{isMobile ? 'column' : 'row'}};border:1px solid oklch(88% .006 270);border-radius:12px;overflow:hidden;background:white;transition:transform .3s ease,box-shadow .3s ease;height:100%" style-hover="transform:translateY(-3px);box-shadow:0 12px 24px -10px oklch(20% .01 270 / .15)">
-                <div onClick="{{prod.onOpen}}" style="width:{{isMobile ? '100%' : '240px'}};height:{{isMobile ? '240px' : 'auto'}};flex-shrink:0;background:oklch(98% .002 270);padding:24px;display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer" title="Ver detalles">
+              <div style="display:flex;flex-direction:{{tableItemDir}};border:1px solid oklch(88% .006 270);border-radius:12px;overflow:hidden;background:white;transition:transform .3s ease,box-shadow .3s ease;height:100%" style-hover="transform:translateY(-3px);box-shadow:0 12px 24px -10px oklch(20% .01 270 / .15)">
+                <div onClick="{{prod.onOpen}}" style="width:{{tableItemWidth}};height:{{tableItemHeight}};flex-shrink:0;background:oklch(98% .002 270);padding:24px;display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer" title="Ver detalles">
                   <span style="position:absolute;top:12px;left:12px;background:oklch(20% .005 270);color:white;font-size:10px;font-weight:700;padding:4px 8px;border-radius:4px;letter-spacing:0.05em">SKU: {{prod.item_no}}</span>
                   <img loading="lazy" sc-camel-src="{{prod.image}}" alt="{{prod.name}}" style="max-width:100%;max-height:100%;object-fit:contain"/>
                 </div>
@@ -1689,6 +1689,10 @@ class Component extends DCLogic {
       tableColor: this.state.catalogoViewMode === 'table' ? 'oklch(58% .22 25)' : 'oklch(60% 0 0)',
       setGridView: this.setGridView,
       setTableView: this.setTableView,
+      tableItemDir: this.state.isMobile ? 'column' : 'row',
+      tableItemWidth: this.state.isMobile ? '100%' : '240px',
+      tableItemHeight: this.state.isMobile ? '240px' : 'auto',
+
       noCatalogoProducts: catalogoProducts.length === 0,
       goToCatalogo: this.goToCatalogo,
       isContacto: this.state.page === 'contacto',
