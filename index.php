@@ -546,7 +546,7 @@ $marcasJson = json_encode($marcas);
       </section>
       
       
-      <section style="max-width:1280px;margin:0 auto;padding:40px 24px;display:flex;gap:40px;flex-direction:{{catLayoutDir}};align-items:flex-start">
+      <section style="max-width:1280px;width:100%;box-sizing:border-box;margin:0 auto;padding:40px 24px;display:flex;gap:40px;flex-direction:{{catLayoutDir}};align-items:flex-start">
         
         <!-- BARRA LATERAL (Filtros) -->
         <aside style="width:{{catAsideWidth}};box-sizing:border-box;flex-shrink:0;background:white;padding:24px;border-radius:12px;border:1px solid oklch(90% 0 0);position:{{catAsidePos}};top:{{catAsideTop}};">
@@ -591,7 +591,7 @@ $marcasJson = json_encode($marcas);
         </aside>
 
         <!-- CUADRÍCULA DE PRODUCTOS -->
-        <div style="flex-grow:1">
+        <div style="flex:1;min-width:0;">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px">
             <h2 style="font-family:Oswald,sans-serif;font-size:24px;margin:0;color:oklch(20% .005 270)">Equipos</h2>
             
