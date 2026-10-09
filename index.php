@@ -760,12 +760,7 @@ $marcasJson = json_encode($marcas);
             <!-- Derecha: Beneficios -->
             <div style="flex:1;padding:{{modalPadding}};background:oklch(98% .002 270);border-left:{{modalBorderL}};border-top:{{modalBorderB}};display:flex;flex-direction:column;gap:24px;justify-content:center">
                
-               <div style="display:flex;align-items:center;gap:16px">
-                 <div style="width:48px;height:48px;border-radius:50%;background:white;border:1px solid oklch(90% 0 0);display:flex;align-items:center;justify-content:center;color:oklch(20% .01 270)">
-                   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.92-10.3l5.58 3.19"/></svg>
-                 </div>
-                 <div style="font-size:12px;font-weight:700;letter-spacing:0.05em;color:oklch(30% .01 270);text-transform:uppercase">Producto<br>Remanufacturado</div>
-               </div>
+               
 
                <div style="display:flex;align-items:center;gap:16px">
                  <div style="width:48px;height:48px;border-radius:50%;background:white;border:1px solid oklch(90% 0 0);display:flex;align-items:center;justify-content:center;color:oklch(20% .01 270)">
