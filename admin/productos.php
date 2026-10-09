@@ -12,6 +12,7 @@ $sql = "SELECT id, name, item_no, series, categoria_id, price, img, media_json F
 $stmt = $pdo->query($sql);
 $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $cats = $pdo->query("SELECT id, name FROM categorias ORDER BY pos ASC")->fetchAll(PDO::FETCH_ASSOC);
+$marcas = $pdo->query("SELECT name FROM marcas ORDER BY name ASC")->fetchAll(PDO::FETCH_ASSOC);
 include 'header.php';
 ?>
 <div class="panel-card">
@@ -26,6 +27,13 @@ include 'header.php';
                 <?php endforeach; ?>
             </select>
             
+            
+            <select id="brandFilter" class="form-group" style="margin:0; padding:8px 12px; background:#f7f7f7; border:1px solid #e5e5e5; border-radius:6px; outline:none; font-size:13px;">
+                <option value="">Todas las marcas</option>
+                <?php foreach ($marcas as $m): ?>
+                    <option value="<?= htmlspecialchars($m['name']) ?>"><?= htmlspecialchars($m['name']) ?></option>
+                <?php endforeach; ?>
+            </select>
             <input type="text" id="searchInput" placeholder="Buscar equipo o SKU..." style="padding:8px 12px; background:#f7f7f7; border:1px solid #e5e5e5; border-radius:6px; outline:none; font-size:13px; width:250px;">
         </div>
         
@@ -46,7 +54,7 @@ include 'header.php';
             </thead>
             <tbody>
                 <?php foreach ($productos as $p): ?>
-                    <tr class="product-row" data-cat="<?= htmlspecialchars($p['categoria_id'] ?? '') ?>">
+                    <tr class="product-row" data-cat="<?= htmlspecialchars($p['categoria_id'] ?? '') ?>" data-brand="<?= htmlspecialchars($p['series'] ?? '') ?>">
                         <td class="img-cell" data-label="IMG">
                             <?php 
                             $img = $p['img'] ?? '';
@@ -90,12 +98,16 @@ document.addEventListener('DOMContentLoaded', function() {
     function filterTable() {
         const query = searchInput.value.toLowerCase().trim();
         const cat = catFilter.value;
+        const brand = document.getElementById('brandFilter').value;
         let visibleCount = 0;
 
         rows.forEach(row => {
             let show = true;
             
             if (cat !== '' && row.getAttribute('data-cat') !== cat) {
+                show = false;
+            }
+            if (brand !== '' && row.getAttribute('data-brand') !== brand) {
                 show = false;
             }
 
@@ -121,6 +133,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     searchInput.addEventListener('input', filterTable);
     catFilter.addEventListener('change', filterTable);
+    document.getElementById('brandFilter').addEventListener('change', filterTable);
 });
 </script>
 </body></html>
