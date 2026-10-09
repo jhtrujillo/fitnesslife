@@ -191,10 +191,10 @@ $marcasJson = json_encode($marcas);
       <sc-for list="{{heroSlides}}" as="slide" hint-placeholder-count="2">
         <div style="position:absolute;inset:0;opacity:{{slide.opacity}};transition:opacity 1s ease;background:oklch(10% .005 270)">
           <sc-if value="{{slide.isImage}}" hint-placeholder-val="{{true}}">
-            <img src="assets/hero_hoist.webp" data-src="{{slide.img}}" alt="{{slide.alt}}" ref="{{heroImgRef}}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:{{slide.fit}}"/>
+            <img src="assets/hero_hoist.webp" data-sc-camel-src="{{slide.img}}" alt="{{slide.alt}}" ref="{{heroImgRef}}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:{{slide.fit}}"/>
           </sc-if>
           <sc-if value="{{slide.showVideo}}" hint-placeholder-val="{{false}}">
-            <video ref="{{videoRef}}" src="{{slide.videoSrc}}" autoPlay="{{true}}" muted="{{true}}" loop="{{true}}" playsInline="{{true}}" preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video>
+            <video ref="{{videoRef}}" sc-camel-src="{{slide.videoSrc}}" autoPlay="{{true}}" muted="{{true}}" loop="{{true}}" playsInline="{{true}}" preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></video>
           </sc-if>
           <div style="position:absolute;inset:0;background:linear-gradient(105deg, oklch(16% .006 270 / .68) 0%, oklch(16% .006 270 / .42) 50%, oklch(16% .006 270 / .16) 100%)"></div>
           <div style="position:absolute;inset:0;background:linear-gradient(to right, oklch(12% .005 270 / .4), oklch(12% .005 270 / .18) 55%, oklch(12% .005 270 / .04))"></div>
@@ -232,7 +232,7 @@ $marcasJson = json_encode($marcas);
           <div onClick="{{cat.onClick}}" onMouseEnter="{{cat.onEnterCard}}" onMouseLeave="{{cat.onLeaveCard}}" style="position:relative;cursor:pointer;background:oklch(98% 0 0);border:1px solid oklch(88% .006 270);border-radius:22px;overflow:hidden;opacity:{{cat.revealOpacity}};transform:{{cat.revealTransform}} scale(1);transition:box-shadow .45s ease,border-color .45s ease,transform .45s cubic-bezier(.2,.8,.2,1),opacity .6s ease {{cat.revealDelay}}" style-hover="box-shadow:0 30px 60px -18px oklch(58% .22 25 / .38),0 0 0 1px oklch(58% .22 25 / .35);border-color:oklch(58% .22 25 / .5);transform:translateY(-10px) scale(1.02)">
             <div style="position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,oklch(58% .22 25),oklch(68% .24 30));transform:scaleX({{cat.topBorderScale}});transform-origin:left;transition:transform .5s cubic-bezier(.2,.8,.2,1);z-index:3"></div>
             <div style="position:relative;height:340px;overflow:hidden;background:oklch(16% .006 270)">
-              <img loading="lazy" src="{{cat.img}}" alt="{{cat.name}}" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s cubic-bezier(.2,.8,.2,1),filter .5s ease" style-hover="transform:scale(1.09);filter:brightness(1.06) contrast(1.04) saturate(1.05)"/>
+              <img loading="lazy" sc-camel-src="{{cat.img}}" alt="{{cat.name}}" style="width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s cubic-bezier(.2,.8,.2,1),filter .5s ease" style-hover="transform:scale(1.09);filter:brightness(1.06) contrast(1.04) saturate(1.05)"/>
               <div style="position:absolute;inset:0;background:radial-gradient(120% 80% at 50% 110%, oklch(58% .22 25 / .38), transparent 62%);opacity:0;transition:opacity .5s ease" style-hover="opacity:1"></div>
               <div style="position:absolute;left:18px;top:18px;padding:7px 14px;border-radius:999px;background:oklch(20% .005 270 / .6);backdrop-filter:blur(6px);border:1px solid oklch(98% 0 0 / .22);color:oklch(98% 0 0);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;opacity:0;transform:translateY(-8px);transition:opacity .4s ease,transform .4s cubic-bezier(.2,.8,.2,1)" style-hover="opacity:1;transform:translateY(0)">{{cat.tag}}</div>
             </div>
@@ -263,7 +263,7 @@ $marcasJson = json_encode($marcas);
       <div style="display:flex;width:max-content;gap:24px;animation:ticker 58s linear infinite">
         <sc-for list="{{carouselCards}}" as="p" hint-placeholder-count="10">
           <div onClick="{{p.onClick}}" style="flex-shrink:0;cursor:pointer;position:relative;overflow:hidden;width:{{cardW}};height:{{cardH}};border-radius:24px;box-shadow:0 14px 34px -10px oklch(20% .01 270 / .28);outline:0px solid oklch(58% .22 25);outline-offset:-2px;transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s ease,outline-width .35s ease" style-hover="transform:translateY(-14px) scale(1.04);box-shadow:0 34px 60px -18px oklch(58% .22 25 / .48);outline-width:3px">
-            <img loading="lazy" src="{{p.img}}" alt="{{p.name}}" style="width:100%;height:100%;object-fit:contain;transform:scale({{p.zoom}});background:oklch(100% 0 0);padding:{{p.pad}};box-sizing:border-box;transition:transform .8s cubic-bezier(.2,.8,.2,1)" style-hover="transform:scale(1.07)"/>
+            <img loading="lazy" sc-camel-src="{{p.img}}" alt="{{p.name}}" style="width:100%;height:100%;object-fit:contain;transform:scale({{p.zoom}});background:oklch(100% 0 0);padding:{{p.pad}};box-sizing:border-box;transition:transform .8s cubic-bezier(.2,.8,.2,1)" style-hover="transform:scale(1.07)"/>
             <div style="position:absolute;left:0;right:0;bottom:0;height:76px;background:oklch(16% .006 270)"></div>
             <div style="position:absolute;inset:0;background:radial-gradient(120% 75% at 50% 112%, oklch(58% .22 25 / .42), transparent 62%);opacity:0;transition:opacity .5s ease" style-hover="opacity:1"></div>
             <div style="position:absolute;left:0;right:0;bottom:0;padding:12px 18px;display:flex;flex-direction:column;gap:3px">
@@ -292,7 +292,7 @@ $marcasJson = json_encode($marcas);
         <div style="display:grid;grid-template-columns:{{grid4}};gap:1px;background:oklch(42% .006 270)">
           <sc-for list="{{solutions}}" as="sol" hint-placeholder-count="4">
             <div ref="{{sol.cardRef}}" onMouseEnter="{{sol.onEnter}}" onMouseLeave="{{sol.onLeave}}" onClick="{{sol.onClick}}" style="position:relative;overflow:hidden;cursor:pointer;background:oklch(25% .008 270);padding:44px 30px 40px;min-height:330px;display:flex;flex-direction:column;opacity:{{sol.revealOpacity}};transform:{{sol.revealTransform}};transition:opacity .7s ease {{sol.revealDelay}},transform .7s cubic-bezier(.2,.8,.2,1) {{sol.revealDelay}}">
-              <img loading="lazy" src="{{sol.bgImg}}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:{{sol.imgOpacity}};transform:{{sol.imgTransform}};transition:opacity .6s ease,transform .8s cubic-bezier(.2,.8,.2,1);pointer-events:none"/>
+              <img loading="lazy" sc-camel-src="{{sol.bgImg}}" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:{{sol.imgOpacity}};transform:{{sol.imgTransform}};transition:opacity .6s ease,transform .8s cubic-bezier(.2,.8,.2,1);pointer-events:none"/>
               <div style="position:absolute;inset:0;background:radial-gradient(130% 90% at 50% 120%, oklch(58% .22 25 / .26), transparent 62%);opacity:0;transition:opacity .6s ease" style-hover="opacity:1"></div>
               <div style="position:absolute;left:0;right:0;bottom:0;height:100%;background:linear-gradient(to top,oklch(46% .2 25 / .3),oklch(58% .22 25 / .16));transform:scaleY({{sol.fillScale}});transform-origin:bottom;transition:transform .55s cubic-bezier(.2,.8,.2,1)"></div>
               <div style="position:absolute;top:0;left:0;right:0;height:4px;background:oklch(99% 0 0);transform:scaleX({{sol.fillScale}});transform-origin:left;transition:transform .5s cubic-bezier(.2,.8,.2,1) .1s"></div>
@@ -404,7 +404,7 @@ $marcasJson = json_encode($marcas);
         <div style="display:flex;width:max-content;gap:56px;align-items:center;animation:ticker 30s linear infinite">
           <sc-for list="{{brandsTicker}}" as="brand" hint-placeholder-count="14">
             <div style="flex-shrink:0;width:170px;height:78px;display:flex;align-items:center;justify-content:center;transition:transform .3s ease" style-hover="transform:translateY(-4px)">
-              <img loading="lazy" src="{{brand.img}}" alt="{{brand.name}}" style="width:{{brand.w}};height:{{brand.h}};object-fit:contain"/>
+              <img loading="lazy" sc-camel-src="{{brand.img}}" alt="{{brand.name}}" style="width:{{brand.w}};height:{{brand.h}};object-fit:contain"/>
             </div>
           </sc-for>
         </div>
@@ -425,7 +425,7 @@ $marcasJson = json_encode($marcas);
         <div style="display:flex;justify-content:center;gap:14px;flex-wrap:{{clientsWrap}};opacity:{{clientesHeaderOpacity}};transition:opacity .8s ease .2s">
           <sc-for list="{{clients}}" as="client" hint-placeholder-count="6">
             <div style="flex:0 1 {{clientBasis}};min-width:0;background:oklch(100% 0 0);border-radius:12px;height:{{clientH}};display:flex;align-items:center;justify-content:center;padding:12px;box-sizing:border-box;box-shadow:0 6px 20px -10px oklch(20% .01 270 / .25);transition:transform .3s ease,box-shadow .3s ease" style-hover="transform:translateY(-5px);box-shadow:0 16px 32px -14px oklch(20% .01 270 / .4)">
-              <img loading="lazy" src="{{client.img}}" alt="{{client.name}}" style="max-width:100%;max-height:100%;object-fit:contain"/>
+              <img loading="lazy" sc-camel-src="{{client.img}}" alt="{{client.name}}" style="max-width:100%;max-height:100%;object-fit:contain"/>
             </div>
           </sc-for>
         </div>
@@ -620,7 +620,7 @@ $marcasJson = json_encode($marcas);
                 
                 <div onClick="{{prod.onOpen}}" style="height:240px;background:oklch(98% .002 270);padding:24px;display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer" title="Ver detalles">
                   <span style="position:absolute;top:12px;left:12px;background:oklch(20% .005 270);color:white;font-size:10px;font-weight:700;padding:4px 8px;border-radius:4px;letter-spacing:0.05em">SKU: {{prod.item_no}}</span>
-                  <img loading="lazy" src="{{prod.image}}" alt="{{prod.name}}" style="max-width:100%;max-height:100%;object-fit:contain"/>
+                  <img loading="lazy" sc-camel-src="{{prod.image}}" alt="{{prod.name}}" style="max-width:100%;max-height:100%;object-fit:contain"/>
                 </div>
 
                 <div style="padding:24px;flex-grow:1;display:flex;flex-direction:column">
@@ -677,7 +677,7 @@ $marcasJson = json_encode($marcas);
 
             <!-- Foto -->
             <div style="flex:1.2;background:oklch(99% .002 270);padding:{{modalImgPadding}};display:flex;align-items:center;justify-content:center;border-right:{{modalBorderR}};border-bottom:{{modalBorderB}};min-height:{{modalImgMinH}}">
-               <img src="{{modalProd.image}}" style="max-width:100%;max-height:400px;object-fit:contain" />
+               <img sc-camel-src="{{modalProd.image}}" style="max-width:100%;max-height:400px;object-fit:contain" />
             </div>
 
             <!-- Centro: Detalles -->
@@ -770,7 +770,7 @@ $marcasJson = json_encode($marcas);
           <div style="padding:12px 24px">
             <sc-for list="{{cartItemsList}}" as="cp">
               <div style="display:flex;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid oklch(93% 0 0)">
-                <img src="{{cp.image}}" style="width:50px;height:50px;object-fit:contain;border-radius:6px;background:oklch(98% 0 0);border:1px solid oklch(90% 0 0)"/>
+                <img sc-camel-src="{{cp.image}}" style="width:50px;height:50px;object-fit:contain;border-radius:6px;background:oklch(98% 0 0);border:1px solid oklch(90% 0 0)"/>
                 <div style="flex-grow:1">
                   <div style="font-size:14px;font-weight:600;color:oklch(20% .005 270);line-height:1.2">{{cp.name}}</div>
                   <div style="font-size:11px;color:oklch(58% .22 25);text-transform:uppercase;font-weight:700;margin-top:4px">SKU: {{cp.item_no}}</div>
@@ -789,7 +789,7 @@ $marcasJson = json_encode($marcas);
               <div style="display:flex;flex-direction:{{isMobile ? 'column' : 'row'}};border:1px solid oklch(88% .006 270);border-radius:12px;overflow:hidden;background:white;transition:transform .3s ease,box-shadow .3s ease;height:100%" style-hover="transform:translateY(-3px);box-shadow:0 12px 24px -10px oklch(20% .01 270 / .15)">
                 <div onClick="{{prod.onOpen}}" style="width:{{isMobile ? '100%' : '240px'}};height:{{isMobile ? '240px' : 'auto'}};flex-shrink:0;background:oklch(98% .002 270);padding:24px;display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer" title="Ver detalles">
                   <span style="position:absolute;top:12px;left:12px;background:oklch(20% .005 270);color:white;font-size:10px;font-weight:700;padding:4px 8px;border-radius:4px;letter-spacing:0.05em">SKU: {{prod.item_no}}</span>
-                  <img loading="lazy" src="{{prod.image}}" alt="{{prod.name}}" style="max-width:100%;max-height:100%;object-fit:contain"/>
+                  <img loading="lazy" sc-camel-src="{{prod.image}}" alt="{{prod.name}}" style="max-width:100%;max-height:100%;object-fit:contain"/>
                 </div>
                 <div style="padding:24px;flex-grow:1;display:flex;flex-direction:column;justify-content:center;">
                   <div style="font-size:12px;color:oklch(58% .22 25);font-weight:700;text-transform:uppercase;margin-bottom:8px">{{prod.series}}</div>
