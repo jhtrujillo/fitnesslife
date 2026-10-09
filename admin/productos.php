@@ -97,11 +97,12 @@ include 'header.php';
                                 $media = json_decode($p['media_json'], true);
                                 if (is_array($media) && count($media) > 0 && isset($media[0]['url'])) $img = $media[0]['url'];
                             }
-                            if ($img && strpos($img, 'http') !== 0 && strpos($img, 'cotizaciones/') !== 0 && strpos($img, 'v1/cotizaciones/') !== 0) $img = 'cotizaciones/' . $img;
+                            if ($img && strpos($img, 'http') !== 0 && strpos($img, 'cotizaciones/') !== 0 && strpos($img, 'v1/cotizaciones/') !== 0) $img = '../cotizaciones/' . $img;
+                            else if (strpos($img, 'http') !== 0) $img = '../' . $img;
                             ?>
                             <div style="width:44px; height:34px; border:1px solid #eee; background:white; border-radius:4px; display:flex; align-items:center; justify-content:center; overflow:hidden;">
                                 <?php if ($img): ?>
-                                    <img src="../<?= htmlspecialchars($img) ?>" style="max-width:100%; max-height:100%; object-fit:contain;" onerror="this.style.display='none'" />
+                                    <img src="<?= htmlspecialchars($img) ?>" style="max-width:100%; max-height:100%; object-fit:contain;" onerror="this.style.display='none'" />
                                 <?php else: ?>
                                     <span style="font-size:10px; color:#ccc">No img</span>
                                 <?php endif; ?>
@@ -132,12 +133,13 @@ include 'header.php';
                 $media = json_decode($p['media_json'], true);
                 if (is_array($media) && count($media) > 0 && isset($media[0]['url'])) $img = $media[0]['url'];
             }
-            if ($img && strpos($img, 'http') !== 0 && strpos($img, 'cotizaciones/') !== 0 && strpos($img, 'v1/cotizaciones/') !== 0) $img = 'cotizaciones/' . $img;
+            if ($img && strpos($img, 'http') !== 0 && strpos($img, 'cotizaciones/') !== 0 && strpos($img, 'v1/cotizaciones/') !== 0) $img = '../cotizaciones/' . $img;
+            else if (strpos($img, 'http') !== 0) $img = '../' . $img;
             ?>
             <div class="product-card" data-cat="<?= htmlspecialchars($p['categoria_id'] ?? '') ?>" data-brand="<?= htmlspecialchars($p['series'] ?? '') ?>" style="background: white; border: 1px solid #eee; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); display: flex; flex-direction: column;">
                 <div style="height: 220px; display: flex; align-items: center; justify-content: center; background: #fdfdfd; padding: 16px;">
                     <?php if ($img): ?>
-                        <img src="../<?= htmlspecialchars($img) ?>" style="max-width: 100%; max-height: 100%; object-fit: contain;" onerror="this.style.display='none'">
+                        <img src="<?= htmlspecialchars($img) ?>" style="max-width: 100%; max-height: 100%; object-fit: contain;" onerror="this.style.display='none'">
                     <?php else: ?>
                         <span style="color: #ccc; font-size: 14px;">Sin imagen</span>
                     <?php endif; ?>
