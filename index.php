@@ -574,7 +574,7 @@ $marcasJson = json_encode($marcas);
           </div>
 
           <div style="margin-bottom:16px">
-            <h3 style="font-family:Oswald,sans-serif;font-size:18px;margin:0 0 8px;color:oklch(20% .005 270)">Marcas / Series</h3>
+            <h3 style="font-family:Oswald,sans-serif;font-size:18px;margin:0 0 8px;color:oklch(20% .005 270)">Marcas</h3>
             <input type="text" onInput="{{onBrandSearch}}" value="{{brandSearch}}" placeholder="Buscar marca..." style="width:100%;box-sizing:border-box;padding:8px 12px;border:1px solid oklch(85% 0 0);border-radius:6px;font-size:13px;outline:none;margin-bottom:12px;background:#fdfdfd" />
             <div style="display:flex;flex-direction:column;gap:8px;max-height:450px;overflow-y:auto;padding-right:8px;scrollbar-width:thin;scrollbar-color:oklch(85% 0 0) transparent">
               <style>
