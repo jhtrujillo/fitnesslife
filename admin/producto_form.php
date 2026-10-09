@@ -15,8 +15,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $img = $_POST['img'] ?? '';
     
     $uploadErrorMsg = '';
-    // File upload logic for product image
-    if (isset($_FILES['img_file']) && $_FILES['img_file']['error'] !== UPLOAD_ERR_NO_FILE) {
+    
+    // File upload logic (Base64 from Drag & Drop / Resize)
+    if (!empty($_POST['img_base64'])) {
+        $uploadDir = '../cotizaciones/uploads/';
+        if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
+        
+        $base64_string = $_POST['img_base64'];
+        $parts = explode(',', $base64_string);
+        if (count($parts) === 2) {
+            $data = base64_decode($parts[1]);
+            $filename = uniqid('prod_') . '.jpg';
+            $destPath = $uploadDir . $filename;
+            if (file_put_contents($destPath, $data)) {
+                $img = 'uploads/' . $filename;
+            } else {
+                $uploadErrorMsg = "Error al guardar la imagen procesada.";
+            }
+        }
+    } 
+    // Fallback normal file upload
+    else if (isset($_FILES['img_file']) && $_FILES['img_file']['error'] !== UPLOAD_ERR_NO_FILE) {
         if ($_FILES['img_file']['error'] === UPLOAD_ERR_OK) {
             $uploadDir = '../cotizaciones/uploads/';
             if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
@@ -127,15 +146,23 @@ include 'header.php';
                 <?php endif; ?>
                 
                 <div style="flex:1;">
-                    <div style="margin-bottom:16px;">
-                        <label style="font-size:12px; font-weight:normal; margin-bottom:4px;">Subir nueva foto desde tu computadora:</label>
-                        <input type="file" name="img_file" accept="image/*" style="background:#fff; border:1px solid #ccc; padding:6px; width:100%; border-radius:4px;">
+                    <div id="dropzone" style="margin-bottom:16px; border:2px dashed #a0aec0; border-radius:8px; padding:20px; text-align:center; background:#fff; transition:all 0.3s ease; position:relative;">
+                        <div id="dropzone-text" style="color:#4a5568; font-size:14px; margin-bottom:8px;">
+                            <strong>Arrastra una imagen aquí</strong> o haz clic para buscarla.<br>
+                            <span style="font-size:12px; color:#718096;">Se comprimirá automáticamente para cargar rápido.</span>
+                        </div>
+                        <input type="file" id="img_file_input" name="img_file" accept="image/*" style="position:absolute; inset:0; width:100%; height:100%; opacity:0; cursor:pointer;">
+                        <input type="hidden" id="img_base64" name="img_base64" value="">
+                        
+                        <div id="preview-container" style="display:none; margin-top:12px;">
+                            <img id="preview-img" src="" style="max-height:120px; max-width:100%; object-fit:contain; border-radius:4px; border:1px solid #e2e8f0;">
+                            <div style="font-size:12px; color:#38a169; margin-top:4px; font-weight:bold;">¡Imagen optimizada lista para guardar!</div>
+                        </div>
                     </div>
                     
                     <div>
                         <label style="font-size:12px; font-weight:normal; margin-bottom:4px;">O usar una URL existente (Ruta manual):</label>
-                        <input type="text" name="img" value="<?= htmlspecialchars($producto['img'] ?? '') ?>" placeholder="ej: uploads/imagen.jpg">
-                        <div style="font-size:11px; color:#718096; margin-top:4px;">Si subes una foto nueva, esta ruta se actualizará automáticamente.</div>
+                        <input type="text" name="img" id="img_url_input" value="<?= htmlspecialchars($producto['img'] ?? '') ?>" placeholder="ej: uploads/imagen.jpg">
                     </div>
                 </div>
             </div>
@@ -146,4 +173,91 @@ include 'header.php';
         </div>
     </form>
 </div>
-</body></html>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const dropzone = document.getElementById('dropzone');
+    const fileInput = document.getElementById('img_file_input');
+    const base64Input = document.getElementById('img_base64');
+    const previewContainer = document.getElementById('preview-container');
+    const previewImg = document.getElementById('preview-img');
+    const dropzoneText = document.getElementById('dropzone-text');
+
+    // Highlight on drag
+    ['dragenter', 'dragover'].forEach(eventName => {
+        dropzone.addEventListener(eventName, preventDefaults, false);
+        dropzone.addEventListener(eventName, () => dropzone.style.background = '#e6fffa', false);
+        dropzone.addEventListener(eventName, () => dropzone.style.borderColor = '#319795', false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+        dropzone.addEventListener(eventName, preventDefaults, false);
+        dropzone.addEventListener(eventName, () => dropzone.style.background = '#fff', false);
+        dropzone.addEventListener(eventName, () => dropzone.style.borderColor = '#a0aec0', false);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+    }
+
+    dropzone.addEventListener('drop', function(e) {
+        let dt = e.dataTransfer;
+        let files = dt.files;
+        if (files.length > 0) handleFile(files[0]);
+    });
+
+    fileInput.addEventListener('change', function() {
+        if (this.files.length > 0) handleFile(this.files[0]);
+    });
+
+    function handleFile(file) {
+        if (!file.type.startsWith('image/')) return alert("Por favor sube solo imágenes.");
+        
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = function(event) {
+            const img = new Image();
+            img.src = event.target.result;
+            img.onload = function() {
+                const MAX_WIDTH = 1200;
+                const MAX_HEIGHT = 1200;
+                let width = img.width;
+                let height = img.height;
+
+                if (width > height) {
+                    if (width > MAX_WIDTH) {
+                        height *= MAX_WIDTH / width;
+                        width = MAX_WIDTH;
+                    }
+                } else {
+                    if (height > MAX_HEIGHT) {
+                        width *= MAX_HEIGHT / height;
+                        height = MAX_HEIGHT;
+                    }
+                }
+
+                const canvas = document.createElement('canvas');
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+
+                // Compress to JPEG with 80% quality
+                const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
+                
+                base64Input.value = dataUrl;
+                previewImg.src = dataUrl;
+                previewContainer.style.display = 'block';
+                dropzoneText.style.display = 'none';
+                
+                // Clear the actual file input so the server only processes the base64
+                fileInput.value = '';
+            }
+        }
+    }
+});
+</script>
+</body>
+</html>
+
