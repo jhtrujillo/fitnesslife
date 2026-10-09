@@ -98,7 +98,7 @@ include 'header.php';
             <div style="display:flex; gap:16px; align-items:flex-start;">
                 <?php 
                 $imgSrc = $producto['img'] ?? '';
-                if ($imgSrc && strpos($imgSrc, 'http') !== 0 && strpos($imgSrc, 'v1/cotizaciones/') !== 0) $imgSrc = '../v1/cotizaciones/' . $imgSrc;
+                if ($imgSrc && strpos($imgSrc, 'http') !== 0 && strpos($imgSrc, 'cotizaciones/') !== 0 && strpos($imgSrc, 'v1/cotizaciones/') !== 0) $imgSrc = '../cotizaciones/' . $imgSrc;
                 else if (strpos($imgSrc, 'http') !== 0) $imgSrc = '../' . $imgSrc;
                 ?>
                 <?php if ($producto['img']): ?>
