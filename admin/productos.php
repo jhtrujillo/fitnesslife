@@ -23,20 +23,23 @@ include 'header.php';
         
         <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
             <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
-            <select id="catFilter" class="form-group" style="margin:0; padding:8px 12px; background:#f7f7f7; border:1px solid #e5e5e5; border-radius:6px; outline:none; font-size:13px;">
-                <option value="">Todas las categorías</option>
-                <?php foreach ($cats as $c): ?>
-                    <option value="<?= $c['id'] ?>"><?= htmlspecialchars($c['name']) ?></option>
-                <?php endforeach; ?>
-            </select>
             
-            
-            <select id="brandFilter" class="form-group" style="margin:0; padding:8px 12px; background:#f7f7f7; border:1px solid #e5e5e5; border-radius:6px; outline:none; font-size:13px;">
-                <option value="">Todas las marcas</option>
-                <?php foreach ($marcas as $m): ?>
-                    <option value="<?= htmlspecialchars($m['name']) ?>"><?= htmlspecialchars($m['name']) ?></option>
-                <?php endforeach; ?>
-            </select>
+                
+            <div id="topFilters" style="display:none; gap:12px; align-items:center; flex-wrap:wrap;">
+                <select id="catFilterTop" class="form-group" style="margin:0; padding:8px 12px; background:#f7f7f7; border:1px solid #e5e5e5; border-radius:6px; outline:none; font-size:13px;">
+                    <option value="">Todas las categorías</option>
+                    <?php foreach ($cats as $c): ?>
+                        <option value="<?= $c['id'] ?>"><?= htmlspecialchars($c['name']) ?></option>
+                    <?php endforeach; ?>
+                </select>
+                <select id="brandFilterTop" class="form-group" style="margin:0; padding:8px 12px; background:#f7f7f7; border:1px solid #e5e5e5; border-radius:6px; outline:none; font-size:13px;">
+                    <option value="">Todas las marcas</option>
+                    <?php foreach ($marcas as $m): ?>
+                        <option value="<?= htmlspecialchars($m['name']) ?>"><?= htmlspecialchars($m['name']) ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
                 <input type="text" id="searchInput" placeholder="Buscar equipo o SKU..." style="padding:8px 12px; background:#f7f7f7; border:1px solid #e5e5e5; border-radius:6px; outline:none; font-size:13px; width:250px;">
             </div>
             
@@ -53,8 +56,28 @@ include 'header.php';
                 <tr>
                     <th style="width: 60px">IMG</th>
                     <th style="width: 100px">CÓDIGO</th>
-                    <th style="width: 120px">CATEGORÍA</th>
-                    <th style="width: 100px">MARCA</th>
+                    <th style="width: 180px">
+                        <div style="display:flex; flex-direction:column; gap:6px;">
+                            <span>CATEGORÍA</span>
+                            <select id="catFilter" style="padding:4px 8px; background:#f7f7f7; border:1px solid #ccc; border-radius:4px; outline:none; font-size:11px; font-weight:normal; width:100%;">
+                                <option value="">Todas (Filtro)</option>
+                                <?php foreach ($cats as $c): ?>
+                                    <option value="<?= $c['id'] ?>"><?= htmlspecialchars($c['name']) ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </th>
+                    <th style="width: 160px">
+                        <div style="display:flex; flex-direction:column; gap:6px;">
+                            <span>MARCA</span>
+                            <select id="brandFilter" style="padding:4px 8px; background:#f7f7f7; border:1px solid #ccc; border-radius:4px; outline:none; font-size:11px; font-weight:normal; width:100%;">
+                                <option value="">Todas (Filtro)</option>
+                                <?php foreach ($marcas as $m): ?>
+                                    <option value="<?= htmlspecialchars($m['name']) ?>"><?= htmlspecialchars($m['name']) ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    </th>
                     <th>NOMBRE DEL EQUIPO</th>
                     <th style="width: 120px">PRECIO REF.</th>
                     <th style="width: 120px; text-align: right">ACCIONES</th>
@@ -148,7 +171,27 @@ document.addEventListener('DOMContentLoaded', function() {
     const tableView = document.getElementById('tableView');
     const gridView = document.getElementById('gridView');
     const viewToggleBtn = document.getElementById('viewToggleBtn');
+    const topFilters = document.getElementById('topFilters');
+    
+    const catFilterTop = document.getElementById('catFilterTop');
+    const brandFilterTop = document.getElementById('brandFilterTop');
+    const catFilterTable = document.getElementById('catFilter');
+    const brandFilterTable = document.getElementById('brandFilter');
+
     let isGridView = false;
+
+    function syncFilters(e) {
+        if (e.target.id === 'catFilter') catFilterTop.value = e.target.value;
+        if (e.target.id === 'catFilterTop') catFilterTable.value = e.target.value;
+        if (e.target.id === 'brandFilter') brandFilterTop.value = e.target.value;
+        if (e.target.id === 'brandFilterTop') brandFilterTable.value = e.target.value;
+        filterTable();
+    }
+
+    catFilterTable.addEventListener('change', syncFilters);
+    catFilterTop.addEventListener('change', syncFilters);
+    brandFilterTable.addEventListener('change', syncFilters);
+    brandFilterTop.addEventListener('change', syncFilters);
 
     viewToggleBtn.addEventListener('click', function() {
         isGridView = !isGridView;
@@ -156,17 +199,19 @@ document.addEventListener('DOMContentLoaded', function() {
             tableView.style.display = 'none';
             gridView.style.display = 'grid';
             viewToggleBtn.textContent = '📋 Tabla';
+            topFilters.style.display = 'flex';
         } else {
             tableView.style.display = 'block';
             gridView.style.display = 'none';
             viewToggleBtn.textContent = '🔲 Bloques';
+            topFilters.style.display = 'none';
         }
     });
 
     function filterTable() {
         const query = searchInput.value.toLowerCase().trim();
-        const cat = catFilter.value;
-        const brand = document.getElementById('brandFilter').value;
+        const cat = catFilterTable.value; // both are synced
+        const brand = brandFilterTable.value;
         let visibleCount = 0;
 
         // Filter Table Rows
@@ -216,8 +261,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     searchInput.addEventListener('input', filterTable);
-    catFilter.addEventListener('change', filterTable);
-    document.getElementById('brandFilter').addEventListener('change', filterTable);
+    
 });
 </script>
 </body></html>
