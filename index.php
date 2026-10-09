@@ -1402,7 +1402,7 @@ class Component extends DCLogic {
       if (!image && p.media_json && p.media_json.length > 0 && p.media_json[0].url) {
          image = p.media_json[0].url;
       }
-      if (image && !image.startsWith('http') && !image.startsWith('v1/cotizaciones/')) { image = 'v1/cotizaciones/' + image; }
+      if (image && !image.startsWith('http') && !image.startsWith('cotizaciones/') && !image.startsWith('v1/cotizaciones/')) { image = 'cotizaciones/' + image; }
       const item_no = p.item_no || 'N/A';
       const inCart = this.state.cart.some(c => c.item_no === item_no);
       const cartText = inCart ? 'Añadido ✓' : 'Añadir';
@@ -1472,7 +1472,7 @@ class Component extends DCLogic {
       if (!image && p.media_json && p.media_json.length > 0 && p.media_json[0].url) {
          image = p.media_json[0].url;
       }
-      if (image && !image.startsWith('http') && !image.startsWith('v1/cotizaciones/')) { image = 'v1/cotizaciones/' + image; }
+      if (image && !image.startsWith('http') && !image.startsWith('cotizaciones/') && !image.startsWith('v1/cotizaciones/')) { image = 'cotizaciones/' + image; }
       const item_no = p.item_no || 'N/A';
       const hasDims = p.set_up_dimension && p.set_up_dimension.trim() !== '';
       const hasWeight = p.weight_stack && p.weight_stack.trim() !== '';
