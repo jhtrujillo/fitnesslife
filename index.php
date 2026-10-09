@@ -557,6 +557,22 @@ $marcasJson = json_encode($marcas);
           </div>
 
           
+          <div style="margin-bottom:24px">
+            <h3 style="font-family:Oswald,sans-serif;font-size:18px;margin:0 0 12px;color:oklch(20% .005 270)">Categorías</h3>
+            <div style="display:flex;flex-direction:{{catListDir}};flex-wrap:{{catListWrap}};gap:4px;max-height:280px;overflow-y:auto;padding-right:8px;scrollbar-width:thin;scrollbar-color:oklch(85% 0 0) transparent">
+              <style>
+                .cat-scroll::-webkit-scrollbar { width: 4px; }
+                .cat-scroll::-webkit-scrollbar-track { background: transparent; }
+                .cat-scroll::-webkit-scrollbar-thumb { background: oklch(85% 0 0); border-radius: 4px; }
+              </style>
+              <div class="cat-scroll" style="display:flex;flex-direction:{{catListDir}};gap:4px;flex-grow:1">
+              <sc-for list="{{catalogoFilters}}" as="f">
+                <button onClick="{{f.onClick}}" style="text-align:left;background:{{f.bg}};color:{{f.color}};border:1px solid {{f.border}};padding:8px 12px;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s ease">{{f.label}}</button>
+              </sc-for>
+              </div>
+            </div>
+          </div>
+
           <div style="margin-bottom:16px">
             <h3 style="font-family:Oswald,sans-serif;font-size:18px;margin:0 0 8px;color:oklch(20% .005 270)">Marcas / Series</h3>
             <input type="text" onInput="{{onBrandSearch}}" value="{{brandSearch}}" placeholder="Buscar marca..." style="width:100%;box-sizing:border-box;padding:8px 12px;border:1px solid oklch(85% 0 0);border-radius:6px;font-size:13px;outline:none;margin-bottom:12px;background:#fdfdfd" />
@@ -587,16 +603,7 @@ $marcasJson = json_encode($marcas);
             <span style="font-size:13px;color:oklch(42% .01 270);font-weight:600">Mostrando {{catalogoProducts.length}} de {{catalogoTotal}}</span>
           </div>
           
-          <div style="margin-bottom: 24px; padding-bottom: 8px; overflow-x: auto; white-space: nowrap; scrollbar-width: none; -ms-overflow-style: none;">
-            <style>
-              .cat-scroll-tabs::-webkit-scrollbar { display: none; }
-            </style>
-            <div class="cat-scroll-tabs" style="display:flex; gap:10px;">
-              <sc-for list="{{catalogoFilters}}" as="f">
-                <button onClick="{{f.onClick}}" style="background:{{f.bg}};color:{{f.color}};border:1px solid {{f.border}};padding:8px 18px;border-radius:20px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s ease;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,0.03)" style-hover="transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,0.06)">{{f.label}}</button>
-              </sc-for>
-            </div>
-          </div>
+
 
           <div style="display:flex;justify-content:flex-end;margin-bottom:24px">
             <select onChange="{{onCatalogoSort}}" value="{{catalogoSort}}" style="padding:8px 16px;border-radius:6px;border:1px solid oklch(85% 0 0);font-size:13px;color:oklch(20% .005 270);outline:none;cursor:pointer;background:white">
