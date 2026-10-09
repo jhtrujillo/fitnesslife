@@ -649,6 +649,7 @@ $marcasJson = json_encode($marcas);
             </div>
           </sc-if>
             
+          
           <sc-if value="{{isViewTable}}">
             <div style="display:flex;flex-direction:column;gap:16px;">
               <sc-for list="{{catalogoProducts}}" as="prod">
@@ -668,17 +669,6 @@ $marcasJson = json_encode($marcas);
                       <button onClick="{{prod.onToggleCart}}" style="background:{{prod.cartBg}};color:{{prod.cartColor}};border:{{prod.cartBorder}};padding:12px 24px;border-radius:6px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.02em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .2s" style-hover="background:{{prod.cartBgHover}};color:white">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
                         {{prod.cartText}}
-                      </button>
-                      <a href="{{prod.waLink}}" target="_blank" style="flex-shrink:0;background:#25D366;color:white;border:none;padding:12px 24px;border-radius:6px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.02em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .2s" style-hover="background:#1ebd5c" title="Cotizar rápido por WhatsApp">
-                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-                        WhatsApp
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </sc-for>
-            </div>
-          </sc-if>
                       </button>
                       <a href="{{prod.waLink}}" target="_blank" style="flex-shrink:0;background:#25D366;color:white;border:none;padding:12px 24px;border-radius:6px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.02em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .2s" style-hover="background:#1ebd5c" title="Cotizar rápido por WhatsApp">
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
@@ -825,25 +815,6 @@ $marcasJson = json_encode($marcas);
             </sc-for>
           </div>
           </sc-if>
-          
-                    <sc-if value="{{prod.hasWeight}}"><div style="flex:1;min-width:200px;"><b>Peso:</b> {{prod.weight_stack}}</div></sc-if>
-                  </div>
-                  <div style="display:flex;gap:12px;margin-top:auto;">
-                    <button onClick="{{prod.onToggleCart}}" style="background:{{prod.cartBg}};color:{{prod.cartColor}};border:{{prod.cartBorder}};padding:12px 24px;border-radius:6px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.02em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .2s" style-hover="background:{{prod.cartBgHover}};color:white">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-                      {{prod.cartText}}
-                    </button>
-                    <a href="{{prod.waLink}}" target="_blank" style="flex-shrink:0;background:#25D366;color:white;border:none;padding:12px 24px;border-radius:6px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.02em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .2s" style-hover="background:#1ebd5c" title="Cotizar rápido por WhatsApp">
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-                      WhatsApp
-                    </a>
-                  </div>
-                </div>
-              </div>
-              </sc-for>
-            </div>
-          </sc-if>
-
         </div>
       </sc-if>
 
