@@ -1307,6 +1307,8 @@ class Component extends DCLogic {
     this.setState(s => ({ categoryLimit: s.categoryLimit + 6 }));
   };
 
+  setGridView = () => this.setState({ catalogoViewMode: 'grid' });
+  setTableView = () => this.setState({ catalogoViewMode: 'table' });
   loadMoreCatalogo = (e) => {
     if (e) e.preventDefault();
     this.setState(s => ({ catalogoLimit: s.catalogoLimit + 6 }));
