@@ -17,7 +17,7 @@ include 'header.php';
 ?>
 <div class="panel-card">
     <div style="display:flex; justify-content:space-between; margin-bottom:20px; align-items:flex-end; flex-wrap:wrap; gap:16px;">
-        <h2 style="margin:0;font-family:Oswald;text-transform:uppercase;color:#1d3557;">Inventario de Máquinas</h2>
+        <h2 style="margin:0;font-family:'Oswald', sans-serif;text-transform:uppercase;color:#1d3557;font-size:24px;">📦 Catálogo de Equipos</h2>
         
         <div style="display:flex; gap:12px; align-items:center;">
             <select id="catFilter" class="form-group" style="margin:0; padding:8px 12px; background:#f7f7f7; border:1px solid #e5e5e5; border-radius:6px; outline:none; font-size:13px;">
@@ -37,7 +37,7 @@ include 'header.php';
             <input type="text" id="searchInput" placeholder="Buscar equipo o SKU..." style="padding:8px 12px; background:#f7f7f7; border:1px solid #e5e5e5; border-radius:6px; outline:none; font-size:13px; width:250px;">
         </div>
         
-        <a href="producto_form.php" class="btn-primary">+ Agregar Equipo</a>
+        <a href="producto_form.php" style="background: #457b9d; color: white; border: none; padding: 10px 20px; border-radius: 6px; font-family: 'Oswald', sans-serif; font-weight: 600; text-transform: uppercase; cursor: pointer; white-space: nowrap; height: 41px; box-sizing: border-box; text-decoration: none; display: flex; align-items: center;">+ Añadir</a>
     </div>
     
     <div class="table-wrapper">
@@ -72,13 +72,13 @@ include 'header.php';
                                 <?php endif; ?>
                             </div>
                         </td>
-                        <td class="searchable" data-label="Código"><?= htmlspecialchars($p['item_no'] ?? '-') ?></td>
+                        <td class="searchable" data-label="Código" style="font-weight: 600; color: #457b9d;"><?= htmlspecialchars($p['item_no'] ?? '-') ?></td>
                         <td class="searchable" data-label="Serie"><?= htmlspecialchars($p['series'] ?? '-') ?></td>
-                        <td class="searchable" data-label="Nombre"><strong><?= htmlspecialchars($p['name'] ?? '') ?></strong></td>
-                        <td data-label="Precio Ref.">$<?= number_format((float)$p['price'], 2) ?></td>
-                        <td class="actions-cell" data-label="Acciones" style="text-align: right; display:flex; gap:8px; justify-content:flex-end;">
-                            <a href="producto_form.php?id=<?= $p['id'] ?>" class="action-link" style="margin:0;">Editar</a>
-                            <a href="productos.php?delete=<?= $p['id'] ?>" class="action-link danger" style="margin:0;" onclick="return confirm('¿Estás seguro de eliminar este producto? Esta acción no se puede deshacer.');">Eliminar</a>
+                        <td class="searchable" data-label="Nombre" style="font-weight: 500;"><?= htmlspecialchars($p['name'] ?? '') ?></td>
+                        <td data-label="Precio Ref.">$ <?= number_format((float)$p['price'], 0, ',', '.') ?></td>
+                        <td class="actions-cell" data-label="Acciones" style="text-align: right; white-space: nowrap;">
+                            <a href="producto_form.php?id=<?= $p['id'] ?>" style="background: transparent; border: 1px solid #ccc; border-radius: 4px; padding: 6px 10px; cursor: pointer; margin-right: 4px; text-decoration: none; display: inline-block; color: #333;">✏️</a>
+                            <a href="productos.php?delete=<?= $p['id'] ?>" style="background: transparent; border: 1px solid #ffcccc; color: #e63946; border-radius: 4px; padding: 6px 10px; cursor: pointer; text-decoration: none; display: inline-block;" onclick="return confirm('¿Estás seguro de eliminar este producto? Esta acción no se puede deshacer.');">🗑️</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
