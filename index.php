@@ -595,7 +595,7 @@ $marcasJson = json_encode($marcas);
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px">
             <h2 style="font-family:Oswald,sans-serif;font-size:24px;margin:0;color:oklch(20% .005 270)">Equipos</h2>
             
-            <span style="font-size:13px;color:oklch(42% .01 270);font-weight:600">Mostrando {{catalogoProducts.length}} de {{catalogoTotal}}</span>
+            
           </div>
           
 
@@ -607,39 +607,6 @@ $marcasJson = json_encode($marcas);
             </div>
             
             <div style="display:flex;align-items:center;gap:16px">
-              
-              <sc-if value="{{hasPagination}}">
-                <div style="display:flex;align-items:center;gap:4px">
-                  <sc-if value="{{prevPageDisabled}}" hint-placeholder-val="{{false}}">
-                     <button disabled style="width:32px;height:32px;border-radius:6px;border:1px solid oklch(90% 0 0);background:oklch(98% 0 0);color:oklch(80% 0 0);display:flex;align-items:center;justify-content:center;cursor:not-allowed">
-                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                     </button>
-                  </sc-if>
-                  <sc-if value="{{prevPageEnabled}}" hint-placeholder-val="{{true}}">
-                     <button onClick="{{onPrevPage}}" style="width:32px;height:32px;border-radius:6px;border:1px solid oklch(80% 0 0);background:white;color:oklch(20% .005 270);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s" style-hover="background:oklch(96% 0 0)">
-                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                     </button>
-                  </sc-if>
-                  
-                  <sc-for list="{{catalogoPages}}" as="pg">
-                    <button onClick="{{pg.onClick}}" style="min-width:32px;height:32px;border-radius:6px;border:{{pg.border}};background:{{pg.bg}};color:{{pg.color}};font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;padding:0 6px">
-                      {{pg.num}}
-                    </button>
-                  </sc-for>
-
-                  <sc-if value="{{nextPageDisabled}}" hint-placeholder-val="{{false}}">
-                     <button disabled style="width:32px;height:32px;border-radius:6px;border:1px solid oklch(90% 0 0);background:oklch(98% 0 0);color:oklch(80% 0 0);display:flex;align-items:center;justify-content:center;cursor:not-allowed">
-                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                     </button>
-                  </sc-if>
-                  <sc-if value="{{nextPageEnabled}}" hint-placeholder-val="{{true}}">
-                     <button onClick="{{onNextPage}}" style="width:32px;height:32px;border-radius:6px;border:1px solid oklch(80% 0 0);background:white;color:oklch(20% .005 270);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s" style-hover="background:oklch(96% 0 0)">
-                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                     </button>
-                  </sc-if>
-                </div>
-              </sc-if>
-
               <select onChange="{{onCatalogoSort}}" value="{{catalogoSort}}" style="padding:8px 16px;border-radius:6px;border:1px solid oklch(85% 0 0);font-size:13px;color:oklch(20% .005 270);outline:none;cursor:pointer;background:white">
                 <option value="name_asc">Nombre (A-Z)</option>
                 <option value="name_desc">Nombre (Z-A)</option>
@@ -723,11 +690,17 @@ $marcasJson = json_encode($marcas);
                </div>
             </sc-if>
           </div>
-          
-          
+
+          <sc-if value="{{hasPagination}}">
+            <div style="display:flex;justify-content:center;align-items:center;gap:8px;margin-top:40px;margin-bottom:20px;width:100%">
+              <sc-if value="{{prevPageDisabled}}" hint-placeholder-val="{{false}}">
+                 <button disabled style="width:40px;height:40px;border-radius:8px;border:1px solid oklch(90% 0 0);background:oklch(98% 0 0);color:oklch(80% 0 0);display:flex;align-items:center;justify-content:center;cursor:not-allowed">
+                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                 </button>
+              </sc-if>
               <sc-if value="{{prevPageEnabled}}" hint-placeholder-val="{{true}}">
                  <button onClick="{{onPrevPage}}" style="width:40px;height:40px;border-radius:8px;border:1px solid oklch(80% 0 0);background:white;color:oklch(20% .005 270);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s" style-hover="background:oklch(96% 0 0)">
-                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
                  </button>
               </sc-if>
               
@@ -739,19 +712,17 @@ $marcasJson = json_encode($marcas);
 
               <sc-if value="{{nextPageDisabled}}" hint-placeholder-val="{{false}}">
                  <button disabled style="width:40px;height:40px;border-radius:8px;border:1px solid oklch(90% 0 0);background:oklch(98% 0 0);color:oklch(80% 0 0);display:flex;align-items:center;justify-content:center;cursor:not-allowed">
-                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                  </button>
               </sc-if>
               <sc-if value="{{nextPageEnabled}}" hint-placeholder-val="{{true}}">
                  <button onClick="{{onNextPage}}" style="width:40px;height:40px;border-radius:8px;border:1px solid oklch(80% 0 0);background:white;color:oklch(20% .005 270);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s" style-hover="background:oklch(96% 0 0)">
-                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                  </button>
               </sc-if>
-              
             </div>
           </sc-if>
-
-        </div>
+          </div>
       </section>
 
 
@@ -1787,7 +1758,7 @@ class Component extends DCLogic {
       tableItemDir: this.state.isMobile ? 'column' : 'row',
       tableItemWidth: this.state.isMobile ? '100%' : '240px',
       tableItemHeight: this.state.isMobile ? '240px' : 'auto',
-      gridCols: this.state.isMobile ? 'repeat(auto-fill, minmax(160px, 1fr))' : 'repeat(4, minmax(0, 1fr))',
+      gridCols: this.state.isMobile ? 'repeat(auto-fill, minmax(160px, 1fr))' : 'repeat(auto-fill, minmax(200px, 1fr))',
 
       noCatalogoProducts: catalogoProducts.length === 0,
       goToCatalogo: this.goToCatalogo,
