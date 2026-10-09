@@ -577,7 +577,7 @@ $marcasJson = json_encode($marcas);
                 .brand-scroll::-webkit-scrollbar-track { background: transparent; }
                 .brand-scroll::-webkit-scrollbar-thumb { background: oklch(85% 0 0); border-radius: 4px; }
               </style>
-              <div class="brand-scroll" style="display:flex;flex-direction:column;gap:8px;flex-grow:1">
+              <div class="brand-scroll" style="display:flex;flex-direction:row;flex-wrap:wrap;gap:12px;flex-grow:1">
               <sc-for list="{{catalogoBrandsList}}" as="b">
                 <label style="display:flex;align-items:center;gap:10px;font-size:13px;color:oklch(30% .008 270);cursor:pointer">
                   <input type="checkbox" checked="{{b.checked}}" onChange="{{b.onChange}}" style="accent-color:oklch(58% .22 25);width:16px;height:16px;cursor:pointer" />
@@ -611,21 +611,29 @@ $marcasJson = json_encode($marcas);
               <option value="series_asc">Marca (A-Z)</option>
             </select>
           </div>
+          <sc-if value="{{hasPagination}}">
+            <div style="display:flex;justify-content:center;align-items:center;gap:8px;margin-top:0;margin-bottom:24px">
+              
+              <sc-if value="{{prevPageDisabled}}" hint-placeholder-val="{{false}}">
+                 <button disabled style="width:40px;height:40px;border-radius:8px;border:1px solid oklch(90% 0 0);background:oklch(98% 0 0);color:oklch(80% 0 0);display:flex;align-items:center;justify-content:center;cursor:not-allowed">
+                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                 </button>
+              </sc-if>
           
           
           <sc-if value="{{isViewGrid}}">
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px">
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:24px">
             <sc-for list="{{catalogoProducts}}" as="prod">
               <div style="position:relative;border:1px solid oklch(88% .006 270);border-radius:12px;overflow:hidden;background:white;transition:transform .3s ease,box-shadow .3s ease;display:flex;flex-direction:column;height:100%" style-hover="transform:translateY(-5px);box-shadow:0 16px 32px -12px oklch(20% .01 270 / .15)">
                 
-                <div onClick="{{prod.onOpen}}" style="height:240px;background:oklch(98% .002 270);padding:24px;display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer" title="Ver detalles">
+                <div onClick="{{prod.onOpen}}" style="height:180px;background:oklch(98% .002 270);padding:16px;display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer" title="Ver detalles">
                   <span style="position:absolute;top:12px;left:12px;background:oklch(20% .005 270);color:white;font-size:10px;font-weight:700;padding:4px 8px;border-radius:4px;letter-spacing:0.05em">SKU: {{prod.item_no}}</span>
                   <img loading="lazy" sc-camel-src="{{prod.image}}" alt="{{prod.name}}" style="max-width:100%;max-height:100%;object-fit:contain"/>
                 </div>
 
-                <div style="padding:24px;flex-grow:1;display:flex;flex-direction:column">
+                <div style="padding:16px;flex-grow:1;display:flex;flex-direction:column">
                   <div style="font-size:12px;color:oklch(58% .22 25);font-weight:700;text-transform:uppercase;margin-bottom:8px">{{prod.series}}</div>
-                  <h4 style="font-family:Oswald,sans-serif;font-size:20px;margin:0 0 12px;color:oklch(20% .005 270);line-height:1.2;flex-grow:1">{{prod.name}}</h4>
+                  <h4 style="font-family:Oswald,sans-serif;font-size:17px;margin:0 0 8px;color:oklch(20% .005 270);line-height:1.2;flex-grow:1">{{prod.name}}</h4>
                   
                   <!-- ESPECIFICACIONES (ocultas por defecto, pero mostradas si hay) -->
                   <div style="margin-bottom:20px;font-size:12px;color:oklch(40% .005 270);line-height:1.5">
@@ -634,7 +642,7 @@ $marcasJson = json_encode($marcas);
                   </div>
 
                   <div style="display:flex;gap:8px">
-                    <button onClick="{{prod.onToggleCart}}" style="flex-grow:1;background:{{prod.cartBg}};color:{{prod.cartColor}};border:{{prod.cartBorder}};padding:12px 8px;border-radius:6px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.02em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:background .2s" style-hover="background:{{prod.cartBgHover}};color:white">
+                    <button onClick="{{prod.onToggleCart}}" style="flex-grow:1;background:{{prod.cartBg}};color:{{prod.cartColor}};border:{{prod.cartBorder}};padding:10px 8px;border-radius:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.02em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:background .2s" style-hover="background:{{prod.cartBgHover}};color:white">
                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
                       {{prod.cartText}}
                     </button>
@@ -686,16 +694,18 @@ $marcasJson = json_encode($marcas);
                   <p style="color:oklch(42% .01 270);font-size:16px;margin:0">No se encontraron productos que coincidan con tu búsqueda.</p>
                </div>
             </sc-if>
-          </div>
-          
+
           <sc-if value="{{hasPagination}}">
-            <div style="display:flex;justify-content:center;align-items:center;gap:8px;margin-top:50px">
+            <div style="display:flex;justify-content:center;align-items:center;gap:8px;margin-top:0;margin-top:40px;margin-bottom:40px">
               
               <sc-if value="{{prevPageDisabled}}" hint-placeholder-val="{{false}}">
                  <button disabled style="width:40px;height:40px;border-radius:8px;border:1px solid oklch(90% 0 0);background:oklch(98% 0 0);color:oklch(80% 0 0);display:flex;align-items:center;justify-content:center;cursor:not-allowed">
                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
                  </button>
               </sc-if>
+          </div>
+          
+          
               <sc-if value="{{prevPageEnabled}}" hint-placeholder-val="{{true}}">
                  <button onClick="{{onPrevPage}}" style="width:40px;height:40px;border-radius:8px;border:1px solid oklch(80% 0 0);background:white;color:oklch(20% .005 270);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s" style-hover="background:oklch(96% 0 0)">
                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
@@ -1801,11 +1811,11 @@ class Component extends DCLogic {
       whyUsHeaderTransform: 'translateY(0)',
       whyUsBannerOpacity: 1,
       whyUsBannerTransform: 'translateY(0)',
-      catLayoutDir: this.state.isMobile ? 'column' : 'row',
-      catAsideWidth: this.state.isMobile ? '100%' : '260px',
-      catAsidePos: this.state.isMobile ? 'relative' : 'sticky',
-      catListDir: this.state.isMobile ? 'row' : 'column',
-      catListWrap: this.state.isMobile ? 'wrap' : 'nowrap',
+      catLayoutDir: 'column',
+      catAsideWidth: '100%',
+      catAsidePos: 'relative',
+      catListDir: 'row',
+      catListWrap: 'wrap',
       modalPadding: this.state.isMobile ? '24px' : '40px',
       modalImgPadding: this.state.isMobile ? '20px' : '40px',
       modalImgMinH: this.state.isMobile ? '280px' : '300px',
