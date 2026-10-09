@@ -688,11 +688,37 @@ $marcasJson = json_encode($marcas);
             </sc-if>
           </div>
           
-          <sc-if value="{{hasMoreCatalogo}}">
-            <div style="text-align:center;margin-top:40px">
-              <button onClick="{{loadMoreCatalogo}}" style="background:white;color:oklch(20% .005 270);border:1px solid oklch(80% .005 270);padding:14px 32px;border-radius:999px;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;cursor:pointer;transition:all .2s ease;box-shadow:0 4px 6px -4px oklch(20% 0 0 / .1)" style-hover="background:oklch(96% 0 0);transform:translateY(-2px);border-color:oklch(58% .22 25);color:oklch(58% .22 25)">
-                Cargar más equipos ↓
-              </button>
+          <sc-if value="{{hasPagination}}">
+            <div style="display:flex;justify-content:center;align-items:center;gap:8px;margin-top:50px">
+              
+              <sc-if value="{{prevPageDisabled}}" hint-placeholder-val="{{false}}">
+                 <button disabled style="width:40px;height:40px;border-radius:8px;border:1px solid oklch(90% 0 0);background:oklch(98% 0 0);color:oklch(80% 0 0);display:flex;align-items:center;justify-content:center;cursor:not-allowed">
+                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                 </button>
+              </sc-if>
+              <sc-if value="{{prevPageEnabled}}" hint-placeholder-val="{{true}}">
+                 <button onClick="{{onPrevPage}}" style="width:40px;height:40px;border-radius:8px;border:1px solid oklch(80% 0 0);background:white;color:oklch(20% .005 270);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s" style-hover="background:oklch(96% 0 0)">
+                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                 </button>
+              </sc-if>
+              
+              <sc-for list="{{catalogoPages}}" as="pg">
+                <button onClick="{{pg.onClick}}" style="min-width:40px;height:40px;border-radius:8px;border:{{pg.border}};background:{{pg.bg}};color:{{pg.color}};font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;padding:0 8px">
+                  {{pg.num}}
+                </button>
+              </sc-for>
+
+              <sc-if value="{{nextPageDisabled}}" hint-placeholder-val="{{false}}">
+                 <button disabled style="width:40px;height:40px;border-radius:8px;border:1px solid oklch(90% 0 0);background:oklch(98% 0 0);color:oklch(80% 0 0);display:flex;align-items:center;justify-content:center;cursor:not-allowed">
+                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                 </button>
+              </sc-if>
+              <sc-if value="{{nextPageEnabled}}" hint-placeholder-val="{{true}}">
+                 <button onClick="{{onNextPage}}" style="width:40px;height:40px;border-radius:8px;border:1px solid oklch(80% 0 0);background:white;color:oklch(20% .005 270);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s" style-hover="background:oklch(96% 0 0)">
+                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                 </button>
+              </sc-if>
+              
             </div>
           </sc-if>
 
@@ -957,6 +983,7 @@ window.DB_CATEGORIAS = <?php echo $categoriasJson; ?>;
 window.DB_MARCAS = <?php echo $marcasJson; ?>;
 </script>
 <script type="text/x-dc" data-dc-script>
+const ITEMS_PER_PAGE = 12;
 const R = (p) => (window.__resources && window.__resources[p]) || p;
 const DB_CATS = window.DB_CATEGORIAS || [];
 const CATEGORIES = {};
@@ -987,7 +1014,7 @@ class Component extends DCLogic {
     cartOpen: false,
     catalogoFilter: 'todos',
     catalogoSearch: '',
-    catalogoLimit: 6,
+    catalogoPage: 1,
     categoryLimit: 6,
     catalogoViewMode: 'grid',
     catalogoSort: 'name_asc',
@@ -1232,7 +1259,7 @@ class Component extends DCLogic {
     this.setState({ catalogoSearch: val });
     if (this.state.page !== 'catalogo') {
       window.history.pushState(null, '', '#catalogo');
-      this.setState({ page: 'catalogo', categorySlug: null, catalogoLimit: 6, menuOpen: false });
+      this.setState({ page: 'catalogo', categorySlug: null, catalogoPage: 1, menuOpen: false });
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
@@ -1241,7 +1268,7 @@ class Component extends DCLogic {
   goToCatalogo = (e) => {
     if (e) e.preventDefault();
     window.history.pushState(null, '', '#catalogo');
-    this.setState({ page: 'catalogo', catalogoFilter: 'todos', catalogoLimit: 6, catalogoSearch: '', catalogoBrands: [] }, () => {
+    this.setState({ page: 'catalogo', catalogoFilter: 'todos', catalogoPage: 1, catalogoSearch: '', catalogoBrands: [] }, () => {
       setTimeout(() => window.scrollTo(0, 0), 10);
       setTimeout(() => window.scrollTo(0, 0), 100);
     });
@@ -1298,7 +1325,7 @@ class Component extends DCLogic {
     const idx = brands.indexOf(brand);
     if (idx >= 0) brands.splice(idx, 1);
     else brands.push(brand);
-    this.setState({ catalogoBrands: brands, catalogoLimit: 6 });
+    this.setState({ catalogoBrands: brands, catalogoPage: 1 });
   };
 
 
@@ -1312,7 +1339,12 @@ class Component extends DCLogic {
   setTableView = () => this.setState({ catalogoViewMode: 'table' });
   loadMoreCatalogo = (e) => {
     if (e) e.preventDefault();
-    this.setState(s => ({ catalogoLimit: s.catalogoLimit + 6 }));
+  };
+  setCatalogoPage = (pageNum) => (e) => {
+    if (e) e.preventDefault();
+    this.setState({ catalogoPage: pageNum }, () => {
+      window.scrollTo({ top: 300, behavior: 'smooth' });
+    });
   };
 
 
@@ -1329,19 +1361,19 @@ class Component extends DCLogic {
   };
 
   onCatalogoSearch = (e) => {
-    this.setState({ catalogoSearch: e.target.value, catalogoLimit: 6 });
+    this.setState({ catalogoSearch: e.target.value, catalogoPage: 1 });
   };
   onBrandSearch = (e) => {
     this.setState({ brandSearch: e.target.value });
   };
   setCatalogoFilter = (filter) => (e) => {
     if (e) e.preventDefault();
-    this.setState({ catalogoFilter: filter, catalogoLimit: 6 });
+    this.setState({ catalogoFilter: filter, catalogoPage: 1 });
   };
 
   goToCategory = (slug) => {
     window.history.pushState(null, '', '#catalogo=' + slug);
-    this.setState({ page: 'catalogo', catalogoFilter: slug, catalogoLimit: 6, catalogoSearch: '', catalogoBrands: [] }, () => {
+    this.setState({ page: 'catalogo', catalogoFilter: slug, catalogoPage: 1, catalogoSearch: '', catalogoBrands: [] }, () => {
       setTimeout(() => window.scrollTo(0, 0), 10);
       setTimeout(() => window.scrollTo(0, 0), 100);
     });
@@ -1547,8 +1579,31 @@ class Component extends DCLogic {
     
     catalogoProductsFull.sort(sorter);
 
-    const catalogoProducts = catalogoProductsFull.slice(0, this.state.catalogoLimit);
-    const hasMoreCatalogo = catalogoProductsFull.length > this.state.catalogoLimit;
+    const totalPages = Math.ceil(catalogoProductsFull.length / ITEMS_PER_PAGE);
+    const currentPage = Math.min(this.state.catalogoPage, totalPages || 1);
+    const startIdx = (currentPage - 1) * ITEMS_PER_PAGE;
+    const catalogoProducts = catalogoProductsFull.slice(startIdx, startIdx + ITEMS_PER_PAGE);
+    const hasMoreCatalogo = false; // Disable load more button
+    
+    // Generate page array for pagination UI
+    let catalogoPages = [];
+    if (totalPages > 1) {
+      let startP = Math.max(1, currentPage - 2);
+      let endP = Math.min(totalPages, startP + 4);
+      if (endP - startP < 4) {
+        startP = Math.max(1, endP - 4);
+      }
+      for (let i = startP; i <= endP; i++) {
+        catalogoPages.push({
+          num: i,
+          active: i === currentPage,
+          bg: i === currentPage ? 'oklch(58% .22 25)' : 'white',
+          color: i === currentPage ? 'white' : 'oklch(20% .005 270)',
+          border: i === currentPage ? '1px solid oklch(58% .22 25)' : '1px solid oklch(85% 0 0)',
+          onClick: this.setCatalogoPage(i)
+        });
+      }
+    }
 
 
     const solutionsData = [
@@ -1680,6 +1735,16 @@ class Component extends DCLogic {
       catalogoFilters,
       catalogoProducts,
       hasMoreCatalogo,
+      catalogoPages: typeof catalogoPages !== 'undefined' ? catalogoPages : [],
+      hasPagination: typeof totalPages !== 'undefined' && totalPages > 1,
+      currentPage: typeof currentPage !== 'undefined' ? currentPage : 1,
+      totalPages: typeof totalPages !== 'undefined' ? totalPages : 1,
+      prevPageDisabled: typeof currentPage !== 'undefined' && currentPage <= 1,
+      prevPageEnabled: !(typeof currentPage !== 'undefined' && currentPage <= 1),
+      nextPageDisabled: typeof currentPage !== 'undefined' && typeof totalPages !== 'undefined' && currentPage >= totalPages,
+      nextPageEnabled: !(typeof currentPage !== 'undefined' && typeof totalPages !== 'undefined' && currentPage >= totalPages),
+      onPrevPage: this.setCatalogoPage(typeof currentPage !== 'undefined' ? currentPage - 1 : 1),
+      onNextPage: this.setCatalogoPage(typeof currentPage !== 'undefined' ? currentPage + 1 : 2),
       loadMoreCatalogo: this.loadMoreCatalogo,
       catalogoTotal: catalogoProductsFull.length,
       isViewGrid: this.state.catalogoViewMode === 'grid',
