@@ -600,7 +600,11 @@ $marcasJson = json_encode($marcas);
           
 
 
-          <div style="display:flex;justify-content:flex-end;margin-bottom:24px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:24px">
+            <div style="display:flex;gap:8px">
+              <button onClick="{{setGridView}}" style="width:36px;height:36px;border-radius:6px;border:1px solid oklch(85% 0 0);background:{{gridBg}};color:{{gridColor}};display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s" title="Vista en bloques"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h6v6H4V4zm10 0h6v6h-6V4zM4 14h6v6H4v-6zm10 0h6v6h-6v-6z"/></svg></button>
+              <button onClick="{{setTableView}}" style="width:36px;height:36px;border-radius:6px;border:1px solid oklch(85% 0 0);background:{{tableBg}};color:{{tableColor}};display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s" title="Vista en lista"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 4h18v4H3V4zm0 6h18v4H3v-4zm0 6h18v4H3v-4z"/></svg></button>
+            </div>
             <select onChange="{{onCatalogoSort}}" value="{{catalogoSort}}" style="padding:8px 16px;border-radius:6px;border:1px solid oklch(85% 0 0);font-size:13px;color:oklch(20% .005 270);outline:none;cursor:pointer;background:white">
               <option value="name_asc">Nombre (A-Z)</option>
               <option value="name_desc">Nombre (Z-A)</option>
@@ -608,7 +612,9 @@ $marcasJson = json_encode($marcas);
             </select>
           </div>
           
-          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px">
+          
+          <sc-if value="{{isViewGrid}}">
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px">
             <sc-for list="{{catalogoProducts}}" as="prod">
               <div style="position:relative;border:1px solid oklch(88% .006 270);border-radius:12px;overflow:hidden;background:white;transition:transform .3s ease,box-shadow .3s ease;display:flex;flex-direction:column;height:100%" style-hover="transform:translateY(-5px);box-shadow:0 16px 32px -12px oklch(20% .01 270 / .15)">
                 
@@ -775,6 +781,39 @@ $marcasJson = json_encode($marcas);
               </div>
             </sc-for>
           </div>
+          </sc-if>
+          <sc-if value="{{isViewTable}}">
+            <div style="display:flex;flex-direction:column;gap:16px;">
+              <sc-for list="{{catalogoProducts}}" as="prod">
+                
+              <div style="display:flex;flex-direction:{{isMobile ? 'column' : 'row'}};border:1px solid oklch(88% .006 270);border-radius:12px;overflow:hidden;background:white;transition:transform .3s ease,box-shadow .3s ease;height:100%" style-hover="transform:translateY(-3px);box-shadow:0 12px 24px -10px oklch(20% .01 270 / .15)">
+                <div onClick="{{prod.onOpen}}" style="width:{{isMobile ? '100%' : '240px'}};height:{{isMobile ? '240px' : 'auto'}};flex-shrink:0;background:oklch(98% .002 270);padding:24px;display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer" title="Ver detalles">
+                  <span style="position:absolute;top:12px;left:12px;background:oklch(20% .005 270);color:white;font-size:10px;font-weight:700;padding:4px 8px;border-radius:4px;letter-spacing:0.05em">SKU: {{prod.item_no}}</span>
+                  <img loading="lazy" src="{{prod.image}}" alt="{{prod.name}}" style="max-width:100%;max-height:100%;object-fit:contain"/>
+                </div>
+                <div style="padding:24px;flex-grow:1;display:flex;flex-direction:column;justify-content:center;">
+                  <div style="font-size:12px;color:oklch(58% .22 25);font-weight:700;text-transform:uppercase;margin-bottom:8px">{{prod.series}}</div>
+                  <h4 style="font-family:Oswald,sans-serif;font-size:24px;margin:0 0 12px;color:oklch(20% .005 270);line-height:1.2;">{{prod.name}}</h4>
+                  <div style="display:flex;flex-wrap:wrap;gap:24px;margin-bottom:20px;font-size:13px;color:oklch(40% .005 270);line-height:1.5">
+                    <sc-if value="{{prod.hasDims}}"><div style="flex:1;min-width:200px;"><b>Dim:</b> {{prod.set_up_dimension}}</div></sc-if>
+                    <sc-if value="{{prod.hasWeight}}"><div style="flex:1;min-width:200px;"><b>Peso:</b> {{prod.weight_stack}}</div></sc-if>
+                  </div>
+                  <div style="display:flex;gap:12px;margin-top:auto;">
+                    <button onClick="{{prod.onToggleCart}}" style="background:{{prod.cartBg}};color:{{prod.cartColor}};border:{{prod.cartBorder}};padding:12px 24px;border-radius:6px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.02em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .2s" style-hover="background:{{prod.cartBgHover}};color:white">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                      {{prod.cartText}}
+                    </button>
+                    <a href="{{prod.waLink}}" target="_blank" style="flex-shrink:0;background:#25D366;color:white;border:none;padding:12px 24px;border-radius:6px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.02em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .2s" style-hover="background:#1ebd5c" title="Cotizar rápido por WhatsApp">
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                      WhatsApp
+                    </a>
+                  </div>
+                </div>
+              </div>
+              </sc-for>
+            </div>
+          </sc-if>
+
         </div>
       </sc-if>
 
@@ -949,6 +988,7 @@ class Component extends DCLogic {
     catalogoSearch: '',
     catalogoLimit: 6,
     categoryLimit: 6,
+    catalogoViewMode: 'grid',
     catalogoSort: 'name_asc',
     modalProduct: null,
     catalogoBrands: [],
