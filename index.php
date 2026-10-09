@@ -559,13 +559,8 @@ $marcasJson = json_encode($marcas);
           
           <div style="margin-bottom:24px">
             <h3 style="font-family:Oswald,sans-serif;font-size:18px;margin:0 0 12px;color:oklch(20% .005 270)">Categorías</h3>
-            <div style="display:flex;flex-direction:{{catListDir}};flex-wrap:{{catListWrap}};gap:4px;max-height:450px;overflow-y:auto;padding-right:8px;scrollbar-width:thin;scrollbar-color:oklch(85% 0 0) transparent">
-              <style>
-                .cat-scroll::-webkit-scrollbar { width: 4px; }
-                .cat-scroll::-webkit-scrollbar-track { background: transparent; }
-                .cat-scroll::-webkit-scrollbar-thumb { background: oklch(85% 0 0); border-radius: 4px; }
-              </style>
-              <div class="cat-scroll" style="display:flex;flex-direction:{{catListDir}};gap:4px;flex-grow:1">
+            <div style="display:flex;flex-direction:{{catListDir}};flex-wrap:{{catListWrap}};gap:4px;padding-right:8px;">
+              <div style="display:flex;flex-direction:{{catListDir}};gap:4px;flex-grow:1;flex-wrap:wrap;">
               <sc-for list="{{catalogoFilters}}" as="f">
                 <button onClick="{{f.onClick}}" style="text-align:left;background:{{f.bg}};color:{{f.color}};border:1px solid {{f.border}};padding:8px 12px;border-radius:6px;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s ease">{{f.label}}</button>
               </sc-for>
