@@ -617,7 +617,30 @@ $marcasJson = json_encode($marcas);
           
           
           <sc-if value="{{isViewGrid}}">
-            <div style="display:grid;grid-template-columns:{{gridCols}};gap:24px">
+            
+            <style>
+              .grid-catalogo {
+                display: grid;
+                gap: 24px;
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+              }
+              @media (max-width: 1024px) {
+                .grid-catalogo {
+                  grid-template-columns: repeat(3, minmax(0, 1fr));
+                }
+              }
+              @media (max-width: 768px) {
+                .grid-catalogo {
+                  grid-template-columns: repeat(2, minmax(0, 1fr));
+                }
+              }
+              @media (max-width: 480px) {
+                .grid-catalogo {
+                  grid-template-columns: repeat(1, minmax(0, 1fr));
+                }
+              }
+            </style>
+            <div class="grid-catalogo">
             <sc-for list="{{catalogoProducts}}" as="prod">
               <div style="position:relative;border:1px solid oklch(88% .006 270);border-radius:12px;overflow:hidden;background:white;transition:transform .3s ease,box-shadow .3s ease;display:flex;flex-direction:column;height:100%" style-hover="transform:translateY(-5px);box-shadow:0 16px 32px -12px oklch(20% .01 270 / .15)">
                 
