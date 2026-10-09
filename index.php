@@ -155,7 +155,7 @@ $marcasJson = json_encode($marcas);
       </nav>
       <div style="display:flex;align-items:center;gap:12px;flex-shrink:0">
         <button onClick="{{openGlobalSearch}}" aria-label="Buscar" style="width:40px;height:40px;border-radius:999px;background:oklch(96% .01 270);border:1px solid oklch(90% .006 270);color:oklch(20% .005 270);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s ease" style-hover="background:oklch(58% .22 25);color:white;border-color:oklch(58% .22 25)">
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
         </button>
         <button onClick="{{goToContacto}}" style="display:{{ctaDisplay}};background:linear-gradient(135deg, oklch(58% .22 25), oklch(65% .24 27));color:white;border:none;padding:11px 22px;font-weight:700;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;flex-shrink:0">Cotizar</button>
       </div>
@@ -469,15 +469,15 @@ $marcasJson = json_encode($marcas);
           <p style="color:oklch(70% .008 270);font-size:16px;line-height:1.6;margin:0 0 40px;max-width:400px">Llena el formulario y consigue precios especiales en tus equipos de entrenamiento físico.</p>
           <div style="display:flex;flex-direction:column;gap:22px">
             <div style="display:flex;align-items:center;gap:16px">
-              <span style="width:46px;height:46px;flex-shrink:0;border-radius:10px;background:oklch(58% .22 25);display:flex;align-items:center;justify-content:center;color:white"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.3 1.8.7 2.6a2 2 0 01-.5 2.1L8.1 9.9a16 16 0 006 6l1.5-1.2a2 2 0 012.1-.5c.8.4 1.7.6 2.6.7a2 2 0 011.7 2z"></path></svg></span>
+              <span style="width:46px;height:46px;flex-shrink:0;border-radius:10px;background:oklch(58% .22 25);display:flex;align-items:center;justify-content:center;color:white"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.3 1.8.7 2.6a2 2 0 01-.5 2.1L8.1 9.9a16 16 0 006 6l1.5-1.2a2 2 0 012.1-.5c.8.4 1.7.6 2.6.7a2 2 0 011.7 2z"></path></svg></span>
               <div><div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:oklch(62% .008 270);font-weight:600;margin-bottom:3px">Teléfono</div><div style="font-size:17px;color:oklch(97% 0 0);font-weight:600">312-8011838 · 312-7199008</div></div>
             </div>
             <div style="display:flex;align-items:center;gap:16px">
-              <span style="width:46px;height:46px;flex-shrink:0;border-radius:10px;background:oklch(58% .22 25);display:flex;align-items:center;justify-content:center;color:white"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="M2 6l10 7 10-7"></path></svg></span>
+              <span style="width:46px;height:46px;flex-shrink:0;border-radius:10px;background:oklch(58% .22 25);display:flex;align-items:center;justify-content:center;color:white"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="M2 6l10 7 10-7"></path></svg></span>
               <div><div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:oklch(62% .008 270);font-weight:600;margin-bottom:3px">Email</div><div style="font-size:17px;color:oklch(97% 0 0);font-weight:600">fitnesslifesas@gmail.com</div></div>
             </div>
             <div style="display:flex;align-items:center;gap:16px">
-              <span style="width:46px;height:46px;flex-shrink:0;border-radius:10px;background:oklch(58% .22 25);display:flex;align-items:center;justify-content:center;color:white"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1116 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></span>
+              <span style="width:46px;height:46px;flex-shrink:0;border-radius:10px;background:oklch(58% .22 25);display:flex;align-items:center;justify-content:center;color:white"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1116 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></span>
               <div><div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:oklch(62% .008 270);font-weight:600;margin-bottom:3px">Ubicación</div><div style="font-size:17px;color:oklch(97% 0 0);font-weight:600">Cali, Colombia · Cobertura nacional</div></div>
             </div>
           </div>
@@ -605,27 +605,63 @@ $marcasJson = json_encode($marcas);
               <button onClick="{{setGridView}}" style="width:36px;height:36px;border-radius:6px;border:1px solid oklch(85% 0 0);background:{{gridBg}};color:{{gridColor}};display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s" title="Vista en bloques"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M4 4h6v6H4V4zm10 0h6v6h-6V4zM4 14h6v6H4v-6zm10 0h6v6h-6v-6z"/></svg></button>
               <button onClick="{{setTableView}}" style="width:36px;height:36px;border-radius:6px;border:1px solid oklch(85% 0 0);background:{{tableBg}};color:{{tableColor}};display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s" title="Vista en lista"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M3 4h18v4H3V4zm0 6h18v4H3v-4zm0 6h18v4H3v-4z"/></svg></button>
             </div>
-            <select onChange="{{onCatalogoSort}}" value="{{catalogoSort}}" style="padding:8px 16px;border-radius:6px;border:1px solid oklch(85% 0 0);font-size:13px;color:oklch(20% .005 270);outline:none;cursor:pointer;background:white">
-              <option value="name_asc">Nombre (A-Z)</option>
-              <option value="name_desc">Nombre (Z-A)</option>
-              <option value="series_asc">Marca (A-Z)</option>
-            </select>
+            
+            <div style="display:flex;align-items:center;gap:16px">
+              
+              <sc-if value="{{hasPagination}}">
+                <div style="display:flex;align-items:center;gap:4px">
+                  <sc-if value="{{prevPageDisabled}}" hint-placeholder-val="{{false}}">
+                     <button disabled style="width:32px;height:32px;border-radius:6px;border:1px solid oklch(90% 0 0);background:oklch(98% 0 0);color:oklch(80% 0 0);display:flex;align-items:center;justify-content:center;cursor:not-allowed">
+                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                     </button>
+                  </sc-if>
+                  <sc-if value="{{prevPageEnabled}}" hint-placeholder-val="{{true}}">
+                     <button onClick="{{onPrevPage}}" style="width:32px;height:32px;border-radius:6px;border:1px solid oklch(80% 0 0);background:white;color:oklch(20% .005 270);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s" style-hover="background:oklch(96% 0 0)">
+                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                     </button>
+                  </sc-if>
+                  
+                  <sc-for list="{{catalogoPages}}" as="pg">
+                    <button onClick="{{pg.onClick}}" style="min-width:32px;height:32px;border-radius:6px;border:{{pg.border}};background:{{pg.bg}};color:{{pg.color}};font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;padding:0 6px">
+                      {{pg.num}}
+                    </button>
+                  </sc-for>
+
+                  <sc-if value="{{nextPageDisabled}}" hint-placeholder-val="{{false}}">
+                     <button disabled style="width:32px;height:32px;border-radius:6px;border:1px solid oklch(90% 0 0);background:oklch(98% 0 0);color:oklch(80% 0 0);display:flex;align-items:center;justify-content:center;cursor:not-allowed">
+                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                     </button>
+                  </sc-if>
+                  <sc-if value="{{nextPageEnabled}}" hint-placeholder-val="{{true}}">
+                     <button onClick="{{onNextPage}}" style="width:32px;height:32px;border-radius:6px;border:1px solid oklch(80% 0 0);background:white;color:oklch(20% .005 270);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s" style-hover="background:oklch(96% 0 0)">
+                       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                     </button>
+                  </sc-if>
+                </div>
+              </sc-if>
+
+              <select onChange="{{onCatalogoSort}}" value="{{catalogoSort}}" style="padding:8px 16px;border-radius:6px;border:1px solid oklch(85% 0 0);font-size:13px;color:oklch(20% .005 270);outline:none;cursor:pointer;background:white">
+                <option value="name_asc">Nombre (A-Z)</option>
+                <option value="name_desc">Nombre (Z-A)</option>
+                <option value="series_asc">Marca (A-Z)</option>
+              </select>
+            </div>
           </div>
           
           
           <sc-if value="{{isViewGrid}}">
-            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px">
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:24px">
             <sc-for list="{{catalogoProducts}}" as="prod">
               <div style="position:relative;border:1px solid oklch(88% .006 270);border-radius:12px;overflow:hidden;background:white;transition:transform .3s ease,box-shadow .3s ease;display:flex;flex-direction:column;height:100%" style-hover="transform:translateY(-5px);box-shadow:0 16px 32px -12px oklch(20% .01 270 / .15)">
                 
-                <div onClick="{{prod.onOpen}}" style="height:240px;background:oklch(98% .002 270);padding:24px;display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer" title="Ver detalles">
+                <div onClick="{{prod.onOpen}}" style="height:160px;background:oklch(98% .002 270);padding:16px;display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer" title="Ver detalles">
                   <span style="position:absolute;top:12px;left:12px;background:oklch(20% .005 270);color:white;font-size:10px;font-weight:700;padding:4px 8px;border-radius:4px;letter-spacing:0.05em">SKU: {{prod.item_no}}</span>
                   <img loading="lazy" sc-camel-src="{{prod.image}}" alt="{{prod.name}}" style="max-width:100%;max-height:100%;object-fit:contain"/>
                 </div>
 
-                <div style="padding:24px;flex-grow:1;display:flex;flex-direction:column">
+                <div style="padding:16px;flex-grow:1;display:flex;flex-direction:column">
                   <div style="font-size:12px;color:oklch(58% .22 25);font-weight:700;text-transform:uppercase;margin-bottom:8px">{{prod.series}}</div>
-                  <h4 style="font-family:Oswald,sans-serif;font-size:20px;margin:0 0 12px;color:oklch(20% .005 270);line-height:1.2;flex-grow:1">{{prod.name}}</h4>
+                  <h4 style="font-family:Oswald,sans-serif;font-size:16px;margin:0 0 8px;color:oklch(20% .005 270);line-height:1.2;flex-grow:1">{{prod.name}}</h4>
                   
                   <!-- ESPECIFICACIONES (ocultas por defecto, pero mostradas si hay) -->
                   <div style="margin-bottom:20px;font-size:12px;color:oklch(40% .005 270);line-height:1.5">
@@ -634,12 +670,12 @@ $marcasJson = json_encode($marcas);
                   </div>
 
                   <div style="display:flex;gap:8px">
-                    <button onClick="{{prod.onToggleCart}}" style="flex-grow:1;background:{{prod.cartBg}};color:{{prod.cartColor}};border:{{prod.cartBorder}};padding:12px 8px;border-radius:6px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.02em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:background .2s" style-hover="background:{{prod.cartBgHover}};color:white">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                    <button onClick="{{prod.onToggleCart}}" style="flex-grow:1;background:{{prod.cartBg}};color:{{prod.cartColor}};border:{{prod.cartBorder}};padding:10px 8px;border-radius:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.02em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:background .2s" style-hover="background:{{prod.cartBgHover}};color:white">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
                       {{prod.cartText}}
                     </button>
                     <a href="{{prod.waLink}}" target="_blank" style="flex-shrink:0;background:#25D366;color:white;border:none;padding:12px;border-radius:6px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s" style-hover="background:#1ebd5c" title="Cotizar rápido por WhatsApp">
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
                     </a>
                   </div>
                 </div>
@@ -688,17 +724,10 @@ $marcasJson = json_encode($marcas);
             </sc-if>
           </div>
           
-          <sc-if value="{{hasPagination}}">
-            <div style="display:flex;justify-content:center;align-items:center;gap:8px;margin-top:50px">
-              
-              <sc-if value="{{prevPageDisabled}}" hint-placeholder-val="{{false}}">
-                 <button disabled style="width:40px;height:40px;border-radius:8px;border:1px solid oklch(90% 0 0);background:oklch(98% 0 0);color:oklch(80% 0 0);display:flex;align-items:center;justify-content:center;cursor:not-allowed">
-                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                 </button>
-              </sc-if>
+          
               <sc-if value="{{prevPageEnabled}}" hint-placeholder-val="{{true}}">
                  <button onClick="{{onPrevPage}}" style="width:40px;height:40px;border-radius:8px;border:1px solid oklch(80% 0 0);background:white;color:oklch(20% .005 270);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s" style-hover="background:oklch(96% 0 0)">
-                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
                  </button>
               </sc-if>
               
@@ -710,12 +739,12 @@ $marcasJson = json_encode($marcas);
 
               <sc-if value="{{nextPageDisabled}}" hint-placeholder-val="{{false}}">
                  <button disabled style="width:40px;height:40px;border-radius:8px;border:1px solid oklch(90% 0 0);background:oklch(98% 0 0);color:oklch(80% 0 0);display:flex;align-items:center;justify-content:center;cursor:not-allowed">
-                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                  </button>
               </sc-if>
               <sc-if value="{{nextPageEnabled}}" hint-placeholder-val="{{true}}">
                  <button onClick="{{onNextPage}}" style="width:40px;height:40px;border-radius:8px;border:1px solid oklch(80% 0 0);background:white;color:oklch(20% .005 270);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s" style-hover="background:oklch(96% 0 0)">
-                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
                  </button>
               </sc-if>
               
@@ -731,7 +760,7 @@ $marcasJson = json_encode($marcas);
           <div style="background:white;width:100%;max-width:1100px;border-radius:16px;display:flex;flex-direction:{{catLayoutDir}};overflow-y:auto;box-shadow:0 30px 60px -15px oklch(20% .01 270 / .4);position:relative;max-height:90vh;animation:slideFade .3s ease-out">
             
             <button onClick="{{closeModal}}" aria-label="Cerrar" style="position:absolute;top:20px;right:20px;z-index:20;width:36px;height:36px;border-radius:999px;background:oklch(96% 0 0);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s" style-hover="background:oklch(90% 0 0)">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"></path></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6L6 18M6 6l12 12"></path></svg>
             </button>
 
             <!-- Foto -->
@@ -812,7 +841,7 @@ $marcasJson = json_encode($marcas);
       
       <div style="text-align:center;max-width:600px;margin:0 auto 56px">
         <button onClick="{{goBackHistory}}" style="display:inline-flex;align-items:center;gap:6px;background:none;border:none;color:oklch(42% .01 270);font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;cursor:pointer;margin-bottom:24px;transition:color .2s" style-hover="color:oklch(58% .22 25)">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
           Volver atrás
         </button>
         <div style="font-size:12px;letter-spacing:0.3em;color:oklch(58% .22 25);font-weight:700;text-transform:uppercase;margin-bottom:14px">Cotización</div>
@@ -890,7 +919,7 @@ $marcasJson = json_encode($marcas);
     </main>
   </sc-if>
 
-  <button onClick="{{scrollTop}}" aria-label="Volver arriba" style="position:fixed;left:16px;bottom:16px;z-index:120;width:46px;height:46px;border-radius:999px;background:oklch(20% .006 270);color:white;border:1px solid oklch(38% .008 270);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:{{topBtnOpacity}};pointer-events:{{topBtnPointer}};box-shadow:0 10px 24px -10px oklch(20% .01 270 / .5);transition:opacity .35s ease,transform .3s cubic-bezier(.2,.8,.2,1),background .3s ease" style-hover="transform:translateY(-4px);background:oklch(58% .22 25)"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"></path></svg></button>
+  <button onClick="{{scrollTop}}" aria-label="Volver arriba" style="position:fixed;left:16px;bottom:16px;z-index:120;width:46px;height:46px;border-radius:999px;background:oklch(20% .006 270);color:white;border:1px solid oklch(38% .008 270);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:{{topBtnOpacity}};pointer-events:{{topBtnPointer}};box-shadow:0 10px 24px -10px oklch(20% .01 270 / .5);transition:opacity .35s ease,transform .3s cubic-bezier(.2,.8,.2,1),background .3s ease" style-hover="transform:translateY(-4px);background:oklch(58% .22 25)"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"></path></svg></button>
 
   <a href="https://wa.me/573128011838" target="_blank" rel="noopener" aria-label="WhatsApp" style="position:fixed;right:24px;bottom:100px;z-index:120;width:58px;height:58px;border-radius:999px;background:#25D366;color:white;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px -8px oklch(20% .01 270 / .5);transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s ease" style-hover="transform:scale(1.09);box-shadow:0 18px 34px -10px oklch(20% .01 270 / .6)"><svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M12 2a9.9 9.9 0 00-8.5 15L2 22l5.2-1.4A10 10 0 1012 2zm5.6 14.1c-.2.7-1.3 1.3-1.9 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.4.5c-.1.1-.3.3-.1.6.1.3.6 1.1 1.4 1.8 1 .9 1.8 1.1 2 1.2.3.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l2 1c.2.1.4.2.4.3.1.2.1.7-.1 1.3z"></path></svg></a>
 
@@ -907,7 +936,7 @@ $marcasJson = json_encode($marcas);
           </div>
           <div style="font-size:11px;letter-spacing:0.12em;color:oklch(98% 0 0);text-transform:uppercase;font-weight:700;margin-bottom:10px">Síguenos en redes</div>
           <div style="display:flex;gap:10px">
-            <a href="https://www.instagram.com/fitnesslifesas/?hl=es" target="_blank" rel="noopener" aria-label="Instagram" style="width:38px;height:38px;border-radius:999px;border:1px solid oklch(34% .006 270);display:flex;align-items:center;justify-content:center;color:oklch(92% .003 270);transition:background .3s ease,color .3s ease,border-color .3s ease" style-hover="background:oklch(58% .22 25);border-color:oklch(58% .22 25);color:white"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.8" cy="6.2" r="1.2" fill="currentColor" stroke="none"></circle></svg></a>
+            <a href="https://www.instagram.com/fitnesslifesas/?hl=es" target="_blank" rel="noopener" aria-label="Instagram" style="width:38px;height:38px;border-radius:999px;border:1px solid oklch(34% .006 270);display:flex;align-items:center;justify-content:center;color:oklch(92% .003 270);transition:background .3s ease,color .3s ease,border-color .3s ease" style-hover="background:oklch(58% .22 25);border-color:oklch(58% .22 25);color:white"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="16" height="16" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.8" cy="6.2" r="1.2" fill="currentColor" stroke="none"></circle></svg></a>
             <a href="https://www.facebook.com/fitnesslifesas" target="_blank" rel="noopener" style="width:38px;height:38px;border-radius:999px;border:1px solid oklch(34% .006 270);display:flex;align-items:center;justify-content:center;color:oklch(92% .003 270);transition:background .3s ease,color .3s ease,border-color .3s ease" style-hover="background:oklch(58% .22 25);border-color:oklch(58% .22 25);color:white"><svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor"><path d="M14.5 8.5V6.9c0-.8.2-1.2 1.4-1.2h1.5V2.8c-.3 0-1.2-.1-2.3-.1-2.4 0-4 1.4-4 4.1v1.7H8.4v3h2.7V21h3.4v-8.5h2.6l.4-3h-3z"></path></svg></a>
             <a href="https://wa.me/573128011838" target="_blank" rel="noopener" style="width:38px;height:38px;border-radius:999px;border:1px solid oklch(34% .006 270);display:flex;align-items:center;justify-content:center;color:oklch(92% .003 270);transition:background .3s ease,color .3s ease,border-color .3s ease" style-hover="background:oklch(58% .22 25);border-color:oklch(58% .22 25);color:white"><svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2a9.9 9.9 0 00-8.5 15L2 22l5.2-1.4A10 10 0 1012 2zm5.6 14.1c-.2.7-1.3 1.3-1.9 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.4.5c-.1.1-.3.3-.1.6.1.3.6 1.1 1.4 1.8 1 .9 1.8 1.1 2 1.2.3.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l2 1c.2.1.4.2.4.3.1.2.1.7-.1 1.3z"></path></svg></a>
           </div>
