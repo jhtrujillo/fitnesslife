@@ -1129,7 +1129,7 @@ class Component extends DCLogic {
       return { quote: { ...s.quote, [key]: v }, quoteErrors: errs };
     });
   };
-  submitQuote = () => {
+  submitQuote = async () => {
     const q = this.state.quote;
     const errors = {};
     if (!q.name.trim()) errors.name = 'Ingresa tu nombre';
@@ -1139,6 +1139,17 @@ class Component extends DCLogic {
     if (!digits) errors.phone = 'Ingresa tu teléfono';
     else if (digits.length < 7) errors.phone = 'Teléfono incompleto';
     if (Object.keys(errors).length) { this.setState({ quoteErrors: errors }); return; }
+    
+    try {
+      await fetch('v1/cotizaciones/send_quote.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...q, items: [] })
+      });
+    } catch(err) {
+      console.error(err);
+    }
+    
     this.setState({
       quoteSent: true,
       quoteName: q.name.trim().split(' ')[0],
@@ -1382,7 +1393,7 @@ class Component extends DCLogic {
     e.preventDefault();
     const fd = new FormData(e.target);
     const data = Object.fromEntries(fd.entries());
-    data.items = []; // no items for general contact
+    data.items = this.state.cart.map(c => ({ item_no: c.item_no, name: c.name, qty: c.qty || 1 }));
     
     try {
       await fetch('v1/cotizaciones/send_quote.php', {
@@ -1394,7 +1405,7 @@ class Component extends DCLogic {
       console.error(err);
     }
     
-    this.setState({ formSubmitted: true });
+    this.setState({ formSubmitted: true, cart: [] });
   };
 
   renderVals() {
@@ -1693,7 +1704,25 @@ class Component extends DCLogic {
       
       modalOpen: !!this.state.modalProduct,
       closeModal: this.closeModal,
-      modalProd: this.state.modalProduct || {},
+      modalProd: (() => {
+        const mp = this.state.modalProduct;
+        if (!mp) return {};
+        const item_no = mp.item_no || 'N/A';
+        const inCart = this.state.cart.some(c => c.item_no === item_no);
+        const cartText = inCart ? 'Añadido ✓' : 'Añadir';
+        const cartBg = inCart ? 'oklch(96% 0 0)' : 'oklch(20% .005 270)';
+        const cartColor = inCart ? 'oklch(20% .005 270)' : 'white';
+        const cartBorder = inCart ? '1px solid oklch(80% 0 0)' : '1px solid transparent';
+        return { 
+          ...mp, 
+          inCart, 
+          cartText, 
+          cartBg, 
+          cartColor, 
+          cartBorder,
+          onToggleCart: this.toggleCart({ ...mp, item_no }) 
+        };
+      })(),
       modalImages: (() => {
         const mp = this.state.modalProduct;
         if (!mp) return [];
