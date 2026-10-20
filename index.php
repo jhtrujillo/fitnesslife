@@ -355,6 +355,23 @@ $seriesJson = json_encode($series);
       </div>
     </section>
 
+    <section id="diseno-3d" style="padding:{{secPad}};background:oklch(12% .005 270);position:relative;overflow:hidden">
+      <div style="position:absolute;top:-160px;left:-120px;width:520px;height:520px;border-radius:999px;background:radial-gradient(circle,oklch(58% .22 25 / .28),transparent 65%);pointer-events:none"></div>
+      <div style="max-width:1280px;margin:0 auto;position:relative;display:grid;grid-template-columns:{{grid2}};gap:48px;align-items:center">
+        <div style="position:relative;border-radius:22px;overflow:hidden;background:oklch(8% .005 270);aspect-ratio:16/9;box-shadow:0 40px 80px -30px oklch(58% .22 25 / .45),0 0 0 1px oklch(58% .22 25 / .35)">
+          <video src="assets/diseno3d_gimnasios.mp4" sc-camel-src="assets/diseno3d_gimnasios.mp4" autoPlay="{{true}}" muted="{{true}}" loop="{{true}}" playsInline="{{true}}" preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block"></video>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:22px;min-width:0">
+          <div style="display:flex;align-items:center;gap:12px;font-size:12px;letter-spacing:0.3em;color:oklch(68% .22 27);font-weight:700;text-transform:uppercase"><span style="width:44px;height:2px;background:oklch(58% .22 25)"></span>Diseño 3D</div>
+          <h2 style="font-family:Oswald,sans-serif;font-size:clamp(32px,4.4vw,56px);line-height:1.05;font-weight:700;margin:0;text-transform:uppercase;color:white;text-wrap:balance">Diseñamos tu gimnasio en 3D <span style="color:oklch(64% .23 27)">gratis</span> al equiparlo con nosotros</h2>
+          <p style="color:oklch(80% .006 270);font-size:17px;line-height:1.6;margin:0;text-wrap:pretty">Visualiza la distribución de tus equipos, zonas y circulación antes de invertir. Nuestro equipo modela tu espacio para que tomes decisiones con seguridad.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:12px">
+            <a href="#" onClick="{{goToContacto}}" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg, oklch(58% .22 25), oklch(65% .24 27));color:white;padding:16px 30px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;font-size:13px;min-height:52px;box-sizing:border-box;border-radius:999px;transition:transform .3s ease,box-shadow .3s ease" style-hover="transform:translateY(-3px);box-shadow:0 18px 36px -12px oklch(58% .22 25 / .6);color:white">Solicita tu diseño 3D →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="portafolio" style="padding:{{bandPad}};overflow:hidden;position:relative;background:oklch(97% .002 270)">
       <div style="text-align:center;max-width:640px;margin:0 auto 40px;padding:0 24px">
         <div style="font-size:12px;letter-spacing:0.3em;color:oklch(58% .22 25);font-weight:700;text-transform:uppercase;margin-bottom:14px">Portafolio</div>
