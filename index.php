@@ -43,6 +43,10 @@ try {
             if (!$chkSerie) {
                 $pdo->exec("ALTER TABLE productos ADD COLUMN serie VARCHAR(100) DEFAULT NULL;");
             }
+            $chkActivo = $pdo->query("SHOW COLUMNS FROM productos LIKE 'activo'")->fetch();
+            if (!$chkActivo) {
+                $pdo->exec("ALTER TABLE productos ADD COLUMN activo TINYINT(1) NOT NULL DEFAULT 1;");
+            }
             // Auto-discover series per category
             $distinctPairs = $pdo->query("SELECT DISTINCT serie, categoria_id FROM productos WHERE serie IS NOT NULL AND TRIM(serie) != ''")->fetchAll(PDO::FETCH_ASSOC);
             foreach ($distinctPairs as $dp) {
@@ -68,7 +72,12 @@ try {
         } catch (Exception $e) {}
     }
 
-    $stmt = $pdo->query("SELECT p.*, COALESCE(s.pos, 999999) AS serie_pos FROM productos p LEFT JOIN series s ON (p.serie COLLATE utf8mb4_general_ci = s.name COLLATE utf8mb4_general_ci AND (s.categoria_id = p.categoria_id OR s.categoria_id IS NULL)) ORDER BY serie_pos ASC, p.series ASC, p.name ASC");
+    try {
+        $stmt = $pdo->query("SELECT p.*, COALESCE(s.pos, 999999) AS serie_pos FROM productos p LEFT JOIN series s ON (p.serie COLLATE utf8mb4_general_ci = s.name COLLATE utf8mb4_general_ci AND (s.categoria_id = p.categoria_id OR s.categoria_id IS NULL)) WHERE COALESCE(p.activo, 1) = 1 ORDER BY serie_pos ASC, p.series ASC, p.name ASC");
+    } catch (Exception $e) {
+        try { $pdo->exec("ALTER TABLE productos ADD COLUMN activo TINYINT(1) NOT NULL DEFAULT 1;"); } catch (Exception $ex) {}
+        $stmt = $pdo->query("SELECT p.*, COALESCE(s.pos, 999999) AS serie_pos FROM productos p LEFT JOIN series s ON (p.serie COLLATE utf8mb4_general_ci = s.name COLLATE utf8mb4_general_ci AND (s.categoria_id = p.categoria_id OR s.categoria_id IS NULL)) WHERE COALESCE(p.activo, 1) = 1 ORDER BY serie_pos ASC, p.series ASC, p.name ASC");
+    }
     $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
     foreach($productos as &$p) {
         $p['media_json'] = (array_key_exists('media_json', $p) && !empty($p['media_json'])) ? json_decode($p['media_json'], true) : [];

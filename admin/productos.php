@@ -8,6 +8,29 @@ if (isset($_GET['delete'])) {
     header("Location: productos.php"); exit;
 }
 
+// Alternar estado activo/inactivo de un producto individual (AJAX o GET)
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'toggle_activo') {
+    header('Content-Type: application/json; charset=utf-8');
+    $id = intval($_POST['id'] ?? 0);
+    $activo = intval($_POST['activo'] ?? 1) ? 1 : 0;
+    if ($id > 0) {
+        $stmt = $pdo->prepare("UPDATE productos SET activo = ? WHERE id = ?");
+        $stmt->execute([$activo, $id]);
+        echo json_encode(['ok' => true, 'id' => $id, 'activo' => $activo]);
+    } else {
+        echo json_encode(['ok' => false, 'error' => 'ID inválido']);
+    }
+    exit;
+}
+
+if (isset($_GET['toggle_activo'])) {
+    $id = intval($_GET['toggle_activo']);
+    if ($id > 0) {
+        $pdo->prepare("UPDATE productos SET activo = IF(COALESCE(activo, 1) = 1, 0, 1) WHERE id = ?")->execute([$id]);
+    }
+    header("Location: productos.php"); exit;
+}
+
 // Procesar edición masiva (en lote)
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'bulk_update') {
     $ids = isset($_POST['selected_ids']) ? explode(',', $_POST['selected_ids']) : [];
@@ -20,6 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         $serieVal = trim($_POST['bulk_serie'] ?? '');
         $codeMode = $_POST['bulk_item_no_mode'] ?? 'KEEP';
         $codeVal = trim($_POST['bulk_item_no'] ?? '');
+        $activoVal = $_POST['bulk_activo'] ?? 'KEEP';
         
         $updates = [];
         $params = [];
@@ -64,6 +88,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             }
         } else if ($serieMode === 'CLEAR') {
             $updates[] = "serie = NULL";
+        }
+
+        if ($activoVal === '1' || $activoVal === '0') {
+            $updates[] = "activo = ?";
+            $params[] = intval($activoVal);
         }
         
         if (!empty($updates)) {
@@ -117,7 +146,7 @@ function getProductImgUrl($rawImg, $mediaJson = null) {
     return '../cotizaciones/' . $img;
 }
 
-$sql = "SELECT id, name, item_no, series, serie, categoria_id, price, img, media_json FROM productos ORDER BY id DESC ";
+$sql = "SELECT id, name, item_no, series, serie, categoria_id, price, img, media_json, COALESCE(activo, 1) AS activo FROM productos ORDER BY id DESC ";
 $stmt = $pdo->query($sql);
 $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $cats = $pdo->query("SELECT id, name FROM categorias ORDER BY pos ASC")->fetchAll(PDO::FETCH_ASSOC);
@@ -130,10 +159,43 @@ include 'header.php';
 
 <style>
 .products-table tr.selected-row { background: #eef6fc !important; }
-.product-card { position: relative; transition: border-color 0.2s, box-shadow 0.2s; }
+.products-table tr.inactive-row td:not(.checkbox-cell):not(.status-cell):not(.actions-cell) { opacity: 0.55; }
+.product-card { position: relative; transition: border-color 0.2s, box-shadow 0.2s, opacity 0.2s; }
+.product-card.inactive-card .card-media-box, .product-card.inactive-card .searchable-card { opacity: 0.55; }
 .product-card.selected-card { border-color: #457b9d !important; box-shadow: 0 0 0 2px #457b9d, 0 6px 16px rgba(69,123,157,0.2) !important; background: #f8fbfe !important; }
 .card-checkbox-badge { position: absolute; top: 12px; left: 12px; z-index: 10; background: rgba(255,255,255,0.95); border: 1px solid #ddd; border-radius: 6px; padding: 4px 6px; display: flex; align-items: center; box-shadow: 0 2px 5px rgba(0,0,0,0.1); cursor: pointer; }
 .card-checkbox-badge:hover { background: #fff; border-color: #457b9d; }
+.toggle-activo-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+    font-family: 'Inter', sans-serif;
+    white-space: nowrap;
+}
+.toggle-activo-btn.is-active {
+    background: #e6fffa;
+    color: #234e52;
+    border-color: #81e6d9;
+}
+.toggle-activo-btn.is-active:hover {
+    background: #b2f5ea;
+}
+.toggle-activo-btn.is-inactive {
+    background: #f1f5f9;
+    color: #64748b;
+    border-color: #cbd5e1;
+}
+.toggle-activo-btn.is-inactive:hover {
+    background: #e2e8f0;
+    color: #334155;
+}
 @media (max-width: 768px) {
   .products-table td.checkbox-cell { grid-column: 1 / -1; display: flex; align-items: center; gap: 8px; border-bottom: 1px dashed #eee !important; padding: 6px 0 !important; }
 }
@@ -175,6 +237,11 @@ include 'header.php';
                     <?php foreach ($seriesList as $s): ?>
                         <option value="<?= htmlspecialchars($s['name']) ?>"><?= htmlspecialchars($s['name']) ?></option>
                     <?php endforeach; ?>
+                </select>
+                <select id="statusFilterTop" class="form-group" style="margin:0; padding:8px 12px; background:#f7f7f7; border:1px solid #e5e5e5; border-radius:6px; outline:none; font-size:13px;">
+                    <option value="">Todos los estados</option>
+                    <option value="1">🟢 Activos</option>
+                    <option value="0">⚪ Inactivos</option>
                 </select>
                 <a href="series.php" style="font-size:12px; color:#457b9d; text-decoration:none; font-weight:600; display:inline-flex; align-items:center; gap:4px; background:#eef6fc; padding:8px 12px; border-radius:6px; border:1px solid #d0e2f2;" title="Configurar el orden de las series">⚙️ Ordenar series</a>
             </div>
@@ -241,12 +308,23 @@ include 'header.php';
                     </th>
                     <th>NOMBRE DEL EQUIPO</th>
                     <th style="width: 120px">PRECIO REF.</th>
+                    <th style="width: 115px">
+                        <div style="display:flex; flex-direction:column; gap:6px;">
+                            <span>ESTADO WEB</span>
+                            <select id="statusFilter" style="padding:4px 8px; background:#f7f7f7; border:1px solid #ccc; border-radius:4px; outline:none; font-size:11px; font-weight:normal; width:100%;">
+                                <option value="">Todos</option>
+                                <option value="1">🟢 Activos</option>
+                                <option value="0">⚪ Inactivos</option>
+                            </select>
+                        </div>
+                    </th>
                     <th style="width: 120px; text-align: right">ACCIONES</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($productos as $p): ?>
-                    <tr class="product-row" data-id="<?= $p['id'] ?>" data-cat="<?= htmlspecialchars($p['categoria_id'] ?? '') ?>" data-brand="<?= htmlspecialchars($p['series'] ?? '') ?>" data-serie="<?= htmlspecialchars($p['serie'] ?? '') ?>">
+                    <?php $isActivo = (int)($p['activo'] ?? 1) === 1; ?>
+                    <tr class="product-row <?= $isActivo ? '' : 'inactive-row' ?>" data-id="<?= $p['id'] ?>" data-cat="<?= htmlspecialchars($p['categoria_id'] ?? '') ?>" data-brand="<?= htmlspecialchars($p['series'] ?? '') ?>" data-serie="<?= htmlspecialchars($p['serie'] ?? '') ?>" data-activo="<?= $isActivo ? '1' : '0' ?>">
                         <td class="checkbox-cell" data-label="Sel" style="text-align: center;">
                             <input type="checkbox" class="prod-checkbox" value="<?= $p['id'] ?>" style="cursor: pointer; width: 16px; height: 16px;">
                         </td>
@@ -266,13 +344,18 @@ include 'header.php';
                         <td class="searchable" data-label="Serie"><?= htmlspecialchars($p['serie'] ?: '-') ?></td>
                         <td class="searchable" data-label="Nombre" style="font-weight: 500;"><?= htmlspecialchars($p['name'] ?? '') ?></td>
                         <td data-label="Precio Ref.">$ <?= number_format((float)$p['price'], 0, ',', '.') ?></td>
+                        <td class="status-cell" data-label="Estado Web">
+                            <button type="button" class="toggle-activo-btn <?= $isActivo ? 'is-active' : 'is-inactive' ?>" data-id="<?= $p['id'] ?>" data-activo="<?= $isActivo ? '1' : '0' ?>" title="Clic para <?= $isActivo ? 'desactivar (ocultar en web)' : 'activar (mostrar en web)' ?>">
+                                <?= $isActivo ? '🟢 Activo' : '⚪ Inactivo' ?>
+                            </button>
+                        </td>
                         <td class="actions-cell" data-label="Acciones" style="text-align: right; white-space: nowrap;">
                             <a href="producto_form.php?id=<?= $p['id'] ?>" style="background: transparent; border: 1px solid #ccc; border-radius: 4px; padding: 6px 10px; cursor: pointer; margin-right: 4px; text-decoration: none; display: inline-block; color: #333;">✏️</a>
                             <a href="productos.php?delete=<?= $p['id'] ?>" style="background: transparent; border: 1px solid #ffcccc; color: #e63946; border-radius: 4px; padding: 6px 10px; cursor: pointer; text-decoration: none; display: inline-block;" onclick="return confirm('¿Estás seguro de eliminar este producto? Esta acción no se puede deshacer.');">🗑️</a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
-                <tr id="noResultsRow" style="display:none;"><td colspan="9" style="text-align:center; padding:40px; color:#718096;">No se encontraron productos.</td></tr>
+                <tr id="noResultsRow" style="display:none;"><td colspan="10" style="text-align:center; padding:40px; color:#718096;">No se encontraron productos.</td></tr>
             </tbody>
         </table>
     </div>
@@ -280,11 +363,17 @@ include 'header.php';
     <div id="gridView" style="display:none; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 24px; margin-top:20px;">
         <?php foreach ($productos as $p): ?>
             <?php $img = getProductImgUrl($p['img'] ?? '', $p['media_json'] ?? ''); ?>
-            <div class="product-card" data-id="<?= $p['id'] ?>" data-cat="<?= htmlspecialchars($p['categoria_id'] ?? '') ?>" data-brand="<?= htmlspecialchars($p['series'] ?? '') ?>" data-serie="<?= htmlspecialchars($p['serie'] ?? '') ?>" style="background: white; border: 1px solid #eee; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); display: flex; flex-direction: column;">
+            <?php $isActivo = (int)($p['activo'] ?? 1) === 1; ?>
+            <div class="product-card <?= $isActivo ? '' : 'inactive-card' ?>" data-id="<?= $p['id'] ?>" data-cat="<?= htmlspecialchars($p['categoria_id'] ?? '') ?>" data-brand="<?= htmlspecialchars($p['series'] ?? '') ?>" data-serie="<?= htmlspecialchars($p['serie'] ?? '') ?>" data-activo="<?= $isActivo ? '1' : '0' ?>" style="background: white; border: 1px solid #eee; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); display: flex; flex-direction: column;">
                 <label class="card-checkbox-badge" title="Seleccionar equipo">
                     <input type="checkbox" class="prod-checkbox" value="<?= $p['id'] ?>" style="cursor: pointer; width: 18px; height: 18px; margin: 0;">
                 </label>
-                <div style="height: 220px; display: flex; align-items: center; justify-content: center; background: #fdfdfd; padding: 16px;">
+                <div style="position: absolute; top: 12px; right: 12px; z-index: 10;">
+                    <button type="button" class="toggle-activo-btn <?= $isActivo ? 'is-active' : 'is-inactive' ?>" data-id="<?= $p['id'] ?>" data-activo="<?= $isActivo ? '1' : '0' ?>" title="Clic para <?= $isActivo ? 'desactivar (ocultar en web)' : 'activar (mostrar en web)' ?>" style="box-shadow: 0 2px 5px rgba(0,0,0,0.08);">
+                        <?= $isActivo ? '🟢 Activo' : '⚪ Inactivo' ?>
+                    </button>
+                </div>
+                <div class="card-media-box" style="height: 220px; display: flex; align-items: center; justify-content: center; background: #fdfdfd; padding: 16px;">
                     <?php if ($img): ?>
                         <img src="<?= htmlspecialchars($img) ?>" style="max-width: 100%; max-height: 100%; object-fit: contain;" onerror="this.style.display='none'">
                     <?php else: ?>
@@ -360,6 +449,15 @@ include 'header.php';
             <input type="hidden" name="selected_ids" id="selectedIdsInput" value="">
             
             <div class="form-group" style="margin-bottom: 16px;">
+                <label style="display: block; font-weight: 600; font-size: 13px; margin-bottom: 6px; color: #1d3557;">Estado en Catálogo Web</label>
+                <select name="bulk_activo" id="bulkActivoSelect" style="width: 100%; padding: 10px 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; background: #fdfdfd; box-sizing: border-box;">
+                    <option value="KEEP">-- No cambiar (Mantener actual) --</option>
+                    <option value="1">🟢 Activar (Mostrar en catálogo web)</option>
+                    <option value="0">⚪ Desactivar (Ocultar del catálogo web)</option>
+                </select>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 16px;">
                 <label style="display: block; font-weight: 600; font-size: 13px; margin-bottom: 6px; color: #1d3557;">Categoría</label>
                 <select name="bulk_categoria" id="bulkCatSelect" style="width: 100%; padding: 10px 12px; border: 1px solid #ccc; border-radius: 6px; font-size: 14px; background: #fdfdfd; box-sizing: border-box;">
                     <option value="KEEP">-- No cambiar (Mantener actual) --</option>
@@ -431,11 +529,68 @@ document.addEventListener('DOMContentLoaded', function() {
     const catFilterTop = document.getElementById('catFilterTop');
     const brandFilterTop = document.getElementById('brandFilterTop');
     const serieFilterTop = document.getElementById('serieFilterTop');
+    const statusFilterTop = document.getElementById('statusFilterTop');
     const catFilterTable = document.getElementById('catFilter');
     const brandFilterTable = document.getElementById('brandFilter');
     const serieFilterTable = document.getElementById('serieFilter');
+    const statusFilterTable = document.getElementById('statusFilter');
 
     let isGridView = false;
+
+    // --- Toggle individual product active status via AJAX ---
+    document.addEventListener('click', function(e) {
+        const btn = e.target.closest('.toggle-activo-btn');
+        if (!btn) return;
+        e.preventDefault();
+        const id = btn.getAttribute('data-id');
+        const currentActivo = btn.getAttribute('data-activo') === '1' ? 1 : 0;
+        const nextActivo = currentActivo === 1 ? 0 : 1;
+
+        btn.disabled = true;
+        btn.style.opacity = '0.6';
+
+        const fd = new FormData();
+        fd.append('action', 'toggle_activo');
+        fd.append('id', id);
+        fd.append('activo', nextActivo);
+
+        fetch('productos.php', {
+            method: 'POST',
+            body: fd
+        })
+        .then(r => r.json())
+        .then(data => {
+            btn.disabled = false;
+            btn.style.opacity = '1';
+            if (data && data.ok) {
+                const isAct = Number(data.activo) === 1;
+                // Update both table row and grid card for this product ID
+                document.querySelectorAll(`.toggle-activo-btn[data-id="${id}"]`).forEach(b => {
+                    b.setAttribute('data-activo', isAct ? '1' : '0');
+                    b.classList.toggle('is-active', isAct);
+                    b.classList.toggle('is-inactive', !isAct);
+                    b.innerHTML = isAct ? '🟢 Activo' : '⚪ Inactivo';
+                    b.title = isAct ? 'Clic para desactivar (ocultar en web)' : 'Clic para activar (mostrar en web)';
+                });
+                document.querySelectorAll(`.product-row[data-id="${id}"]`).forEach(r => {
+                    r.setAttribute('data-activo', isAct ? '1' : '0');
+                    r.classList.toggle('inactive-row', !isAct);
+                });
+                document.querySelectorAll(`.product-card[data-id="${id}"]`).forEach(c => {
+                    c.setAttribute('data-activo', isAct ? '1' : '0');
+                    c.classList.toggle('inactive-card', !isAct);
+                });
+                if (statusFilterTable && statusFilterTable.value !== '') {
+                    filterTable();
+                }
+            }
+        })
+        .catch(() => {
+            btn.disabled = false;
+            btn.style.opacity = '1';
+            window.location.href = 'productos.php?toggle_activo=' + encodeURIComponent(id);
+        });
+    });
 
     // --- Bulk Selection Elements ---
     const selectedIds = new Set();
@@ -451,6 +606,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const modalSelectedCountText = document.getElementById('modalSelectedCountText');
     const selectedIdsInput = document.getElementById('selectedIdsInput');
     const bulkEditForm = document.getElementById('bulkEditForm');
+    const bulkActivoSelect = document.getElementById('bulkActivoSelect');
     const bulkCatSelect = document.getElementById('bulkCatSelect');
     const bulkBrandSelect = document.getElementById('bulkBrandSelect');
     const bulkSerieMode = document.getElementById('bulkSerieMode');
@@ -560,6 +716,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (selectedIds.size === 0) return;
             selectedIdsInput.value = Array.from(selectedIds).join(',');
             modalSelectedCountText.textContent = selectedIds.size;
+            if (bulkActivoSelect) bulkActivoSelect.value = 'KEEP';
             bulkCatSelect.value = 'KEEP';
             bulkBrandSelect.value = 'KEEP';
             bulkSerieMode.value = 'KEEP';
@@ -631,13 +788,14 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (bulkEditForm) {
         bulkEditForm.addEventListener('submit', function(e) {
-            const hasChange = bulkCatSelect.value !== 'KEEP' || 
+            const hasChange = (bulkActivoSelect && bulkActivoSelect.value !== 'KEEP') ||
+                              bulkCatSelect.value !== 'KEEP' || 
                               bulkBrandSelect.value !== 'KEEP' || 
                               bulkSerieMode.value !== 'KEEP' || 
                               bulkItemNoMode.value !== 'KEEP';
             if (!hasChange) {
                 e.preventDefault();
-                alert('Debes seleccionar al menos un campo a modificar (Categoría, Marca, Serie o Código).');
+                alert('Debes seleccionar al menos un campo a modificar (Estado Web, Categoría, Marca, Serie o Código).');
                 return;
             }
             if (bulkSerieMode.value === 'SET' && bulkSerieInput.value.trim() === '') {
@@ -666,6 +824,8 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.target.id === 'brandFilterTop') brandFilterTable.value = e.target.value;
         if (e.target.id === 'serieFilter') serieFilterTop.value = e.target.value;
         if (e.target.id === 'serieFilterTop') serieFilterTable.value = e.target.value;
+        if (e.target.id === 'statusFilter' && statusFilterTop) statusFilterTop.value = e.target.value;
+        if (e.target.id === 'statusFilterTop' && statusFilterTable) statusFilterTable.value = e.target.value;
         filterTable();
     }
 
@@ -675,6 +835,8 @@ document.addEventListener('DOMContentLoaded', function() {
     brandFilterTop.addEventListener('change', syncFilters);
     serieFilterTable.addEventListener('change', syncFilters);
     serieFilterTop.addEventListener('change', syncFilters);
+    if (statusFilterTable) statusFilterTable.addEventListener('change', syncFilters);
+    if (statusFilterTop) statusFilterTop.addEventListener('change', syncFilters);
 
     viewToggleBtn.addEventListener('click', function() {
         isGridView = !isGridView;
@@ -836,12 +998,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const cat = catFilterTable.value;
         const brand = brandFilterTable.value;
         const serie = serieFilterTable.value;
+        const status = statusFilterTable ? statusFilterTable.value : '';
 
         // Filtrar filas de tabla
         matchingRows = Array.from(rows).filter(row => {
             if (cat === 'NONE') { if (row.getAttribute('data-cat') !== '') return false; } else if (cat !== '' && row.getAttribute('data-cat') !== cat) return false;
             if (brand === 'NONE') { if (row.getAttribute('data-brand') !== '') return false; } else if (brand !== '' && row.getAttribute('data-brand') !== brand) return false;
             if (serie === 'NONE') { if (row.getAttribute('data-serie') !== '') return false; } else if (serie !== '' && row.getAttribute('data-serie') !== serie) return false;
+            if (status !== '' && row.getAttribute('data-activo') !== status) return false;
 
             if (query !== '') {
                 const searchData = Array.from(row.querySelectorAll('.searchable'))
@@ -857,6 +1021,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (cat === 'NONE') { if (card.getAttribute('data-cat') !== '') return false; } else if (cat !== '' && card.getAttribute('data-cat') !== cat) return false;
             if (brand === 'NONE') { if (card.getAttribute('data-brand') !== '') return false; } else if (brand !== '' && card.getAttribute('data-brand') !== brand) return false;
             if (serie === 'NONE') { if (card.getAttribute('data-serie') !== '') return false; } else if (serie !== '' && card.getAttribute('data-serie') !== serie) return false;
+            if (status !== '' && card.getAttribute('data-activo') !== status) return false;
 
             if (query !== '') {
                 const searchData = Array.from(card.querySelectorAll('.searchable-card'))

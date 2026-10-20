@@ -25,7 +25,7 @@ function getProductImgUrl($rawImg, $mediaJson = null) {
 }
 
 $id = $_GET['id'] ?? null;
-$producto = ['name' => '', 'item_no' => '', 'series' => '', 'serie' => '', 'categoria_id' => '', 'price' => 0, 'img' => '', 'media_json' => '[]'];
+$producto = ['name' => '', 'item_no' => '', 'series' => '', 'serie' => '', 'categoria_id' => '', 'price' => 0, 'img' => '', 'media_json' => '[]', 'activo' => 1];
 $success = false;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'] ?? '';
@@ -35,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $categoria_id = $_POST['categoria_id'] ?? null;
     if ($categoria_id === '') $categoria_id = null;
     $price = $_POST['price'] ?? 0;
+    $activo = isset($_POST['activo']) ? (intval($_POST['activo']) ? 1 : 0) : 1;
 
     $img = $_POST['img'] ?? '';
     
@@ -105,11 +106,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if ($id) {
-        $stmt = $pdo->prepare("UPDATE productos SET name=:name, item_no=:item_no, series=:series, serie=:serie, categoria_id=:cat, price=:price, img=:img, media_json=:media_json WHERE id=:id");
-        $stmt->execute(['name'=>$name, 'item_no'=>$item_no, 'series'=>$series, 'serie'=>$serie, 'cat'=>$categoria_id, 'price'=>$price, 'img'=>$img, 'media_json'=>$media_json, 'id'=>$id]);
+        $stmt = $pdo->prepare("UPDATE productos SET name=:name, item_no=:item_no, series=:series, serie=:serie, categoria_id=:cat, price=:price, img=:img, media_json=:media_json, activo=:activo WHERE id=:id");
+        $stmt->execute(['name'=>$name, 'item_no'=>$item_no, 'series'=>$series, 'serie'=>$serie, 'cat'=>$categoria_id, 'price'=>$price, 'img'=>$img, 'media_json'=>$media_json, 'activo'=>$activo, 'id'=>$id]);
     } else {
-        $stmt = $pdo->prepare("INSERT INTO productos (name, item_no, series, serie, categoria_id, price, img, media_json) VALUES (:name, :item_no, :series, :serie, :cat, :price, :img, :media_json)");
-        $stmt->execute(['name'=>$name, 'item_no'=>$item_no, 'series'=>$series, 'serie'=>$serie, 'cat'=>$categoria_id, 'price'=>$price, 'img'=>$img, 'media_json'=>$media_json]);
+        $stmt = $pdo->prepare("INSERT INTO productos (name, item_no, series, serie, categoria_id, price, img, media_json, activo) VALUES (:name, :item_no, :series, :serie, :cat, :price, :img, :media_json, :activo)");
+        $stmt->execute(['name'=>$name, 'item_no'=>$item_no, 'series'=>$series, 'serie'=>$serie, 'cat'=>$categoria_id, 'price'=>$price, 'img'=>$img, 'media_json'=>$media_json, 'activo'=>$activo]);
         $id = $pdo->lastInsertId();
     }
     $success = true;
@@ -144,6 +145,13 @@ include 'header.php';
             <div class="form-group" style="flex:1;">
                 <label>Precio</label>
                 <input type="number" step="0.01" name="price" value="<?= htmlspecialchars($producto['price'] ?? 0) ?>">
+            </div>
+            <div class="form-group" style="flex:1;">
+                <label>Estado en Catálogo Web</label>
+                <select name="activo">
+                    <option value="1" <?= (!isset($producto['activo']) || (int)$producto['activo'] === 1) ? 'selected' : '' ?>>🟢 Activo (Visible)</option>
+                    <option value="0" <?= (isset($producto['activo']) && (int)$producto['activo'] === 0) ? 'selected' : '' ?>>⚪ Inactivo (Oculto)</option>
+                </select>
             </div>
         </div>
         <div style="display:flex; gap:16px; flex-wrap:wrap;">

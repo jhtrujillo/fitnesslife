@@ -20,7 +20,7 @@ $q      = isset($_GET['q']) ? trim($_GET['q']) : '';
 $limit  = isset($_GET['limit']) ? (int) $_GET['limit'] : 500;
 if ($limit < 1 || $limit > 1000) $limit = 500;
 
-$sql    = 'SELECT * FROM productos WHERE 1=1';
+$sql    = 'SELECT * FROM productos WHERE COALESCE(activo, 1) = 1';
 $params = [];
 
 if ($series !== '') {

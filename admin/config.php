@@ -49,6 +49,10 @@ try {
     if (!$checkSerie) {
         $pdo->exec("ALTER TABLE productos ADD COLUMN serie VARCHAR(100) DEFAULT NULL");
     }
+    $checkActivo = $pdo->query("SHOW COLUMNS FROM productos LIKE 'activo'")->fetch();
+    if (!$checkActivo) {
+        $pdo->exec("ALTER TABLE productos ADD COLUMN activo TINYINT(1) NOT NULL DEFAULT 1");
+    }
     // Link existing series to categories based on products if categoria_id is null
     $pdo->exec("UPDATE series s 
         INNER JOIN (
