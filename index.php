@@ -367,8 +367,8 @@ $seriesJson = json_encode($series);
       </button>
 
       <!-- Contenedor deslizable e interactivo -->
-      <div ref="{{portfolioTrackRef}}" onMouseDown="{{onPortfolioMouseDown}}" class="portfolio-carousel-track" style="display:flex;overflow-x:auto;overflow-y:hidden;cursor:grab;padding:28px 24px 36px;user-select:none;-webkit-user-select:none">
-        <div style="display:flex;width:max-content;gap:24px;padding:0 20px">
+      <div ref="{{portfolioTrackRef}}" onMouseDown="{{onPortfolioMouseDown}}" class="portfolio-carousel-track" style="display:flex;overflow:hidden;cursor:grab;padding:28px 24px 36px;user-select:none;-webkit-user-select:none;touch-action:pan-y">
+        <div class="portfolio-carousel-inner" style="display:flex;width:max-content;flex-shrink:0;gap:24px;padding:0 20px;will-change:transform">
           <sc-for list="{{carouselCards}}" as="p" hint-placeholder-count="10">
             <div onClick="{{p.onClick}}" role="button" style="flex-shrink:0;cursor:pointer;position:relative;overflow:hidden;width:{{cardW}};height:{{cardH}};border-radius:24px;box-shadow:0 14px 34px -10px oklch(20% .01 270 / .28);background:oklch(100% 0 0);display:flex;flex-direction:column;outline:0px solid oklch(58% .22 25);outline-offset:-2px;transition:transform .45s cubic-bezier(.2,.8,.2,1),box-shadow .45s ease,outline-width .35s ease" style-hover="transform:translateY(-14px) scale(1.04);box-shadow:0 34px 60px -18px oklch(58% .22 25 / .48);outline-width:3px">
               <div style="flex:1;min-height:0;width:100%;display:flex;align-items:center;justify-content:center;padding:{{p.pad}};box-sizing:border-box;position:relative;overflow:hidden">
@@ -1280,6 +1280,7 @@ class Component extends DCLogic {
     
     // Also parse initial hash on load
     setTimeout(this.handlePopState, 100);
+    this._startPortfolioLoop();
   }
 
   scheduleHero() {
@@ -1306,105 +1307,156 @@ class Component extends DCLogic {
     Object.values(this._sectionObservers).forEach((o) => o.disconnect());
   }
 
-  // Portfolio interactive slider (drag, velocity momentum, infinite wrap, arrows)
+  // Portfolio interactive slider (GPU translate3d, drag, velocity momentum, infinite wrap, arrows)
   _portfolioTrack = null;
+  _boundPortfolioTrack = null;
   _portfolioIsDown = false;
   _portfolioStartX = 0;
   _portfolioScrollLeft = 0;
+  _portfolioPos = 0;
+  _portfolioPosInitialized = false;
   _portfolioLastX = 0;
   _portfolioLastTime = 0;
+  _portfolioLastFrame = 0;
   _portfolioVelocity = 0;
-  _portfolioAutoSpeed = 0.55;
+  _portfolioAutoSpeed = 0.75;
   _portfolioIsHovered = false;
   _portfolioRaf = null;
 
   setPortfolioTrackRef = (el) => {
     if (!el) return;
     this._portfolioTrack = el;
-    if (!this._portfolioInitialized) {
-      this._portfolioInitialized = true;
-      this._bindPortfolioEvents();
+    if (this._boundPortfolioTrack !== el) {
+      this._bindPortfolioEvents(el);
+    }
+    if (!this._portfolioRaf) {
       this._startPortfolioLoop();
     }
   };
 
-  _bindPortfolioEvents = () => {
-    if (!this._portfolioTrack) return;
-    const track = this._portfolioTrack;
+  _getPortfolioInner = (track) => {
+    const t = track || this._portfolioTrack || (typeof document !== 'undefined' ? document.querySelector('.portfolio-carousel-track') : null);
+    if (!t) return null;
+    return t.querySelector('.portfolio-carousel-inner') || t.firstElementChild;
+  };
 
-    // Center scroll initially once rendered so user can drag in either direction immediately
+  _getSingleSetWidth = (inner) => {
+    if (!inner) return 0;
+    const kids = inner.children;
+    if (kids && kids.length >= 22) {
+      const w = kids[11].offsetLeft - kids[0].offsetLeft;
+      if (w > 0) return w;
+    }
+    return inner.scrollWidth / 3;
+  };
+
+  _bindPortfolioEvents = (trackEl) => {
+    const track = trackEl || this._portfolioTrack;
+    if (!track || this._boundPortfolioTrack === track) return;
+    this._boundPortfolioTrack = track;
+
+    // Initialize position at the start of the middle set once layout is ready
     requestAnimationFrame(() => {
-      if (track.scrollWidth > track.clientWidth) {
-        track.scrollLeft = track.scrollWidth / 3;
+      const inner = this._getPortfolioInner(track);
+      const singleSetWidth = this._getSingleSetWidth(inner);
+      if (singleSetWidth > 0 && !this._portfolioPosInitialized) {
+        this._portfolioPos = singleSetWidth;
+        this._portfolioPosInitialized = true;
+        this._wrapPortfolio(inner);
       }
     });
 
-    track.addEventListener('mouseenter', () => { 
-      if (!this.state.isMobile) this._portfolioIsHovered = true; 
-    });
-    track.addEventListener('mouseleave', () => { 
-      this._portfolioIsHovered = false; 
-    });
-
-    // Touch support for mobile swipe
+    // Touch support for mobile swipe (horizontal drag vs vertical page scroll)
     let touchStartX = 0;
-    let touchScrollLeft = 0;
+    let touchStartY = 0;
+    let touchStartPos = 0;
     let touchLastX = 0;
     let touchLastTime = 0;
+    let touchAxis = null;
 
     track.addEventListener('touchstart', (e) => {
-      this._portfolioVelocity = 0;
-      this._portfolioIsDown = true;
-      this._portfolioIsHovered = false;
-      touchStartX = e.touches[0].pageX;
-      touchScrollLeft = track.scrollLeft;
+      if (!e.touches || !e.touches.length) return;
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+      touchStartPos = this._portfolioPos;
       touchLastX = touchStartX;
       touchLastTime = Date.now();
+      touchAxis = null;
+      this._portfolioHasDragged = false;
     }, { passive: true });
 
     track.addEventListener('touchmove', (e) => {
-      if (!this._portfolioIsDown) return;
-      const x = e.touches[0].pageX;
-      const now = Date.now();
-      const dt = now - touchLastTime;
-      if (dt > 0) {
-        this._portfolioVelocity = -((x - touchLastX) / dt) * 16;
+      if (!e.touches || !e.touches.length) return;
+      const x = e.touches[0].clientX;
+      const y = e.touches[0].clientY;
+      const dx = x - touchStartX;
+      const dy = y - touchStartY;
+
+      if (!touchAxis) {
+        if (Math.abs(dx) > 6 && Math.abs(dx) >= Math.abs(dy)) {
+          touchAxis = 'x';
+          this._portfolioIsDown = true;
+          this._portfolioHasDragged = true;
+          this._portfolioVelocity = 0;
+          touchStartX = x;
+          touchStartPos = this._portfolioPos;
+        } else if (Math.abs(dy) > 8) {
+          touchAxis = 'y';
+        }
       }
-      touchLastX = x;
-      touchLastTime = now;
-      track.scrollLeft = touchScrollLeft - (x - touchStartX);
-      this._wrapPortfolio(track);
+
+      if (touchAxis === 'x') {
+        const now = Date.now();
+        const dt = now - touchLastTime;
+        if (dt > 0) {
+          const instantV = -((x - touchLastX) / dt) * 16;
+          this._portfolioVelocity = (this._portfolioVelocity * 0.35) + (instantV * 0.65);
+        }
+        touchLastX = x;
+        touchLastTime = now;
+        this._portfolioPos = touchStartPos - (x - touchStartX);
+        const inner = this._getPortfolioInner(track);
+        this._wrapPortfolio(inner);
+      }
     }, { passive: true });
 
-    track.addEventListener('touchend', () => {
+    const endTouch = () => {
       this._portfolioIsDown = false;
       this._portfolioIsHovered = false;
-    }, { passive: true });
+      touchAxis = null;
+      setTimeout(() => { this._portfolioHasDragged = false; }, 80);
+    };
 
-    track.addEventListener('touchcancel', () => {
-      this._portfolioIsDown = false;
-      this._portfolioIsHovered = false;
-    }, { passive: true });
+    track.addEventListener('touchend', endTouch, { passive: true });
+    track.addEventListener('touchcancel', endTouch, { passive: true });
+    window.addEventListener('touchend', endTouch, { passive: true });
+    window.addEventListener('touchcancel', endTouch, { passive: true });
   };
 
   _startPortfolioLoop = () => {
-    const loop = () => {
-      const track = this._portfolioTrack;
-      if (track && this.state.page === 'home') {
+    if (this._portfolioRaf) cancelAnimationFrame(this._portfolioRaf);
+    const loop = (now) => {
+      const dt = this._portfolioLastFrame ? Math.min(now - this._portfolioLastFrame, 50) : 16.67;
+      this._portfolioLastFrame = now;
+
+      const track = this._portfolioTrack || (typeof document !== 'undefined' ? document.querySelector('.portfolio-carousel-track') : null);
+      if (track && this._boundPortfolioTrack !== track) {
+        this._bindPortfolioEvents(track);
+      }
+      const inner = this._getPortfolioInner(track);
+
+      if (inner && this.state.page === 'home') {
         if (!this._portfolioIsDown) {
-          // Apply velocity momentum
-          if (Math.abs(this._portfolioVelocity) > 0.05) {
-            track.scrollLeft += this._portfolioVelocity;
-            this._portfolioVelocity *= 0.94; // friction decay
-            this._wrapPortfolio(track);
+          // Apply velocity momentum after drag or arrow click
+          if (Math.abs(this._portfolioVelocity) > 0.08) {
+            this._portfolioPos += this._portfolioVelocity * (dt / 16.67);
+            this._portfolioVelocity *= Math.pow(0.93, dt / 16.67);
+            this._wrapPortfolio(inner);
           } else {
             this._portfolioVelocity = 0;
-            // Gentle continuous auto-play when not dragging or hovering
-            const isHovered = this.state.isMobile ? false : this._portfolioIsHovered;
-            if (!isHovered) {
-              track.scrollLeft += this._portfolioAutoSpeed;
-              this._wrapPortfolio(track);
-            }
+            // Continuous smooth auto-play on both desktop and mobile
+            this._portfolioPos += this._portfolioAutoSpeed * (dt / 16.67);
+            this._wrapPortfolio(inner);
           }
         }
       }
@@ -1413,36 +1465,43 @@ class Component extends DCLogic {
     this._portfolioRaf = requestAnimationFrame(loop);
   };
 
-  _wrapPortfolio = (track) => {
-    const singleSetWidth = track.scrollWidth / 3;
+  _wrapPortfolio = (inner) => {
+    if (!inner) return;
+    const singleSetWidth = this._getSingleSetWidth(inner);
     if (singleSetWidth <= 0) return;
-    if (track.scrollLeft >= singleSetWidth * 2) {
-      track.scrollLeft -= singleSetWidth;
-    } else if (track.scrollLeft <= singleSetWidth * 0.1) {
-      track.scrollLeft += singleSetWidth;
+    if (!this._portfolioPosInitialized) {
+      this._portfolioPos = singleSetWidth;
+      this._portfolioPosInitialized = true;
     }
+    while (this._portfolioPos >= singleSetWidth * 2) {
+      this._portfolioPos -= singleSetWidth;
+    }
+    while (this._portfolioPos < singleSetWidth * 0.5) {
+      this._portfolioPos += singleSetWidth;
+    }
+    inner.style.transform = 'translate3d(' + (-this._portfolioPos).toFixed(2) + 'px, 0, 0)';
   };
 
   onPortfolioMouseDown = (e) => {
-    if (!this._portfolioTrack) return;
-    // Only handle primary left click
+    const track = this._portfolioTrack || (typeof document !== 'undefined' ? document.querySelector('.portfolio-carousel-track') : null);
+    if (!track) return;
     if (e.button !== 0) return;
     this._portfolioIsDown = true;
     this._portfolioVelocity = 0;
     this._portfolioStartX = e.pageX;
-    this._portfolioScrollLeft = this._portfolioTrack.scrollLeft;
+    this._portfolioScrollLeft = this._portfolioPos;
     this._portfolioLastX = e.pageX;
     this._portfolioLastTime = Date.now();
     this._portfolioHasDragged = false;
-    this._portfolioTrack.style.cursor = 'grabbing';
+    track.style.cursor = 'grabbing';
 
     window.addEventListener('mousemove', this._onPortfolioMouseMove);
     window.addEventListener('mouseup', this._onPortfolioMouseUp);
   };
 
   _onPortfolioMouseMove = (e) => {
-    if (!this._portfolioIsDown || !this._portfolioTrack) return;
-    const track = this._portfolioTrack;
+    const track = this._portfolioTrack || (typeof document !== 'undefined' ? document.querySelector('.portfolio-carousel-track') : null);
+    if (!this._portfolioIsDown || !track) return;
     const currentX = e.pageX;
     const diff = Math.abs(currentX - this._portfolioStartX);
     if (diff > 5) {
@@ -1452,7 +1511,6 @@ class Component extends DCLogic {
     const now = Date.now();
     const dt = now - this._portfolioLastTime;
     if (dt > 0) {
-      // Sensitivity scale for fast hand movements
       const instantVelocity = -((currentX - this._portfolioLastX) / dt) * 16;
       this._portfolioVelocity = (this._portfolioVelocity * 0.4) + (instantVelocity * 0.6);
     }
@@ -1460,15 +1518,17 @@ class Component extends DCLogic {
     this._portfolioLastTime = now;
 
     const walk = (currentX - this._portfolioStartX);
-    track.scrollLeft = this._portfolioScrollLeft - walk;
-    this._wrapPortfolio(track);
+    this._portfolioPos = this._portfolioScrollLeft - walk;
+    const inner = this._getPortfolioInner(track);
+    this._wrapPortfolio(inner);
   };
 
-  _onPortfolioMouseUp = (e) => {
+  _onPortfolioMouseUp = () => {
     if (!this._portfolioIsDown) return;
     this._portfolioIsDown = false;
-    if (this._portfolioTrack) {
-      this._portfolioTrack.style.cursor = 'grab';
+    const track = this._portfolioTrack || (typeof document !== 'undefined' ? document.querySelector('.portfolio-carousel-track') : null);
+    if (track) {
+      track.style.cursor = 'grab';
     }
     window.removeEventListener('mousemove', this._onPortfolioMouseMove);
     window.removeEventListener('mouseup', this._onPortfolioMouseUp);
@@ -1477,22 +1537,14 @@ class Component extends DCLogic {
 
   prevPortfolio = (e) => {
     if (e) { e.preventDefault(); e.stopPropagation(); }
-    if (!this._portfolioTrack) return;
-    const track = this._portfolioTrack;
-    const step = (this.state.isNarrow ? 260 : 340);
-    this._portfolioVelocity = -18; // Kick with backwards velocity
-    track.scrollBy({ left: -step, behavior: 'smooth' });
-    setTimeout(() => this._wrapPortfolio(track), 400);
+    this._portfolioIsDown = false;
+    this._portfolioVelocity = -(this.state.isNarrow ? 18 : 22);
   };
 
   nextPortfolio = (e) => {
     if (e) { e.preventDefault(); e.stopPropagation(); }
-    if (!this._portfolioTrack) return;
-    const track = this._portfolioTrack;
-    const step = (this.state.isNarrow ? 260 : 340);
-    this._portfolioVelocity = 18; // Kick with forwards velocity
-    track.scrollBy({ left: step, behavior: 'smooth' });
-    setTimeout(() => this._wrapPortfolio(track), 400);
+    this._portfolioIsDown = false;
+    this._portfolioVelocity = (this.state.isNarrow ? 18 : 22);
   };
 
 
