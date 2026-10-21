@@ -1,4 +1,7 @@
 <?php
+header("Cache-Control: no-cache, no-store, must-revalidate");
+header("Pragma: no-cache");
+header("Expires: 0");
 $serverName = $_SERVER['SERVER_NAME'] ?? 'localhost';
 $entorno = ($serverName === 'localhost' || $serverName === '127.0.0.1' || strpos($serverName, '.local') !== false || strpos($serverName, '192.168.') !== false || php_sapi_name() === 'cli') ? 'LOCAL' : 'PRODUCCION';
 
@@ -195,6 +198,8 @@ $seriesJson = json_encode($series);
 <meta name="ext-resource-dependency" content="uploads/8FEB4914-1274-4F8E-A291-D73031341E44_1_102_o.jpeg" data-resource-id="uploads/8FEB4914-1274-4F8E-A291-D73031341E44_1_102_o.jpeg"/>
 <meta name="ext-resource-dependency" content="uploads/BEC1A73E-E07A-4973-8E7B-51ED81B82924_1_102_o.jpeg" data-resource-id="uploads/BEC1A73E-E07A-4973-8E7B-51ED81B82924_1_102_o.jpeg"/>
 <meta name="ext-resource-dependency" content="uploads/funcional.jpeg" data-resource-id="uploads/funcional.jpeg"/>
+<meta name="ext-resource-dependency" content="assets/diseno3d_gimnasios.mp4" data-resource-id="assets/diseno3d_gimnasios.mp4"/>
+<meta name="ext-resource-dependency" content="assets/diseno3d_poster.jpg" data-resource-id="assets/diseno3d_poster.jpg"/>
 <meta name="ext-resource-dependency" content="assets/sol_comercial.webp" data-resource-id="assets/sol_comercial.webp"/>
 <meta name="ext-resource-dependency" content="assets/sol_institucional.webp" data-resource-id="assets/sol_institucional.webp"/>
 <meta name="ext-resource-dependency" content="assets/sol_hogar.webp" data-resource-id="assets/sol_hogar.webp"/>
@@ -358,8 +363,10 @@ $seriesJson = json_encode($series);
     <section id="diseno-3d" style="padding:{{secPad}};background:oklch(12% .005 270);position:relative;overflow:hidden">
       <div style="position:absolute;top:-160px;left:-120px;width:520px;height:520px;border-radius:999px;background:radial-gradient(circle,oklch(58% .22 25 / .28),transparent 65%);pointer-events:none"></div>
       <div style="max-width:1280px;margin:0 auto;position:relative;display:grid;grid-template-columns:{{grid2}};gap:48px;align-items:center">
-        <div style="position:relative;border-radius:22px;overflow:hidden;background:oklch(8% .005 270);aspect-ratio:16/9;box-shadow:0 40px 80px -30px oklch(58% .22 25 / .45),0 0 0 1px oklch(58% .22 25 / .35)">
-          <video src="assets/diseno3d_gimnasios.mp4" sc-camel-src="assets/diseno3d_gimnasios.mp4" autoPlay="{{true}}" muted="{{true}}" loop="{{true}}" playsInline="{{true}}" preload="metadata" style="width:100%;height:100%;object-fit:cover;display:block"></video>
+        <div style="position:relative;width:100%;aspect-ratio:16/9;min-height:260px;border-radius:22px;overflow:hidden;background:oklch(8% .005 270);box-shadow:0 40px 80px -30px oklch(58% .22 25 / .45),0 0 0 1px oklch(58% .22 25 / .35)">
+          <video ref="{{diseno3dRef}}" poster="{{diseno3dPoster}}" src="{{diseno3dVideo}}" sc-camel-src="{{diseno3dVideo}}" autoPlay="{{true}}" muted="{{true}}" loop="{{true}}" playsInline="{{true}}" preload="auto" style="width:100%;height:100%;min-height:260px;object-fit:cover;display:block">
+            <source src="assets/diseno3d_gimnasios.mp4" type="video/mp4">
+          </video>
         </div>
         <div style="display:flex;flex-direction:column;gap:22px;min-width:0">
           <div style="display:flex;align-items:center;gap:12px;font-size:12px;letter-spacing:0.3em;color:oklch(68% .22 27);font-weight:700;text-transform:uppercase"><span style="width:44px;height:2px;background:oklch(58% .22 25)"></span>Diseño 3D</div>
@@ -1818,6 +1825,22 @@ class Component extends DCLogic {
     }
   };
 
+  setDiseno3dRef = (el) => {
+    if (el && el !== this._diseno3dEl) {
+      this._diseno3dEl = el;
+      el.playsInline = true;
+      el.setAttribute('playsinline', '');
+      el.setAttribute('webkit-playsinline', '');
+      el.muted = true;
+      el.defaultMuted = true;
+      el.autoplay = true;
+      el.setAttribute('autoplay', '');
+      el.setAttribute('muted', '');
+      const p = el.play();
+      if (p && p.catch) p.catch(() => {});
+    }
+  };
+
   openEquipos = () => this.setState({ equiposOpen: true });
   closeEquipos = () => this.setState({ equiposOpen: false });
   goCat = (slug) => (e) => {
@@ -2713,6 +2736,9 @@ class Component extends DCLogic {
       persCols: this.state.isMobile ? '1fr' : 'minmax(0,340px) minmax(0,1fr)',
       persVideoMaxH: this.state.isMobile ? '560px' : '640px',
       persVideoW: this.state.isMobile ? 'min(100%, 315px)' : '100%',
+      diseno3dVideo: R('assets/diseno3d_gimnasios.mp4'),
+      diseno3dPoster: R('assets/diseno3d_poster.jpg'),
+      diseno3dRef: this.setDiseno3dRef,
       rs800Video: R('assets/realleader_rs800_final_v2.mp4'),
       rs800Ref: this.setRs800Ref,
       toggleRs800Sound: this.toggleRs800Sound,
