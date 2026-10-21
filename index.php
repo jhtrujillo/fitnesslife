@@ -162,6 +162,34 @@ $seriesJson = json_encode($series);
               .portfolio-arrow-btn:active {
                 transform: translateY(-50%) scale(0.96) !important;
               }
+              .diseno3d-card {
+                position: relative;
+                width: 100%;
+                aspect-ratio: 16/9;
+                border-radius: 22px;
+                overflow: hidden;
+                background: oklch(8% .005 270);
+                box-shadow: 0 40px 80px -30px oklch(58% .22 25 / .45), 0 0 0 1px oklch(58% .22 25 / .35);
+              }
+              .diseno3d-video {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+              }
+              @media (max-width: 768px) {
+                .diseno3d-card {
+                  aspect-ratio: 16/9 !important;
+                  min-height: auto !important;
+                  height: auto !important;
+                  border-radius: 16px !important;
+                }
+                .diseno3d-video {
+                  min-height: auto !important;
+                  height: auto !important;
+                  aspect-ratio: 16/9 !important;
+                }
+              }
             </style>
 </head>
 <body>
@@ -363,8 +391,8 @@ $seriesJson = json_encode($series);
     <section id="diseno-3d" style="padding:{{secPad}};background:oklch(12% .005 270);position:relative;overflow:hidden">
       <div style="position:absolute;top:-160px;left:-120px;width:520px;height:520px;border-radius:999px;background:radial-gradient(circle,oklch(58% .22 25 / .28),transparent 65%);pointer-events:none"></div>
       <div style="max-width:1280px;margin:0 auto;position:relative;display:grid;grid-template-columns:{{grid2}};gap:48px;align-items:center">
-        <div style="position:relative;width:100%;aspect-ratio:16/9;min-height:260px;border-radius:22px;overflow:hidden;background:oklch(8% .005 270);box-shadow:0 40px 80px -30px oklch(58% .22 25 / .45),0 0 0 1px oklch(58% .22 25 / .35)">
-          <video ref="{{diseno3dRef}}" poster="{{diseno3dPoster}}" src="{{diseno3dVideo}}" sc-camel-src="{{diseno3dVideo}}" autoPlay="{{true}}" muted="{{true}}" loop="{{true}}" playsInline="{{true}}" preload="auto" style="width:100%;height:100%;min-height:260px;object-fit:cover;display:block">
+        <div class="diseno3d-card" style="position:relative;width:100%;aspect-ratio:16/9;border-radius:22px;overflow:hidden;background:oklch(8% .005 270);box-shadow:0 40px 80px -30px oklch(58% .22 25 / .45),0 0 0 1px oklch(58% .22 25 / .35)">
+          <video class="diseno3d-video" ref="{{diseno3dRef}}" poster="{{diseno3dPoster}}" src="{{diseno3dVideo}}" sc-camel-src="{{diseno3dVideo}}" autoPlay="{{true}}" muted="{{true}}" loop="{{true}}" playsInline="{{true}}" preload="auto" style="width:100%;height:100%;aspect-ratio:16/9;object-fit:cover;display:block">
             <source src="assets/diseno3d_gimnasios.mp4" type="video/mp4">
           </video>
         </div>
@@ -525,7 +553,7 @@ $seriesJson = json_encode($series);
           </div>
           <div style="display:flex;flex-direction:column;justify-content:center;gap:24px;min-width:0;opacity:{{colorsOpacity}};transform:{{colorsImgTransform}};transition:opacity .8s ease .15s,transform .8s cubic-bezier(.2,.8,.2,1) .15s">
             <div style="border-radius:20px;overflow:hidden;background:white;border:1px solid oklch(88% .006 270);box-shadow:0 24px 50px -24px oklch(20% .01 270 / .25)">
-              <img src="assets/personalizacion_colores_v2.png" sc-camel-src="assets/personalizacion_colores_v2.png" alt="Opciones de color de cojinería, estructura y pines" style="width:100%;height:auto;display:block"/>
+              <img src="assets/personalizacion_colores_v3.png" sc-camel-src="{{colorsImg}}" alt="Opciones de color de cojinería, estructura y pines" style="width:100%;height:auto;display:block"/>
             </div>
             <div style="display:flex;flex-wrap:wrap;gap:12px">
               <span style="border:1px solid oklch(83% .006 270);border-radius:999px;padding:10px 18px;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:oklch(30% .008 270)">8 colores de cojinería</span>
@@ -2732,7 +2760,7 @@ class Component extends DCLogic {
       circRow2TextOpacity: this.state.circuitosVisible ? 1 : 0,
       circRow2TextTransform: this.state.circuitosVisible ? 'translateX(0)' : 'translateX(-40px)',
       colorsRef: this.setSectionRef('colorsVisible'),
-      colorsImg: R('assets/personalizacion_colores_v2.png'),
+      colorsImg: R('assets/personalizacion_colores_v3.png'),
       persCols: this.state.isMobile ? '1fr' : 'minmax(0,340px) minmax(0,1fr)',
       persVideoMaxH: this.state.isMobile ? '560px' : '640px',
       persVideoW: this.state.isMobile ? 'min(100%, 315px)' : '100%',
