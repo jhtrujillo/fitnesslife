@@ -2490,9 +2490,11 @@ class Component extends DCLogic {
       const item_no = p.item_no || 'N/A';
       const prodId = p.id || item_no;
       const hasDims = p.set_up_dimension && p.set_up_dimension.trim() !== '';
-      const hasWeight = p.weight_stack && p.weight_stack.trim() !== '';
-      const hasSerie = p.serie && p.serie.trim() !== '';
-      const serie = p.serie ? p.serie.trim() : '';
+      const rawSku = (p.item_no && p.item_no.trim() !== '' && p.item_no.trim().toUpperCase() !== 'N/A') ? p.item_no.trim() : '';
+      const rawSerie = (p.serie && p.serie.trim() !== '') ? p.serie.trim() : '';
+      const displaySerie = rawSku !== '' ? rawSku : rawSerie;
+      const hasSerie = displaySerie !== '';
+      const serie = displaySerie;
       
       const inCart = this.state.cart.some(c => (c.id || c.item_no) === prodId);
       const cartText = inCart ? 'Añadido ✓' : 'Añadir';
