@@ -392,7 +392,7 @@ $seriesJson = json_encode($series);
       <div style="position:absolute;top:-160px;left:-120px;width:520px;height:520px;border-radius:999px;background:radial-gradient(circle,oklch(58% .22 25 / .28),transparent 65%);pointer-events:none"></div>
       <div style="max-width:1280px;margin:0 auto;position:relative;display:grid;grid-template-columns:{{grid2}};gap:48px;align-items:center">
         <div class="diseno3d-card" style="position:relative;width:100%;aspect-ratio:16/9;border-radius:22px;overflow:hidden;background:oklch(8% .005 270);box-shadow:0 40px 80px -30px oklch(58% .22 25 / .45),0 0 0 1px oklch(58% .22 25 / .35)">
-          <video class="diseno3d-video" ref="{{diseno3dRef}}" poster="{{diseno3dPoster}}" src="{{diseno3dVideo}}" sc-camel-src="{{diseno3dVideo}}" autoPlay="{{true}}" muted="{{true}}" loop="{{true}}" playsInline="{{true}}" preload="auto" style="width:100%;height:100%;aspect-ratio:16/9;object-fit:cover;display:block">
+          <video class="diseno3d-video" ref="{{diseno3dRef}}" poster="assets/diseno3d_poster.jpg" src="assets/diseno3d_gimnasios.mp4" sc-camel-src="assets/diseno3d_gimnasios.mp4" autoPlay="{{true}}" muted="{{true}}" loop="{{true}}" playsInline="{{true}}" preload="auto" style="width:100%;height:100%;aspect-ratio:16/9;object-fit:cover;display:block">
             <source src="assets/diseno3d_gimnasios.mp4" type="video/mp4">
           </video>
         </div>
@@ -2293,6 +2293,8 @@ class Component extends DCLogic {
       if (image && !image.startsWith('http') && !image.startsWith('cotizaciones/') && !image.startsWith('v1/cotizaciones/')) { image = 'cotizaciones/' + image; }
       const item_no = p.item_no || 'N/A';
       const prodId = p.id || item_no;
+      const hasDims = p.set_up_dimension && p.set_up_dimension.trim() !== '';
+      const hasWeight = p.weight_stack && p.weight_stack.trim() !== '';
       const inCart = this.state.cart.some(c => (c.id || c.item_no) === prodId);
       const cartText = inCart ? 'Añadido ✓' : 'Añadir';
       const cartBg = inCart ? 'oklch(96% 0 0)' : 'oklch(97% 0 0)';
@@ -2490,6 +2492,7 @@ class Component extends DCLogic {
       const item_no = p.item_no || 'N/A';
       const prodId = p.id || item_no;
       const hasDims = p.set_up_dimension && p.set_up_dimension.trim() !== '';
+      const hasWeight = p.weight_stack && p.weight_stack.trim() !== '';
       const rawSku = (p.item_no && p.item_no.trim() !== '' && p.item_no.trim().toUpperCase() !== 'N/A') ? p.item_no.trim() : '';
       const rawSerie = (p.serie && p.serie.trim() !== '') ? p.serie.trim() : '';
       const displaySerie = rawSku !== '' ? rawSku : rawSerie;
