@@ -124,8 +124,21 @@ $stmt = $pdo->query("SELECT * FROM categorias ORDER BY pos ASC");
 $categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $stmt = $pdo->query("SELECT * FROM marcas ORDER BY name ASC");
 $marcas = $stmt->fetchAll(PDO::FETCH_ASSOC);
-$stmt = $pdo->query("SELECT * FROM series ORDER BY pos ASC, name ASC");
-$seriesList = $stmt->fetchAll(PDO::FETCH_ASSOC);
+// Obtener listado de series único y deduplicado (de series y productos)
+$seriesDb = $pdo->query("SELECT DISTINCT TRIM(name) AS name FROM series WHERE name IS NOT NULL AND TRIM(name) != ''")->fetchAll(PDO::FETCH_COLUMN);
+$seriesProds = $pdo->query("SELECT DISTINCT TRIM(serie) AS name FROM productos WHERE serie IS NOT NULL AND TRIM(serie) != ''")->fetchAll(PDO::FETCH_COLUMN);
+$uniqueSeriesMap = [];
+foreach (array_merge($seriesDb, $seriesProds) as $s) {
+    $clean = trim((string)$s);
+    if ($clean === '') continue;
+    $lower = mb_strtolower($clean, 'UTF-8');
+    if (!isset($uniqueSeriesMap[$lower])) {
+        $uniqueSeriesMap[$lower] = $clean;
+    }
+}
+$uniqueSeries = array_values($uniqueSeriesMap);
+natcasesort($uniqueSeries);
+$seriesList = array_map(function($s) { return ['name' => $s]; }, array_values($uniqueSeries));
 include 'header.php';
 ?>
 <div class="panel-card" style="max-width:600px; margin: 0 auto;">

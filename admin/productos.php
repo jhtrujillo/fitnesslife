@@ -151,7 +151,21 @@ $stmt = $pdo->query($sql);
 $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $cats = $pdo->query("SELECT id, name FROM categorias ORDER BY pos ASC")->fetchAll(PDO::FETCH_ASSOC);
 $marcas = $pdo->query("SELECT name FROM marcas ORDER BY name ASC")->fetchAll(PDO::FETCH_ASSOC);
-$seriesList = $pdo->query("SELECT name FROM series ORDER BY pos ASC, name ASC")->fetchAll(PDO::FETCH_ASSOC);
+// Obtener listado de series único y deduplicado (de series y productos)
+$seriesDb = $pdo->query("SELECT DISTINCT TRIM(name) AS name FROM series WHERE name IS NOT NULL AND TRIM(name) != ''")->fetchAll(PDO::FETCH_COLUMN);
+$seriesProds = $pdo->query("SELECT DISTINCT TRIM(serie) AS name FROM productos WHERE serie IS NOT NULL AND TRIM(serie) != ''")->fetchAll(PDO::FETCH_COLUMN);
+$uniqueSeriesMap = [];
+foreach (array_merge($seriesDb, $seriesProds) as $s) {
+    $clean = trim((string)$s);
+    if ($clean === '') continue;
+    $lower = mb_strtolower($clean, 'UTF-8');
+    if (!isset($uniqueSeriesMap[$lower])) {
+        $uniqueSeriesMap[$lower] = $clean;
+    }
+}
+$uniqueSeries = array_values($uniqueSeriesMap);
+natcasesort($uniqueSeries);
+$seriesList = array_map(function($s) { return ['name' => $s]; }, array_values($uniqueSeries));
 $catMap = [];
 foreach ($cats as $c) { $catMap[$c['id']] = $c['name']; }
 include 'header.php';
@@ -324,7 +338,7 @@ include 'header.php';
             <tbody>
                 <?php foreach ($productos as $p): ?>
                     <?php $isActivo = (int)($p['activo'] ?? 1) === 1; ?>
-                    <tr class="product-row <?= $isActivo ? '' : 'inactive-row' ?>" data-id="<?= $p['id'] ?>" data-cat="<?= htmlspecialchars($p['categoria_id'] ?? '') ?>" data-brand="<?= htmlspecialchars($p['series'] ?? '') ?>" data-serie="<?= htmlspecialchars($p['serie'] ?? '') ?>" data-activo="<?= $isActivo ? '1' : '0' ?>">
+                    <tr class="product-row <?= $isActivo ? '' : 'inactive-row' ?>" data-id="<?= $p['id'] ?>" data-cat="<?= htmlspecialchars($p['categoria_id'] ?? '') ?>" data-brand="<?= htmlspecialchars($p['series'] ?? '') ?>" data-serie="<?= htmlspecialchars(trim($p['serie'] ?? '')) ?>" data-activo="<?= $isActivo ? '1' : '0' ?>">
                         <td class="checkbox-cell" data-label="Sel" style="text-align: center;">
                             <input type="checkbox" class="prod-checkbox" value="<?= $p['id'] ?>" style="cursor: pointer; width: 16px; height: 16px;">
                         </td>
@@ -364,7 +378,7 @@ include 'header.php';
         <?php foreach ($productos as $p): ?>
             <?php $img = getProductImgUrl($p['img'] ?? '', $p['media_json'] ?? ''); ?>
             <?php $isActivo = (int)($p['activo'] ?? 1) === 1; ?>
-            <div class="product-card <?= $isActivo ? '' : 'inactive-card' ?>" data-id="<?= $p['id'] ?>" data-cat="<?= htmlspecialchars($p['categoria_id'] ?? '') ?>" data-brand="<?= htmlspecialchars($p['series'] ?? '') ?>" data-serie="<?= htmlspecialchars($p['serie'] ?? '') ?>" data-activo="<?= $isActivo ? '1' : '0' ?>" style="background: white; border: 1px solid #eee; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); display: flex; flex-direction: column;">
+            <div class="product-card <?= $isActivo ? '' : 'inactive-card' ?>" data-id="<?= $p['id'] ?>" data-cat="<?= htmlspecialchars($p['categoria_id'] ?? '') ?>" data-brand="<?= htmlspecialchars($p['series'] ?? '') ?>" data-serie="<?= htmlspecialchars(trim($p['serie'] ?? '')) ?>" data-activo="<?= $isActivo ? '1' : '0' ?>" style="background: white; border: 1px solid #eee; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.05); display: flex; flex-direction: column;">
                 <label class="card-checkbox-badge" title="Seleccionar equipo">
                     <input type="checkbox" class="prod-checkbox" value="<?= $p['id'] ?>" style="cursor: pointer; width: 18px; height: 18px; margin: 0;">
                 </label>
@@ -997,14 +1011,18 @@ document.addEventListener('DOMContentLoaded', function() {
         const query = searchInput.value.toLowerCase().trim();
         const cat = catFilterTable.value;
         const brand = brandFilterTable.value;
-        const serie = serieFilterTable.value;
+        const serie = (serieFilterTable.value || '').trim();
         const status = statusFilterTable ? statusFilterTable.value : '';
 
         // Filtrar filas de tabla
         matchingRows = Array.from(rows).filter(row => {
             if (cat === 'NONE') { if (row.getAttribute('data-cat') !== '') return false; } else if (cat !== '' && row.getAttribute('data-cat') !== cat) return false;
             if (brand === 'NONE') { if (row.getAttribute('data-brand') !== '') return false; } else if (brand !== '' && row.getAttribute('data-brand') !== brand) return false;
-            if (serie === 'NONE') { if (row.getAttribute('data-serie') !== '') return false; } else if (serie !== '' && row.getAttribute('data-serie') !== serie) return false;
+            if (serie === 'NONE') { 
+                if ((row.getAttribute('data-serie') || '').trim() !== '') return false; 
+            } else if (serie !== '' && (row.getAttribute('data-serie') || '').trim().toLowerCase() !== serie.toLowerCase()) {
+                return false;
+            }
             if (status !== '' && row.getAttribute('data-activo') !== status) return false;
 
             if (query !== '') {
@@ -1020,7 +1038,11 @@ document.addEventListener('DOMContentLoaded', function() {
         matchingCards = Array.from(cards).filter(card => {
             if (cat === 'NONE') { if (card.getAttribute('data-cat') !== '') return false; } else if (cat !== '' && card.getAttribute('data-cat') !== cat) return false;
             if (brand === 'NONE') { if (card.getAttribute('data-brand') !== '') return false; } else if (brand !== '' && card.getAttribute('data-brand') !== brand) return false;
-            if (serie === 'NONE') { if (card.getAttribute('data-serie') !== '') return false; } else if (serie !== '' && card.getAttribute('data-serie') !== serie) return false;
+            if (serie === 'NONE') { 
+                if ((card.getAttribute('data-serie') || '').trim() !== '') return false; 
+            } else if (serie !== '' && (card.getAttribute('data-serie') || '').trim().toLowerCase() !== serie.toLowerCase()) {
+                return false;
+            }
             if (status !== '' && card.getAttribute('data-activo') !== status) return false;
 
             if (query !== '') {
