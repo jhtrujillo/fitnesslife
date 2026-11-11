@@ -3,9 +3,16 @@ header("Cache-Control: no-cache, no-store, must-revalidate");
 header("Pragma: no-cache");
 header("Expires: 0");
 $serverName = $_SERVER['SERVER_NAME'] ?? 'localhost';
-$entorno = ($serverName === 'localhost' || $serverName === '127.0.0.1' || strpos($serverName, '.local') !== false || strpos($serverName, '192.168.') !== false || php_sapi_name() === 'cli') ? 'LOCAL' : 'PRODUCCION';
+$isFitnessLife = (strpos($serverName, 'fitnesslifesas.com') !== false);
+$isLocal = ($serverName === 'localhost' || $serverName === '127.0.0.1' || strpos($serverName, '.local') !== false || strpos($serverName, '192.168.') !== false || php_sapi_name() === 'cli');
 
-if ($entorno === "LOCAL") {
+if ($isFitnessLife) {
+    $host = "localhost";
+    $port = "3306";
+    $dbname = "fitnessl_cotizaciones";
+    $username = "fitnessl_user";
+    $password = "FitLife_2026*Prod!Db";
+} else if ($isLocal) {
     $host = "127.0.0.1";
     $port = "8889";
     $dbname = "cotizacioneslifefitness";
@@ -141,6 +148,159 @@ $seriesJson = json_encode($series);
               @media (max-width: 480px) {
                 .grid-catalogo {
                   grid-template-columns: repeat(1, minmax(0, 1fr));
+                }
+              }
+              .catalogo-controls-box {
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                margin-bottom: 24px;
+                background: #ffffff;
+                padding: 16px 20px;
+                border-radius: 12px;
+                border: 1px solid oklch(88% .006 270);
+                box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+              }
+              .catalogo-controls-bar {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 16px;
+              }
+              .catalogo-control-item {
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
+              }
+              .catalogo-control-item-right {
+                margin-left: auto;
+              }
+              .catalogo-control-label {
+                font-size: 11px;
+                font-weight: 700;
+                color: oklch(35% .008 270);
+                font-family: Oswald, sans-serif;
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+                white-space: nowrap;
+              }
+              .catalogo-control-select {
+                padding: 8px 14px;
+                border-radius: 8px;
+                border: 1px solid oklch(85% 0 0);
+                font-size: 13px;
+                font-weight: 500;
+                color: oklch(20% .005 270);
+                outline: none;
+                cursor: pointer;
+                background: #fafafa;
+                min-width: 180px;
+                box-sizing: border-box;
+                transition: border-color 0.2s ease, box-shadow 0.2s ease;
+              }
+              .catalogo-control-select:focus {
+                border-color: oklch(58% .22 25);
+                box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+              }
+              .catalogo-series-wrapper {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                padding-top: 14px;
+                border-top: 1px solid oklch(93% 0 0);
+              }
+              .catalogo-series-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 8px;
+              }
+              .catalogo-series-title {
+                font-size: 11px;
+                font-weight: 700;
+                color: oklch(35% .008 270);
+                font-family: Oswald, sans-serif;
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+              }
+              .catalogo-series-clear-btn {
+                background: white;
+                color: oklch(58% .22 25);
+                border: 1px solid oklch(85% 0 0);
+                padding: 3px 10px;
+                border-radius: 999px;
+                font-size: 11px;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.2s ease;
+              }
+              .catalogo-series-clear-btn:hover {
+                background: oklch(97% 0 0);
+                border-color: oklch(58% .22 25);
+              }
+              .catalogo-series-chips {
+                display: flex;
+                align-items: center;
+                flex-wrap: wrap;
+                gap: 8px;
+              }
+              .catalogo-series-chip {
+                padding: 6px 14px;
+                border-radius: 999px;
+                font-size: 12px;
+                font-weight: 600;
+                cursor: pointer;
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                transition: all 0.2s ease;
+                box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+                white-space: nowrap;
+              }
+              .catalogo-series-chip:hover {
+                transform: translateY(-1px);
+              }
+              @media (max-width: 640px) {
+                .catalogo-controls-box {
+                  padding: 14px 14px;
+                  margin-bottom: 18px;
+                  gap: 12px;
+                }
+                .catalogo-controls-bar {
+                  flex-direction: column;
+                  align-items: stretch;
+                  gap: 10px;
+                }
+                .catalogo-control-item {
+                  display: flex;
+                  width: 100%;
+                  justify-content: space-between;
+                  align-items: center;
+                  gap: 10px;
+                  margin-left: 0 !important;
+                }
+                .catalogo-control-label {
+                  min-width: 95px;
+                  flex-shrink: 0;
+                  text-align: left;
+                }
+                .catalogo-control-select {
+                  flex-grow: 1;
+                  width: 100%;
+                  min-width: 0;
+                  box-sizing: border-box;
+                }
+                .catalogo-series-wrapper {
+                  padding-top: 10px;
+                }
+                .catalogo-series-chips {
+                  gap: 6px;
+                }
+                .catalogo-series-chip {
+                  padding: 6px 12px;
+                  font-size: 11px;
                 }
               }
               .portfolio-carousel-track::-webkit-scrollbar {
@@ -799,13 +959,13 @@ $seriesJson = json_encode($series);
           </div>
 
           <!-- Barra de Control: Filtros y Ordenamiento -->
-          <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:24px;background:#ffffff;padding:16px 20px;border-radius:12px;border:1px solid oklch(88% .006 270);box-shadow:0 2px 8px rgba(0,0,0,0.03)">
+          <div class="catalogo-controls-box">
             
             <!-- Fila superior: Selectores principales (Marca y Ordenar) bien alineados -->
-            <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;padding-bottom:12px;border-bottom:1px solid oklch(93% 0 0)">
-              <div style="display:inline-flex;align-items:center;gap:10px">
-                <span style="font-size:12px;font-weight:700;color:oklch(35% .008 270);font-family:Oswald,sans-serif;text-transform:uppercase;letter-spacing:0.06em">Filtrar Marca:</span>
-                <select onChange="{{onTopBrandSelect}}" value="{{topBrandValue}}" style="padding:7px 14px;border-radius:6px;border:1px solid oklch(85% 0 0);font-size:13px;font-weight:500;color:oklch(20% .005 270);outline:none;cursor:pointer;background:#fafafa;min-width:180px">
+            <div class="catalogo-controls-bar">
+              <div class="catalogo-control-item">
+                <span class="catalogo-control-label">Filtrar Marca:</span>
+                <select onChange="{{onTopBrandSelect}}" value="{{topBrandValue}}" class="catalogo-control-select">
                   <option value="">Todas las Marcas</option>
                   <sc-for list="{{topBrandsList}}" as="bm">
                     <option value="{{bm.name}}">{{bm.name}}</option>
@@ -813,9 +973,9 @@ $seriesJson = json_encode($series);
                 </select>
               </div>
 
-              <div style="display:inline-flex;align-items:center;gap:10px;margin-left:auto">
-                <span style="font-size:12px;color:oklch(40% 0 0);font-weight:700;font-family:Oswald,sans-serif;text-transform:uppercase;letter-spacing:0.06em">Ordenar:</span>
-                <select onChange="{{onCatalogoSort}}" value="{{catalogoSort}}" style="padding:7px 14px;border-radius:6px;border:1px solid oklch(85% 0 0);font-size:13px;color:oklch(20% .005 270);outline:none;cursor:pointer;background:#fafafa;min-width:190px">
+              <div class="catalogo-control-item catalogo-control-item-right">
+                <span class="catalogo-control-label">Ordenar:</span>
+                <select onChange="{{onCatalogoSort}}" value="{{catalogoSort}}" class="catalogo-control-select">
                   <option value="serie_order">Por Serie (Recomendado)</option>
                   <option value="name_asc">Nombre (A-Z)</option>
                   <option value="name_desc">Nombre (Z-A)</option>
@@ -826,17 +986,21 @@ $seriesJson = json_encode($series);
 
             <!-- Fila inferior: Series en pastillas ordenadas y estilizadas -->
             <sc-if value="{{hasSeriesFilter}}">
-              <div style="display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding-top:2px">
-                <span style="font-size:12px;font-weight:700;color:oklch(35% .008 270);margin-right:4px;font-family:Oswald,sans-serif;text-transform:uppercase;letter-spacing:0.06em">Series:</span>
-                <sc-for list="{{catalogoSeriesList}}" as="s">
-                  <button onClick="{{s.onClick}}" style="background:{{s.bg}};color:{{s.color}};border:{{s.border}};padding:5px 13px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:all .2s ease;box-shadow:0 1px 2px rgba(0,0,0,0.04);white-space:nowrap">
-                    <sc-if value="{{s.checked}}"><span style="font-size:11px">✓</span></sc-if>
-                    <span>{{s.name}}</span>
-                  </button>
-                </sc-for>
-                <sc-if value="{{hasSelectedSeries}}">
-                  <button onClick="{{clearCatalogoSeries}}" style="background:white;color:oklch(58% .22 25);border:1px solid oklch(85% 0 0);padding:4px 10px;border-radius:20px;font-size:11px;font-weight:600;cursor:pointer;transition:all .2s ease;margin-left:4px" title="Limpiar selección de series">✕ Todas</button>
-                </sc-if>
+              <div class="catalogo-series-wrapper">
+                <div class="catalogo-series-header">
+                  <span class="catalogo-series-title">Filtrar por Serie:</span>
+                  <sc-if value="{{hasSelectedSeries}}">
+                    <button onClick="{{clearCatalogoSeries}}" class="catalogo-series-clear-btn" title="Limpiar selección de series">✕ Todas las series</button>
+                  </sc-if>
+                </div>
+                <div class="catalogo-series-chips">
+                  <sc-for list="{{catalogoSeriesList}}" as="s">
+                    <button onClick="{{s.onClick}}" style="background:{{s.bg}};color:{{s.color}};border:{{s.border}}" class="catalogo-series-chip">
+                      <sc-if value="{{s.checked}}"><span style="font-size:11px">✓</span></sc-if>
+                      <span>{{s.name}}</span>
+                    </button>
+                  </sc-for>
+                </div>
               </div>
             </sc-if>
 
@@ -1166,7 +1330,69 @@ $seriesJson = json_encode($series);
 
   <button onClick="{{scrollTop}}" aria-label="Volver arriba" style="position:fixed;left:16px;bottom:16px;z-index:120;width:46px;height:46px;border-radius:999px;background:oklch(20% .006 270);color:white;border:1px solid oklch(38% .008 270);display:flex;align-items:center;justify-content:center;cursor:pointer;opacity:{{topBtnOpacity}};pointer-events:{{topBtnPointer}};box-shadow:0 10px 24px -10px oklch(20% .01 270 / .5);transition:opacity .35s ease,transform .3s cubic-bezier(.2,.8,.2,1),background .3s ease" style-hover="transform:translateY(-4px);background:oklch(58% .22 25)"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"></path></svg></button>
 
-  <a href="https://wa.me/573128011838" target="_blank" rel="noopener" aria-label="WhatsApp" style="position:fixed;right:24px;bottom:100px;z-index:120;width:58px;height:58px;border-radius:999px;background:#25D366;color:white;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px -8px oklch(20% .01 270 / .5);transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s ease" style-hover="transform:scale(1.09);box-shadow:0 18px 34px -10px oklch(20% .01 270 / .6)"><svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M12 2a9.9 9.9 0 00-8.5 15L2 22l5.2-1.4A10 10 0 1012 2zm5.6 14.1c-.2.7-1.3 1.3-1.9 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.4.5c-.1.1-.3.3-.1.6.1.3.6 1.1 1.4 1.8 1 .9 1.8 1.1 2 1.2.3.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l2 1c.2.1.4.2.4.3.1.2.1.7-.1 1.3z"></path></svg></a>
+  <!-- Floating WhatsApp Widget con 2 opciones de contacto (312-8011838 · 312-7199008) -->
+  <sc-if value="{{waMenuOpen}}" hint-placeholder-val="{{false}}">
+    <div onClick="{{closeWaMenu}}" style="position:fixed;inset:0;z-index:9990;background:rgba(0,0,0,0.15);backdrop-filter:blur(2px);"></div>
+  </sc-if>
+  <div style="position:fixed;right:24px;bottom:100px;z-index:9999;display:flex;flex-direction:column;align-items:flex-end;">
+    <sc-if value="{{waMenuOpen}}" hint-placeholder-val="{{false}}">
+      <div style="background:#ffffff;border-radius:16px;box-shadow:0 16px 40px -10px rgba(0,0,0,0.3),0 0 1px 1px rgba(0,0,0,0.06);width:310px;max-width:calc(100vw - 48px);margin-bottom:12px;overflow:hidden;border:1px solid oklch(90% 0 0);">
+        <div style="background:linear-gradient(135deg, #25D366 0%, #128C7E 100%);padding:16px 18px;color:#ffffff;display:flex;align-items:center;justify-content:space-between;">
+          <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,0.2);display:flex;align-items:center;justify-content:center;">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2a9.9 9.9 0 00-8.5 15L2 22l5.2-1.4A10 10 0 1012 2zm5.6 14.1c-.2.7-1.3 1.3-1.9 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.4.5c-.1.1-.3.3-.1.6.1.3.6 1.1 1.4 1.8 1 .9 1.8 1.1 2 1.2.3.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l2 1c.2.1.4.2.4.3.1.2.1.7-.1 1.3z"></path></svg>
+            </div>
+            <div>
+              <div style="font-weight:700;font-size:14px;line-height:1.2;font-family:Oswald,sans-serif;text-transform:uppercase;letter-spacing:0.04em;">Fitness Life WhatsApp</div>
+              <div style="font-size:11px;opacity:0.92;">Elige una línea de atención:</div>
+            </div>
+          </div>
+          <button onClick="{{closeWaMenu}}" aria-label="Cerrar" style="background:none;border:none;color:#ffffff;font-size:18px;cursor:pointer;padding:2px 6px;line-height:1;border-radius:4px;opacity:0.85;" style-hover="opacity:1;">✕</button>
+        </div>
+
+        <div style="padding:14px;display:flex;flex-direction:column;gap:10px;background:#f8fafc;">
+          <!-- Opción 1: 312-8011838 -->
+          <a href="https://wa.me/573128011838?text=Hola%2C%20estoy%20interesado%20en%20recibir%20informaci%C3%B3n%20y%20asesor%C3%ADa%20de%20Fitness%20Life." target="_blank" rel="noopener" style="display:flex;align-items:center;gap:12px;background:#ffffff;padding:12px 14px;border-radius:10px;border:1px solid #e2e8f0;text-decoration:none;transition:all .2s ease;box-shadow:0 2px 4px rgba(0,0,0,0.03);" style-hover="border-color:#25D366;transform:translateY(-2px);box-shadow:0 4px 12px rgba(37,211,102,0.2);">
+            <div style="width:36px;height:36px;border-radius:50%;background:#e8fdf0;display:flex;align-items:center;justify-content:center;color:#25D366;flex-shrink:0;">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2a9.9 9.9 0 00-8.5 15L2 22l5.2-1.4A10 10 0 1012 2zm5.6 14.1c-.2.7-1.3 1.3-1.9 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.4.5c-.1.1-.3.3-.1.6.1.3.6 1.1 1.4 1.8 1 .9 1.8 1.1 2 1.2.3.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l2 1c.2.1.4.2.4.3.1.2.1.7-.1 1.3z"></path></svg>
+            </div>
+            <div style="flex-grow:1;">
+              <div style="font-size:11px;color:#64748b;font-weight:600;display:flex;align-items:center;gap:6px;">
+                <span>Línea Comercial 1</span>
+                <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#10b981;"></span>
+              </div>
+              <div style="font-size:14px;font-weight:700;color:#0f172a;letter-spacing:0.02em;">312-8011838</div>
+            </div>
+            <span style="font-size:14px;color:#25D366;font-weight:700;">→</span>
+          </a>
+
+          <!-- Opción 2: 312-7199008 -->
+          <a href="https://wa.me/573127199008?text=Hola%2C%20estoy%20interesado%20en%20recibir%20informaci%C3%B3n%20y%20asesor%C3%ADa%20de%20Fitness%20Life." target="_blank" rel="noopener" style="display:flex;align-items:center;gap:12px;background:#ffffff;padding:12px 14px;border-radius:10px;border:1px solid #e2e8f0;text-decoration:none;transition:all .2s ease;box-shadow:0 2px 4px rgba(0,0,0,0.03);" style-hover="border-color:#25D366;transform:translateY(-2px);box-shadow:0 4px 12px rgba(37,211,102,0.2);">
+            <div style="width:36px;height:36px;border-radius:50%;background:#e8fdf0;display:flex;align-items:center;justify-content:center;color:#25D366;flex-shrink:0;">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2a9.9 9.9 0 00-8.5 15L2 22l5.2-1.4A10 10 0 1012 2zm5.6 14.1c-.2.7-1.3 1.3-1.9 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.4.5c-.1.1-.3.3-.1.6.1.3.6 1.1 1.4 1.8 1 .9 1.8 1.1 2 1.2.3.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l2 1c.2.1.4.2.4.3.1.2.1.7-.1 1.3z"></path></svg>
+            </div>
+            <div style="flex-grow:1;">
+              <div style="font-size:11px;color:#64748b;font-weight:600;display:flex;align-items:center;gap:6px;">
+                <span>Línea Comercial 2</span>
+                <span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#10b981;"></span>
+              </div>
+              <div style="font-size:14px;font-weight:700;color:#0f172a;letter-spacing:0.02em;">312-7199008</div>
+            </div>
+            <span style="font-size:14px;color:#25D366;font-weight:700;">→</span>
+          </a>
+        </div>
+      </div>
+    </sc-if>
+
+    <button onClick="{{toggleWaMenu}}" aria-label="WhatsApp" style="width:58px;height:58px;border-radius:999px;background:#25D366;color:white;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 10px 26px -8px oklch(20% .01 270 / .5);transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s ease" style-hover="transform:scale(1.09);box-shadow:0 18px 34px -10px oklch(20% .01 270 / .6)">
+      <sc-if value="{{waMenuOpen}}" hint-placeholder-val="{{false}}">
+        <span style="font-size:24px;font-weight:700;line-height:1;">✕</span>
+      </sc-if>
+      <sc-if value="{{waMenuClosed}}" hint-placeholder-val="{{true}}">
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="currentColor"><path d="M12 2a9.9 9.9 0 00-8.5 15L2 22l5.2-1.4A10 10 0 1012 2zm5.6 14.1c-.2.7-1.3 1.3-1.9 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5-4.5-.2-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.4.7-.4h.5c.2 0 .4 0 .6.5l.8 2c.1.2.1.3 0 .5l-.4.5c-.1.1-.3.3-.1.6.1.3.6 1.1 1.4 1.8 1 .9 1.8 1.1 2 1.2.3.1.4.1.6-.1l.7-.9c.2-.2.4-.2.6-.1l2 1c.2.1.4.2.4.3.1.2.1.7-.1 1.3z"></path></svg>
+      </sc-if>
+    </button>
+  </div>
 
   <footer style="background:oklch(19% .004 265);color:oklch(92% .003 270);padding:72px 24px 34px">
     <div style="max-width:1280px;margin:0 auto">
@@ -1213,8 +1439,8 @@ $seriesJson = json_encode($series);
               <div style="font-size:14px;color:oklch(70% .006 270);line-height:1.55">Cra 1 # 30-75 barrio Fátima<br/>Cali, Colombia</div>
             </div>
             <div>
-              <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:oklch(58% .22 25);margin-bottom:5px">Teléfono</div>
-              <div style="font-size:14px;color:oklch(70% .006 270);line-height:1.55">312-8011838 &nbsp;·&nbsp; 312-7199008</div>
+              <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:oklch(58% .22 25);margin-bottom:5px">Teléfono / WhatsApp</div>
+              <div style="font-size:14px;color:oklch(70% .006 270);line-height:1.55"><a href="https://wa.me/573128011838" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;" style-hover="color:#25D366">312-8011838</a> &nbsp;·&nbsp; <a href="https://wa.me/573127199008" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;" style-hover="color:#25D366">312-7199008</a></div>
             </div>
             <div>
               <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:oklch(58% .22 25);margin-bottom:5px">Email</div>
@@ -1310,6 +1536,7 @@ class Component extends DCLogic {
     isMobile: false,
     isNarrow: false,
     menuOpen: false,
+    waMenuOpen: false,
     equiposOpen: false,
     quote: { name: '', company: '', email: '', phone: '', type: '', message: '' },
     allProducts: (typeof window !== 'undefined' && window.DB_PRODUCTS) ? window.DB_PRODUCTS : [],
@@ -1871,6 +2098,14 @@ class Component extends DCLogic {
 
   openEquipos = () => this.setState({ equiposOpen: true });
   closeEquipos = () => this.setState({ equiposOpen: false });
+  toggleWaMenu = (e) => {
+    if (e && e.stopPropagation) e.stopPropagation();
+    this.setState(s => ({ waMenuOpen: !s.waMenuOpen }));
+  };
+  closeWaMenu = (e) => {
+    if (e && e.stopPropagation) e.stopPropagation();
+    this.setState({ waMenuOpen: false });
+  };
   goCat = (slug) => (e) => {
     if (this._portfolioHasDragged) return;
     if (e) e.preventDefault();
@@ -2290,7 +2525,7 @@ class Component extends DCLogic {
       if (!image && p.media_json && p.media_json.length > 0 && p.media_json[0].url) {
          image = p.media_json[0].url;
       }
-      if (image && !image.startsWith('http') && !image.startsWith('cotizaciones/') && !image.startsWith('v1/cotizaciones/')) { image = 'cotizaciones/' + image; }
+      if (image && image.startsWith('cotizaciones/')) { image = image.replace(/^cotizaciones\//, ''); }
       const item_no = p.item_no || 'N/A';
       const prodId = p.id || item_no;
       const hasDims = p.set_up_dimension && p.set_up_dimension.trim() !== '';
@@ -2488,7 +2723,7 @@ class Component extends DCLogic {
       if (!image && p.media_json && p.media_json.length > 0 && p.media_json[0].url) {
          image = p.media_json[0].url;
       }
-      if (image && !image.startsWith('http') && !image.startsWith('cotizaciones/') && !image.startsWith('v1/cotizaciones/')) { image = 'cotizaciones/' + image; }
+      if (image && image.startsWith('cotizaciones/')) { image = image.replace(/^cotizaciones\//, ''); }
       const item_no = p.item_no || 'N/A';
       const prodId = p.id || item_no;
       const hasDims = p.set_up_dimension && p.set_up_dimension.trim() !== '';
@@ -2672,7 +2907,11 @@ class Component extends DCLogic {
         if (!mp) return [];
         let imgs = [];
         if (mp.media_json && mp.media_json.length > 0) {
-          imgs = mp.media_json.map(m => m.url.startsWith('http') || m.url.startsWith('v1/cotizaciones/') ? m.url : 'v1/cotizaciones/' + m.url);
+          imgs = mp.media_json.map(m => {
+            let u = m.url || '';
+            if (u.startsWith('cotizaciones/')) u = u.replace(/^cotizaciones\//, '');
+            return u;
+          });
         } else if (mp.image) {
           imgs = [mp.image];
         }
@@ -2872,6 +3111,10 @@ class Component extends DCLogic {
       equiposArrow: this.state.equiposOpen ? 'rotate(180deg)' : 'rotate(0deg)',
       openEquipos: this.openEquipos,
       closeEquipos: this.closeEquipos,
+      waMenuOpen: this.state.waMenuOpen,
+      waMenuClosed: !this.state.waMenuOpen,
+      toggleWaMenu: this.toggleWaMenu,
+      closeWaMenu: this.closeWaMenu,
       navCategories: (window.DB_CATEGORIAS || []).filter(c => (prodsByCatId[c.id] || 0) > 0).map(c => ({
         name: c.name,
         slug: c.slug,
