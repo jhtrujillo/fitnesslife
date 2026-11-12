@@ -460,6 +460,7 @@ $seriesJson = json_encode($series);
               <sc-for list="{{navCategories}}" as="nc">
                 <a href="#" onClick="{{nc.onClick}}" style="font-size:13px;font-weight:500;color:oklch(24% .006 270);padding:10px 18px;display:block;white-space:nowrap;transition:background .2s ease,color .2s ease;border-bottom:1px solid oklch(95% 0 0)" style-hover="background:oklch(58% .22 25);color:white">{{nc.name}}</a>
               </sc-for>
+              <a href="Catalogo_Fitness_Life_2026.pdf" target="_blank" download="Catalogo_Fitness_Life_2026.pdf" style="font-size:12px;font-weight:700;color:white;background:oklch(58% .22 25);padding:12px 18px;display:flex;align-items:center;gap:8px;white-space:nowrap;text-decoration:none"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>Descargar Catálogo PDF</a>
             </div>
           </div>
         </div>
@@ -486,6 +487,10 @@ $seriesJson = json_encode($series);
         <sc-for list="{{navCategories}}" as="nc">
           <a href="#" onClick="{{nc.onClick}}" style="font-size:13px;font-weight:500;color:oklch(38% .008 270);padding:11px 0 11px 18px;border-bottom:1px solid oklch(93% .004 270);display:block">{{nc.name}}</a>
         </sc-for>
+        <a href="Catalogo_Fitness_Life_2026.pdf" target="_blank" download="Catalogo_Fitness_Life_2026.pdf" style="font-size:13px;font-weight:700;color:oklch(58% .22 25);padding:12px 0 12px 18px;border-bottom:1px solid oklch(90% .006 270);display:flex;align-items:center;gap:8px">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          Descargar Catálogo PDF (176 págs)
+        </a>
         <a href="#soluciones" onClick="{{scrollTo_soluciones}}" style="font-size:15px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:oklch(14% .005 270);padding:14px 0;border-bottom:1px solid oklch(90% .006 270);display:block">Soluciones</a>
         <a href="#marcas" onClick="{{scrollTo_marcas}}" style="font-size:15px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:oklch(14% .005 270);padding:14px 0;border-bottom:1px solid oklch(90% .006 270);display:block">Marcas</a>
         <a href="#" onClick="{{goToContacto}}" style="font-size:15px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;color:oklch(14% .005 270);padding:14px 0;border-bottom:1px solid oklch(90% .006 270);display:block">Contacto</a>
@@ -921,7 +926,11 @@ $seriesJson = json_encode($series);
         <div style="max-width:800px;margin:0 auto">
           <div style="font-size:12px;letter-spacing:0.3em;color:oklch(58% .22 25);font-weight:700;text-transform:uppercase;margin-bottom:14px">Catálogo de Equipos</div>
           <h1 style="font-family:Oswald,sans-serif;font-size:clamp(32px,5vw,56px);font-weight:700;margin:0 0 20px;color:white;text-transform:uppercase">{{currentCategoryName}}</h1>
-          <p style="color:oklch(70% .008 270);font-size:16px;line-height:1.6;margin:0">{{currentCategorySub}}</p>
+          <p style="color:oklch(70% .008 270);font-size:16px;line-height:1.6;margin:0 0 24px">{{currentCategorySub}}</p>
+          <a href="Catalogo_Fitness_Life_2026.pdf" target="_blank" download="Catalogo_Fitness_Life_2026.pdf" style="display:inline-flex;align-items:center;gap:10px;background:oklch(58% .22 25);color:white;padding:12px 26px;border-radius:6px;font-weight:700;font-size:13px;letter-spacing:0.04em;text-transform:uppercase;text-decoration:none;box-shadow:0 8px 24px rgba(184,29,36,0.35);transition:all .2s ease" style-hover="background:oklch(65% .24 27);transform:translateY(-1px)">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            Descargar Catálogo Completo (PDF 176 págs)
+          </a>
         </div>
       </section>
       
@@ -1431,9 +1440,13 @@ $seriesJson = json_encode($series);
           <p style="color:oklch(70% .006 270);font-size:14px;line-height:1.6;margin:0 0 20px;max-width:280px">Inspirando al mundo a entrenar. Importadores directos de equipamiento deportivo comercial de las marcas líderes en EE.UU.</p>
           <div style="font-size:11px;letter-spacing:0.12em;color:oklch(98% 0 0);text-transform:uppercase;font-weight:700;margin-bottom:10px">Recibe nuestros catálogos</div>
           <sc-if value="{{newsletterSuccess}}">
-            <div style="background:rgba(16,185,129,0.15);border:1px solid #10b981;color:#34d399;padding:12px;border-radius:6px;font-size:13px;margin-bottom:20px;max-width:300px;line-height:1.4">
+            <div style="background:rgba(16,185,129,0.15);border:1px solid #10b981;color:#34d399;padding:12px;border-radius:6px;font-size:13px;margin-bottom:12px;max-width:300px;line-height:1.4">
               ✓ ¡Listo! Hemos registrado tu solicitud de catálogos comerciales.
             </div>
+            <a href="Catalogo_Fitness_Life_2026.pdf" target="_blank" download="Catalogo_Fitness_Life_2026.pdf" style="display:inline-flex;align-items:center;gap:6px;background:oklch(58% .22 25);color:white;padding:10px 16px;border-radius:4px;font-size:12px;font-weight:700;text-decoration:none;margin-bottom:18px">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              Descargar Catálogo PDF Ahora
+            </a>
           </sc-if>
           <sc-if value="{{newsletterNotSuccess}}">
             <div style="display:flex;gap:8px;margin-bottom:8px;max-width:300px">
@@ -1441,8 +1454,14 @@ $seriesJson = json_encode($series);
               <button onClick="{{submitNewsletter}}" disabled="{{newsletterSubmitting}}" style="background:oklch(58% .22 25);color:white;border:none;padding:0 20px;font-weight:700;font-size:12px;cursor:pointer;border-radius:4px">Ir</button>
             </div>
             <sc-if value="{{hasNewsletterError}}">
-              <div style="color:#f87171;font-size:11px;margin-bottom:14px;max-width:300px">{{newsletterError}}</div>
+              <div style="color:#f87171;font-size:11px;margin-bottom:10px;max-width:300px">{{newsletterError}}</div>
             </sc-if>
+            <div style="margin-bottom:18px">
+              <a href="Catalogo_Fitness_Life_2026.pdf" target="_blank" download="Catalogo_Fitness_Life_2026.pdf" style="color:oklch(72% .006 270);font-size:12px;text-decoration:underline;display:inline-flex;align-items:center;gap:4px">
+                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                Descargar Catálogo Completo (PDF 44 MB)
+              </a>
+            </div>
           </sc-if>
           <div style="font-size:11px;letter-spacing:0.12em;color:oklch(98% 0 0);text-transform:uppercase;font-weight:700;margin-bottom:10px">Síguenos en redes</div>
           <div style="display:flex;gap:10px">
