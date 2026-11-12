@@ -816,7 +816,7 @@ $seriesJson = json_encode($series);
       <div style="display:grid;grid-template-columns:{{grid4}};gap:1px;background:oklch(32% .006 270);border-top:1px solid oklch(32% .006 270)">
         <sc-for list="{{whyUs}}" as="w" hint-placeholder-count="4">
           <div style="position:relative;overflow:hidden;background:oklch(97% .002 270);padding:42px 28px 36px;opacity:{{w.revealOpacity}};transform:{{w.revealTransform}};transition:opacity .6s ease {{w.revealDelay}},transform .6s cubic-bezier(.2,.8,.2,1) {{w.revealDelay}},background .35s ease,box-shadow .4s ease" style-hover="background:oklch(100% 0 0);box-shadow:0 22px 44px -18px oklch(58% .22 25 / .55);transform:translateY(-8px)">
-            <div style="position:absolute;top:-6px;right:10px;font-family:Oswald,sans-serif;font-size:96px;font-weight:700;line-height:1;color:oklch(88% .006 270);pointer-events:none;transition:color .4s ease,transform .5s cubic-bezier(.2,.8,.2,1)" style-hover="color:oklch(58% .22 25 / .22);transform:translateY(6px)">{{w.icon}}</div>
+            <div style="position:absolute;top:2px;right:14px;font-family:Oswald,sans-serif;font-size:84px;font-weight:700;line-height:1;color:oklch(88% .006 270);letter-spacing:-0.04em;pointer-events:none;transition:color .4s ease,transform .5s cubic-bezier(.2,.8,.2,1)" style-hover="color:oklch(58% .22 25 / .22);transform:translateY(6px)">{{w.icon}}</div>
             <div style="position:absolute;top:0;left:0;right:0;height:3px;background:oklch(58% .22 25);transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.2,.8,.2,1)" style-hover="transform:scaleX(1)"></div>
             <div style="position:relative">
               <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
@@ -3274,10 +3274,10 @@ class Component extends DCLogic {
     }));
 
     const whyUsData = [
-      { icon: '⭐', title: 'Marcas Líderes Globales', desc: 'Equipos con biomecánica de precisión: marcas americanas de élite y distribución autorizada Realleader Fitness.' },
-      { icon: '✓', title: 'Calidad Garantizada', desc: 'Equipos con garantía real y respaldo total de repuestos y soporte técnico oficial.' },
-      { icon: '→', title: 'Importación & Entrega', desc: 'Importadores directos con logística propia y entregas seguras a nivel nacional en Colombia.' },
-      { icon: '★', title: 'Soporte Experto', desc: 'Acompañamiento post-venta con técnicos especializados durante toda la vida útil de tus máquinas.' },
+      { icon: '01', title: 'Marcas Líderes Globales', desc: 'Equipos con biomecánica de precisión: marcas americanas de élite y distribución autorizada Realleader Fitness.' },
+      { icon: '02', title: 'Calidad Garantizada', desc: 'Equipos con garantía real y respaldo total de repuestos y soporte técnico oficial.' },
+      { icon: '03', title: 'Importación & Entrega', desc: 'Importadores directos con logística propia y entregas seguras a nivel nacional en Colombia.' },
+      { icon: '04', title: 'Soporte Experto', desc: 'Acompañamiento post-venta con técnicos especializados durante toda la vida útil de tus máquinas.' },
     ].map((w, i) => ({
       ...w,
       revealOpacity: this.state.whyUsVisible ? 1 : 0,
