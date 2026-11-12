@@ -835,7 +835,7 @@ $seriesJson = json_encode($series);
             </div>
             <div style="display:flex;align-items:center;gap:16px">
               <span style="width:46px;height:46px;flex-shrink:0;border-radius:10px;background:oklch(58% .22 25);display:flex;align-items:center;justify-content:center;color:white"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="M2 6l10 7 10-7"></path></svg></span>
-              <div><div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:oklch(62% .008 270);font-weight:600;margin-bottom:3px">Email</div><div style="font-size:17px;color:oklch(97% 0 0);font-weight:600"><a href="mailto:ventas@fitnesslifesas.com" style="color:inherit;text-decoration:none;" style-hover="color:oklch(58% .22 25)">ventas@fitnesslifesas.com</a></div></div>
+              <div><div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:oklch(62% .008 270);font-weight:600;margin-bottom:3px">Email</div><div style="font-size:17px;color:oklch(97% 0 0);font-weight:600"><a href="mailto:Fitnesslifesas@gmail.com" style="color:inherit;text-decoration:none;" style-hover="color:oklch(58% .22 25)">Fitnesslifesas@gmail.com</a></div></div>
             </div>
             <div style="display:flex;align-items:center;gap:16px">
               <span style="width:46px;height:46px;flex-shrink:0;border-radius:10px;background:oklch(58% .22 25);display:flex;align-items:center;justify-content:center;color:white"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1116 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></span>
@@ -1296,7 +1296,7 @@ $seriesJson = json_encode($series);
           </div>
           <div>
             <div style="font-size:11px;letter-spacing:0.15em;color:oklch(58% .22 25);font-weight:700;text-transform:uppercase;margin-bottom:8px">Email</div>
-            <div style="font-size:17px;font-weight:600"><a href="mailto:ventas@fitnesslifesas.com" style="color:inherit;text-decoration:none" style-hover="color:oklch(58% .22 25)">ventas@fitnesslifesas.com</a></div>
+            <div style="font-size:17px;font-weight:600"><a href="mailto:Fitnesslifesas@gmail.com" style="color:inherit;text-decoration:none" style-hover="color:oklch(58% .22 25)">Fitnesslifesas@gmail.com</a></div>
           </div>
           <div style="height:250px;border:1px solid oklch(85% 0 0);border-radius:12px;overflow:hidden">
             <iframe src="https://maps.google.com/maps?q=Cra+1+%23+30-75+barrio+F%C3%A1tima%2C+Cali%2C+Colombia&amp;t=&amp;z=16&amp;ie=UTF8&amp;iwloc=&amp;output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
@@ -1449,7 +1449,7 @@ $seriesJson = json_encode($series);
             </div>
             <div>
               <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:oklch(58% .22 25);margin-bottom:5px">Email</div>
-              <a href="mailto:fitnesslifesas@gmail.com" style="font-size:14px;color:oklch(70% .006 270)">fitnesslifesas@gmail.com</a>
+              <a href="mailto:Fitnesslifesas@gmail.com" style="font-size:14px;color:oklch(70% .006 270)">Fitnesslifesas@gmail.com</a>
             </div>
             <div>
               <div style="font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:oklch(58% .22 25);margin-bottom:5px">Horario de trabajo</div>
