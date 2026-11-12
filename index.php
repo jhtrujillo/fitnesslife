@@ -831,15 +831,15 @@ $seriesJson = json_encode($series);
           <div style="display:flex;flex-direction:column;gap:22px">
             <div style="display:flex;align-items:center;gap:16px">
               <span style="width:46px;height:46px;flex-shrink:0;border-radius:10px;background:oklch(58% .22 25);display:flex;align-items:center;justify-content:center;color:white"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6A19.8 19.8 0 012.1 4.2 2 2 0 014.1 2h3a2 2 0 012 1.7c.1.9.3 1.8.7 2.6a2 2 0 01-.5 2.1L8.1 9.9a16 16 0 006 6l1.5-1.2a2 2 0 012.1-.5c.8.4 1.7.6 2.6.7a2 2 0 011.7 2z"></path></svg></span>
-              <div><div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:oklch(62% .008 270);font-weight:600;margin-bottom:3px">Teléfono</div><div style="font-size:17px;color:oklch(97% 0 0);font-weight:600">312-8011838 · 312-7199008</div></div>
+              <div><div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:oklch(62% .008 270);font-weight:600;margin-bottom:3px">Teléfono / WhatsApp</div><div style="font-size:17px;color:oklch(97% 0 0);font-weight:600"><a href="https://wa.me/573128011838" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;" style-hover="color:#25D366">312-8011838</a> &nbsp;·&nbsp; <a href="https://wa.me/573127199008" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;" style-hover="color:#25D366">312-7199008</a></div></div>
             </div>
             <div style="display:flex;align-items:center;gap:16px">
               <span style="width:46px;height:46px;flex-shrink:0;border-radius:10px;background:oklch(58% .22 25);display:flex;align-items:center;justify-content:center;color:white"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="2"></rect><path d="M2 6l10 7 10-7"></path></svg></span>
-              <div><div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:oklch(62% .008 270);font-weight:600;margin-bottom:3px">Email</div><div style="font-size:17px;color:oklch(97% 0 0);font-weight:600">fitnesslifesas@gmail.com</div></div>
+              <div><div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:oklch(62% .008 270);font-weight:600;margin-bottom:3px">Email</div><div style="font-size:17px;color:oklch(97% 0 0);font-weight:600"><a href="mailto:ventas@fitnesslifesas.com" style="color:inherit;text-decoration:none;" style-hover="color:oklch(58% .22 25)">ventas@fitnesslifesas.com</a></div></div>
             </div>
             <div style="display:flex;align-items:center;gap:16px">
               <span style="width:46px;height:46px;flex-shrink:0;border-radius:10px;background:oklch(58% .22 25);display:flex;align-items:center;justify-content:center;color:white"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 1116 0z"></path><circle cx="12" cy="10" r="3"></circle></svg></span>
-              <div><div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:oklch(62% .008 270);font-weight:600;margin-bottom:3px">Ubicación</div><div style="font-size:17px;color:oklch(97% 0 0);font-weight:600">Cali, Colombia · Cobertura nacional</div></div>
+              <div><div style="font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:oklch(62% .008 270);font-weight:600;margin-bottom:3px">Dirección</div><div style="font-size:17px;color:oklch(97% 0 0);font-weight:600">Cra 1 # 30-75 barrio Fátima · Cali, Colombia</div></div>
             </div>
           </div>
         </div>
@@ -1281,21 +1281,26 @@ $seriesJson = json_encode($series);
       </sc-if>
 
       <div style="display:grid;grid-template-columns:{{contactGrid}};gap:48px">
-        <div style="display:flex;flex-direction:column;gap:28px;order:{{contactInfoOrder}}">
+        <div style="display:flex;flex-direction:column;gap:24px;order:{{contactInfoOrder}}">
           <div>
-            <div style="font-size:11px;letter-spacing:0.15em;color:oklch(58% .22 25);font-weight:700;text-transform:uppercase;margin-bottom:8px">Teléfono</div>
-            <div style="font-size:18px;font-weight:600">+57 (1) 555-0100</div>
+            <div style="font-size:11px;letter-spacing:0.15em;color:oklch(58% .22 25);font-weight:700;text-transform:uppercase;margin-bottom:8px">Dirección</div>
+            <div style="font-size:17px;font-weight:600;color:oklch(20% .005 270);line-height:1.4">Cra 1 # 30-75 barrio Fátima<br/>Cali, Colombia</div>
+          </div>
+          <div>
+            <div style="font-size:11px;letter-spacing:0.15em;color:oklch(58% .22 25);font-weight:700;text-transform:uppercase;margin-bottom:8px">Teléfono / WhatsApp</div>
+            <div style="font-size:17px;font-weight:600;color:oklch(20% .005 270);display:flex;align-items:center;flex-wrap:wrap;gap:8px">
+              <a href="https://wa.me/573128011838" target="_blank" rel="noopener" style="color:inherit;text-decoration:none" style-hover="color:#25D366">312-8011838</a>
+              <span style="color:oklch(70% 0 0)">·</span>
+              <a href="https://wa.me/573127199008" target="_blank" rel="noopener" style="color:inherit;text-decoration:none" style-hover="color:#25D366">312-7199008</a>
+            </div>
           </div>
           <div>
             <div style="font-size:11px;letter-spacing:0.15em;color:oklch(58% .22 25);font-weight:700;text-transform:uppercase;margin-bottom:8px">Email</div>
-            <div style="font-size:18px;font-weight:600">ventas@fitnesslifesas.com</div>
+            <div style="font-size:17px;font-weight:600"><a href="mailto:ventas@fitnesslifesas.com" style="color:inherit;text-decoration:none" style-hover="color:oklch(58% .22 25)">ventas@fitnesslifesas.com</a></div>
           </div>
-          <div>
-            <div style="font-size:11px;letter-spacing:0.15em;color:oklch(58% .22 25);font-weight:700;text-transform:uppercase;margin-bottom:8px">Ubicación</div>
-            <div style="font-size:18px;font-weight:600;margin-bottom:6px">Colombia · Cobertura nacional</div>
-            <div style="font-size:14px;color:oklch(40% .01 270);display:flex;align-items:center;gap:16px"><a href="tel:3128011838" style="color:inherit;text-decoration:none">📞 312 8011838</a> <a href="tel:3127199008" style="color:inherit;text-decoration:none">📞 312 7199008</a></div>
+          <div style="height:250px;border:1px solid oklch(85% 0 0);border-radius:12px;overflow:hidden">
+            <iframe src="https://maps.google.com/maps?q=Cra+1+%23+30-75+barrio+F%C3%A1tima%2C+Cali%2C+Colombia&amp;t=&amp;z=16&amp;ie=UTF8&amp;iwloc=&amp;output=embed" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
-          <div style="height:240px;border:1px solid oklch(85% 0 0);border-radius:12px;overflow:hidden"><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127402.13110996841!2d-76.62002306766453!3d3.411681283626245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e30a6f0cc4bb3f1%3A0x1f0fb5e952ae6168!2sCali%2C%20Valle%20del%20Cauca!5e0!3m2!1sen!2sco!4v1700000000000!5m2!1sen!2sco" width="100%" height="100%" style="border:0;filter:grayscale(1) contrast(1.2)" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
         </div>
         <div style="background:oklch(98% 0 0);border:1px solid oklch(83% .006 270);padding:{{modalPadding}};order:{{contactFormOrder}}">
           <sc-if value="{{formSubmitted}}" hint-placeholder-val="{{false}}">
