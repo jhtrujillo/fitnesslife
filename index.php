@@ -115,18 +115,23 @@ $seriesJson = json_encode($series);
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Fitness Life S.A.S — Equipos de gimnasio en Colombia</title>
-<meta name="description" content="Equipos de entrenamiento físico para gimnasios, hoteles y hogares. Importadores directos de las mejores marcas en Colombia."/>
+<meta name="description" content="Equipos de entrenamiento físico comercial para gimnasios, hoteles y hogares. Marcas americanas de élite y distribución oficial Realleader en Colombia."/>
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="Fitness Life S.A.S"/>
 <meta property="og:title" content="Fitness Life S.A.S — Equipos de gimnasio en Colombia"/>
-<meta property="og:description" content="Importadores directos de equipos 100% americanos: Life Fitness, Precor, Hoist, Matrix, Cybex y Free Motion. Cali, cobertura nacional."/>
-<meta property="og:image" content="https://www.fitnesslife.com.co/assets/logo.webp"/>
+<meta property="og:description" content="Líderes en equipamiento comercial para gimnasios: marcas de élite americanas (Life Fitness, Precor, Matrix, Cybex) y distribución autorizada Realleader Fitness. Cali, cobertura nacional."/>
+<meta property="og:url" content="https://www.fitnesslifesas.com/"/>
+<meta property="og:image" content="https://www.fitnesslifesas.com/assets/logo.png"/>
+<meta property="og:image:secure_url" content="https://www.fitnesslifesas.com/assets/logo.png"/>
+<meta property="og:image:type" content="image/png"/>
+<meta property="og:image:width" content="600"/>
+<meta property="og:image:height" content="315"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Fitness Life S.A.S — Equipos de gimnasio en Colombia"/>
-<meta name="twitter:description" content="Importadores directos de equipos 100% americanos para gimnasios, hoteles y hogares."/>
-<meta name="twitter:image" content="https://www.fitnesslife.com.co/assets/logo.webp"/>
+<meta name="twitter:description" content="Líderes en equipamiento comercial para gimnasios: marcas de élite americanas (Life Fitness, Precor, Matrix, Cybex) y distribución autorizada Realleader Fitness."/>
+<meta name="twitter:image" content="https://www.fitnesslifesas.com/assets/logo.png"/>
 <meta name="theme-color" content="#c62828"/>
-<link rel="icon" type="image/png" href="assets/logo.webp">
+<link rel="icon" type="image/png" href="assets/logo.png">
 <script>window.__resources = window.__resources || {};</script>
 <script src="js/support.js"></script>
 <style>
@@ -143,6 +148,10 @@ $seriesJson = json_encode($series);
               @media (max-width: 768px) {
                 .grid-catalogo {
                   grid-template-columns: repeat(2, minmax(0, 1fr));
+                }
+                .floating-wa-container {
+                  right: 14px !important;
+                  bottom: 24px !important;
                 }
               }
               @media (max-width: 480px) {
@@ -359,16 +368,21 @@ $seriesJson = json_encode($series);
   <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg"><rect width="1200" height="800" fill="#141416"/><rect x="360" y="300" width="480" height="26" fill="#c62828"/><text x="600" y="430" font-family="Oswald, sans-serif" font-size="118" font-weight="700" fill="#ffffff" text-anchor="middle">FITNESS LIFE</text><text x="600" y="500" font-family="Inter, sans-serif" font-size="40" letter-spacing="14" fill="#8a8a90" text-anchor="middle">S.A.S</text></svg>
 </template>
 <title>Fitness Life S.A.S — Equipos de gimnasio en Colombia</title>
-<meta name="description" content="Equipos de entrenamiento físico para gimnasios, hoteles y hogares. Importadores directos de las mejores marcas en Colombia."/>
+<meta name="description" content="Equipos de entrenamiento físico comercial para gimnasios, hoteles y hogares. Marcas americanas de élite y distribución oficial Realleader en Colombia."/>
 <meta property="og:type" content="website"/>
 <meta property="og:site_name" content="Fitness Life S.A.S"/>
 <meta property="og:title" content="Fitness Life S.A.S — Equipos de gimnasio en Colombia"/>
-<meta property="og:description" content="Importadores directos de equipos 100% americanos: Life Fitness, Precor, Hoist, Matrix, Cybex y Free Motion. Cali, cobertura nacional."/>
-<meta property="og:image" content="assets/logo.webp"/>
+<meta property="og:description" content="Líderes en equipamiento comercial para gimnasios: marcas de élite americanas (Life Fitness, Precor, Matrix, Cybex) y distribución autorizada Realleader Fitness. Cali, cobertura nacional."/>
+<meta property="og:url" content="https://www.fitnesslifesas.com/"/>
+<meta property="og:image" content="https://www.fitnesslifesas.com/assets/logo.png"/>
+<meta property="og:image:secure_url" content="https://www.fitnesslifesas.com/assets/logo.png"/>
+<meta property="og:image:type" content="image/png"/>
+<meta property="og:image:width" content="600"/>
+<meta property="og:image:height" content="315"/>
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:title" content="Fitness Life S.A.S — Equipos de gimnasio en Colombia"/>
-<meta name="twitter:description" content="Importadores directos de equipos 100% americanos para gimnasios, hoteles y hogares."/>
-<meta name="twitter:image" content="assets/logo.webp"/>
+<meta name="twitter:description" content="Líderes en equipamiento comercial para gimnasios: marcas de élite americanas (Life Fitness, Precor, Matrix, Cybex) y distribución autorizada Realleader Fitness."/>
+<meta name="twitter:image" content="https://www.fitnesslifesas.com/assets/logo.png"/>
 <meta name="theme-color" content="#c62828"/>
 <meta name="ext-resource-dependency" content="assets/cat_eliptica_main.webp" data-resource-id="assets/cat_eliptica_main.webp"/>
 <meta name="ext-resource-dependency" content="assets/cat_bici_main.webp" data-resource-id="assets/cat_bici_main.webp"/>
@@ -426,7 +440,7 @@ $seriesJson = json_encode($series);
 
   <div style="background:oklch(58% .22 25);color:white;overflow:hidden;white-space:nowrap;padding:5px 0">
     <div style="display:inline-block;animation:ticker 24s linear infinite;font-weight:600;font-size:10px;letter-spacing:0.12em">
-      ⚡ IMPORTADORES DIRECTOS — EQUIPAMIENTO 100% AMERICANO ORIGINAL DE ALTO TRÁFICO ⚡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚡ IMPORTADORES DIRECTOS — EQUIPAMIENTO 100% AMERICANO ORIGINAL DE ALTO TRÁFICO ⚡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚡ IMPORTADORES DIRECTOS — EQUIPAMIENTO 100% AMERICANO ORIGINAL DE ALTO TRÁFICO ⚡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      ⚡ IMPORTADORES DIRECTOS — EQUIPAMIENTO FITNESS COMERCIAL DE ALTO TRÁFICO ⚡ MARCAS AMERICANAS E INTERNACIONALES LÍDERES ⚡ DISTRIBUCIÓN OFICIAL REALLEADER FITNESS ⚡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;⚡ IMPORTADORES DIRECTOS — EQUIPAMIENTO FITNESS COMERCIAL DE ALTO TRÁFICO ⚡ MARCAS AMERICANAS E INTERNACIONALES LÍDERES ⚡ DISTRIBUCIÓN OFICIAL REALLEADER FITNESS ⚡&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     </div>
   </div>
 
@@ -666,7 +680,7 @@ $seriesJson = json_encode($series);
           </div>
           <div style="display:flex;gap:16px;flex-wrap:wrap">
             <a href="#" onClick="{{goToContacto}}" style="background:linear-gradient(135deg, oklch(58% .22 25), oklch(65% .24 27));color:white;padding:14px 26px;font-weight:700;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s ease" style-hover="transform:translateY(-3px);box-shadow:0 14px 26px -10px oklch(58% .22 25 / .6)">Cotizar Circuito</a>
-            <a href="#" style="border:1px solid oklch(83% .006 270);color:oklch(20% .005 270);padding:14px 26px;font-weight:700;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;transition:border-color .3s ease,transform .3s ease,background .3s ease" style-hover="border-color:oklch(58% .22 25);transform:translateY(-3px);background:oklch(96% .01 25)">Video Demostrativo</a>
+            <button type="button" onClick="{{openDemoVideo}}" style="border:1px solid oklch(83% .006 270);background:transparent;color:oklch(20% .005 270);padding:14px 26px;font-weight:700;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:border-color .3s ease,transform .3s ease,background .3s ease" style-hover="border-color:oklch(58% .22 25);transform:translateY(-3px);background:oklch(96% .01 25)">Video Demostrativo</button>
           </div>
         </div>
       </div>
@@ -683,7 +697,7 @@ $seriesJson = json_encode($series);
           </div>
           <div style="display:flex;gap:16px;flex-wrap:wrap">
             <a href="#" onClick="{{goToContacto}}" style="background:linear-gradient(135deg, oklch(58% .22 25), oklch(65% .24 27));color:white;padding:14px 26px;font-weight:700;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s ease" style-hover="transform:translateY(-3px);box-shadow:0 14px 26px -10px oklch(58% .22 25 / .6)">Cotizar Circuito</a>
-            <a href="#" style="border:1px solid oklch(83% .006 270);color:oklch(20% .005 270);padding:14px 26px;font-weight:700;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;transition:border-color .3s ease,transform .3s ease,background .3s ease" style-hover="border-color:oklch(58% .22 25);transform:translateY(-3px);background:oklch(96% .01 25)">Video Demostrativo</a>
+            <button type="button" onClick="{{openDemoVideo}}" style="border:1px solid oklch(83% .006 270);background:transparent;color:oklch(20% .005 270);padding:14px 26px;font-weight:700;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:border-color .3s ease,transform .3s ease,background .3s ease" style-hover="border-color:oklch(58% .22 25);transform:translateY(-3px);background:oklch(96% .01 25)">Video Demostrativo</button>
           </div>
         </div>
         <div style="order:1;position:relative;aspect-ratio:16/11;overflow:hidden;border-radius:22px;background:oklch(91% .004 270);box-shadow:0 16px 38px -14px oklch(20% .01 270 / .3);opacity:{{circRow2ImgOpacity}};transform:{{circRow2ImgTransform}};transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1),box-shadow .45s ease" style-hover="box-shadow:0 36px 68px -22px oklch(58% .22 25 / .48);transform:translateY(-10px)">
@@ -885,8 +899,13 @@ $seriesJson = json_encode($series);
                 <option value="Accesorios">Accesorios</option>
               </select>
               <textarea placeholder="Mensaje" rows="5" value="{{qMessage}}" onChange="{{onQMessage}}" style="background:oklch(16% .005 270);border:1px solid oklch(28% .006 270);color:oklch(96% 0 0);padding:17px 18px;font-size:15px;width:100%;box-sizing:border-box;margin-bottom:24px;outline:none;resize:vertical;font-family:Inter,sans-serif"></textarea>
-              <button onClick="{{submitQuote}}" style="width:100%;background:oklch(58% .22 25);color:white;border:none;padding:20px;font-weight:700;font-size:14px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:12px;transition:background .3s ease,transform .3s ease" style-hover="background:oklch(65% .24 27);transform:translateY(-2px)">Enviar solicitud <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"></path></svg></button>
-              <p style="font-size:11px;color:oklch(58% .008 270);margin:14px 0 0;line-height:1.6">Los campos marcados con * son obligatorios. También puedes escribirnos por WhatsApp al 312-8011838.</p>
+              <sc-if value="{{hasQuoteError}}">
+                <div style="background:rgba(220,38,38,0.2);border:1px solid #ef4444;color:#fca5a5;padding:12px;border-radius:6px;font-size:13px;margin-bottom:16px;line-height:1.4">
+                  {{quoteError}}
+                </div>
+              </sc-if>
+              <button onClick="{{submitQuote}}" disabled="{{quoteSubmitting}}" style="width:100%;background:oklch(58% .22 25);color:white;border:none;padding:20px;font-weight:700;font-size:14px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:12px;transition:background .3s ease,transform .3s ease;opacity:{{quoteBtnOpacity}}" style-hover="background:oklch(65% .24 27);transform:translateY(-2px)">{{quoteBtnText}} <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"></path></svg></button>
+              <p style="font-size:11px;color:oklch(58% .008 270);margin:14px 0 0;line-height:1.6">Al enviar autorizas el tratamiento de datos según nuestra <button type="button" onClick="{{openPrivacyModal}}" style="background:none;border:none;padding:0;color:inherit;text-decoration:underline;cursor:pointer">Política de Privacidad</button> (Ley 1581 de 2012). WhatsApp directo: 312-8011838.</p>
             </div>
           </sc-if>
         </div>
@@ -1184,17 +1203,14 @@ $seriesJson = json_encode($series);
             <div style="flex:1.5;padding:{{modalPadding}};display:flex;flex-direction:column">
                <h2 style="font-family:Oswald,sans-serif;font-size:32px;margin:0 0 16px;color:oklch(20% .005 270);line-height:1.2;text-transform:uppercase">{{modalProd.name}}</h2>
                
-               <div style="display:flex;align-items:center;gap:4px;margin-bottom:24px;color:#FFB800">
-                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-                 <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
-                 <span style="color:oklch(60% 0 0);font-size:13px;margin-left:8px">(6 Reviews)</span>
+               <div style="display:flex;align-items:center;gap:8px;margin-bottom:20px;flex-wrap:wrap">
+                 <span style="background:oklch(95% .02 145);color:#047857;border:1px solid oklch(88% .04 145);padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase">Grado Comercial Alto Tráfico</span>
+                 <span style="background:oklch(96% .01 25);color:oklch(58% .22 25);border:1px solid oklch(90% .04 25);padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase">Garantía Directa</span>
+                 <span style="background:oklch(96% 0 0);color:oklch(40% .01 270);border:1px solid oklch(88% 0 0);padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase">Disponibilidad Inmediata</span>
                </div>
 
                <p style="font-size:15px;color:oklch(40% .005 270);line-height:1.6;margin-bottom:32px;flex-grow:1">
-                 Equipamiento profesional ideal para trabajo pesado en gimnasios de alto tráfico. Diseñado biomecánicamente para resultados superiores y construido para resistir el paso del tiempo.
+                 {{modalProd.descText}}
                </p>
 
                <div style="display:flex;gap:16px;margin-bottom:32px">
@@ -1314,18 +1330,26 @@ $seriesJson = json_encode($series);
           <sc-if value="{{formNotSubmitted}}" hint-placeholder-val="{{true}}">
             <form onSubmit="{{submitForm}}" style="display:flex;flex-direction:column;gap:18px">
               <h3 style="font-family:Oswald,sans-serif;font-size:22px;font-weight:600;margin:0 0 4px">Solicita tu cotización</h3>
-              <input name="name" required="{{true}}" placeholder="Nombre completo" style="background:oklch(96% .003 270);border:1px solid oklch(83% .006 270);color:oklch(20% .005 270);padding:14px 16px;font-size:14px"/>
-              <input name="email" required="{{true}}" type="email" placeholder="Correo electrónico" style="background:oklch(96% .003 270);border:1px solid oklch(83% .006 270);color:oklch(20% .005 270);padding:14px 16px;font-size:14px"/>
-              <input name="phone" required="{{true}}" type="tel" placeholder="Teléfono / Celular" style="background:oklch(96% .003 270);border:1px solid oklch(83% .006 270);color:oklch(20% .005 270);padding:14px 16px;font-size:14px"/>
-              <select name="type" style="background:oklch(96% .003 270);border:1px solid oklch(83% .006 270);color:oklch(20% .005 270);padding:14px 16px;font-size:14px">
+              <sc-if value="{{hasFormError}}">
+                <div style="background:#fee2e2;border:1px solid #ef4444;color:#991b1b;padding:14px;border-radius:8px;font-size:13px;line-height:1.4">
+                  {{formErrorText}}
+                </div>
+              </sc-if>
+              <input name="name" required="{{true}}" placeholder="Nombre completo *" style="background:oklch(96% .003 270);border:1px solid oklch(83% .006 270);color:oklch(20% .005 270);padding:14px 16px;font-size:14px"/>
+              <input name="email" required="{{true}}" type="email" placeholder="Correo electrónico *" style="background:oklch(96% .003 270);border:1px solid oklch(83% .006 270);color:oklch(20% .005 270);padding:14px 16px;font-size:14px"/>
+              <input name="phone" required="{{true}}" type="tel" placeholder="Teléfono / Celular *" style="background:oklch(96% .003 270);border:1px solid oklch(83% .006 270);color:oklch(20% .005 270);padding:14px 16px;font-size:14px"/>
+              <select name="type" value="{{quoteProjectType}}" style="background:oklch(96% .003 270);border:1px solid oklch(83% .006 270);color:oklch(20% .005 270);padding:14px 16px;font-size:14px">
                 <option value="">Tipo de equipo / Proyecto</option>
-                <option>Línea Comercial de Alto Tráfico</option>
-                <option>Paquete / Dotación para Gimnasio</option>
-                <option>Equipos para Conjunto / Institucional</option>
-                <option>Equipos de Fuerza & Cardio para Hogar</option>
+                <option value="Línea Comercial de Alto Tráfico">Línea Comercial de Alto Tráfico</option>
+                <option value="Paquete / Dotación para Gimnasio">Paquete / Dotación para Gimnasio</option>
+                <option value="Equipos para Conjunto / Institucional">Equipos para Conjunto / Institucional</option>
+                <option value="Equipos de Fuerza & Cardio para Hogar">Equipos de Fuerza & Cardio para Hogar</option>
               </select>
               <textarea name="message" placeholder="Cuéntanos detalles de tu proyecto o inquietudes adicionales..." rows="4" style="background:oklch(96% .003 270);border:1px solid oklch(83% .006 270);color:oklch(20% .005 270);padding:14px 16px;font-size:14px;resize:vertical"></textarea>
               <button type="submit" disabled="{{formSubmitting}}" style="background:linear-gradient(135deg, oklch(58% .22 25), oklch(65% .24 27));color:white;border:none;padding:16px;font-weight:700;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;opacity:{{submitBtnOpacity}}">{{submitBtnText}}</button>
+              <div style="font-size:11px;color:oklch(55% .01 270);line-height:1.4;text-align:center">
+                Al enviar este formulario aceptas nuestra <button type="button" onClick="{{openPrivacyModal}}" style="background:none;border:none;padding:0;color:inherit;text-decoration:underline;font-weight:600;cursor:pointer">Política de Tratamiento de Datos</button> (Ley 1581 de 2012).
+              </div>
             </form>
           </sc-if>
         </div>
@@ -1339,7 +1363,7 @@ $seriesJson = json_encode($series);
   <sc-if value="{{waMenuOpen}}" hint-placeholder-val="{{false}}">
     <div onClick="{{closeWaMenu}}" style="position:fixed;inset:0;z-index:9990;background:rgba(0,0,0,0.15);backdrop-filter:blur(2px);"></div>
   </sc-if>
-  <div style="position:fixed;right:24px;bottom:100px;z-index:9999;display:flex;flex-direction:column;align-items:flex-end;">
+  <div class="floating-wa-container" style="position:fixed;right:24px;bottom:100px;z-index:9999;display:flex;flex-direction:column;align-items:flex-end;">
     <sc-if value="{{waMenuOpen}}" hint-placeholder-val="{{false}}">
       <div style="background:#ffffff;border-radius:16px;box-shadow:0 16px 40px -10px rgba(0,0,0,0.3),0 0 1px 1px rgba(0,0,0,0.06);width:310px;max-width:calc(100vw - 48px);margin-bottom:12px;overflow:hidden;border:1px solid oklch(90% 0 0);">
         <div style="background:linear-gradient(135deg, #25D366 0%, #128C7E 100%);padding:16px 18px;color:#ffffff;display:flex;align-items:center;justify-content:space-between;">
@@ -1406,10 +1430,20 @@ $seriesJson = json_encode($series);
           <img src="assets/logo.webp" alt="Fitness Life S.A.S" style="height:80px;width:auto;margin-bottom:16px;filter:brightness(0) invert(1)"/>
           <p style="color:oklch(70% .006 270);font-size:14px;line-height:1.6;margin:0 0 20px;max-width:280px">Inspirando al mundo a entrenar. Importadores directos de equipamiento deportivo comercial de las marcas líderes en EE.UU.</p>
           <div style="font-size:11px;letter-spacing:0.12em;color:oklch(98% 0 0);text-transform:uppercase;font-weight:700;margin-bottom:10px">Recibe nuestros catálogos</div>
-          <div style="display:flex;gap:8px;margin-bottom:24px;max-width:300px">
-            <input placeholder="Tu correo" style="flex:1;min-width:0;background:oklch(26% .005 265);border:1px solid oklch(36% .006 270);color:oklch(95% 0 0);padding:12px 14px;font-size:13px"/>
-            <button style="background:oklch(58% .22 25);color:white;border:none;padding:0 20px;font-weight:700;font-size:12px;cursor:pointer">Ir</button>
-          </div>
+          <sc-if value="{{newsletterSuccess}}">
+            <div style="background:rgba(16,185,129,0.15);border:1px solid #10b981;color:#34d399;padding:12px;border-radius:6px;font-size:13px;margin-bottom:20px;max-width:300px;line-height:1.4">
+              ✓ ¡Listo! Hemos registrado tu solicitud de catálogos comerciales.
+            </div>
+          </sc-if>
+          <sc-if value="{{newsletterNotSuccess}}">
+            <div style="display:flex;gap:8px;margin-bottom:8px;max-width:300px">
+              <input placeholder="Tu correo" value="{{newsletterEmail}}" onInput="{{onNewsletterInput}}" style="flex:1;min-width:0;background:oklch(26% .005 265);border:1px solid oklch(36% .006 270);color:oklch(95% 0 0);padding:12px 14px;font-size:13px;border-radius:4px"/>
+              <button onClick="{{submitNewsletter}}" disabled="{{newsletterSubmitting}}" style="background:oklch(58% .22 25);color:white;border:none;padding:0 20px;font-weight:700;font-size:12px;cursor:pointer;border-radius:4px">Ir</button>
+            </div>
+            <sc-if value="{{hasNewsletterError}}">
+              <div style="color:#f87171;font-size:11px;margin-bottom:14px;max-width:300px">{{newsletterError}}</div>
+            </sc-if>
+          </sc-if>
           <div style="font-size:11px;letter-spacing:0.12em;color:oklch(98% 0 0);text-transform:uppercase;font-weight:700;margin-bottom:10px">Síguenos en redes</div>
           <div style="display:flex;gap:10px">
             <a href="https://www.instagram.com/fitnesslifesas/?hl=es" target="_blank" rel="noopener" aria-label="Instagram" style="width:38px;height:38px;border-radius:999px;border:1px solid oklch(34% .006 270);display:flex;align-items:center;justify-content:center;color:oklch(92% .003 270);transition:background .3s ease,color .3s ease,border-color .3s ease" style-hover="background:oklch(58% .22 25);border-color:oklch(58% .22 25);color:white"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="16" height="16" rx="5"></rect><circle cx="12" cy="12" r="4.2"></circle><circle cx="17.8" cy="6.2" r="1.2" fill="currentColor" stroke="none"></circle></svg></a>
@@ -1433,7 +1467,7 @@ $seriesJson = json_encode($series);
             <span style="font-size:14px;color:oklch(70% .006 270)">Dotación de Gimnasios y Clubes</span>
             <span style="font-size:14px;color:oklch(70% .006 270)">Gimnasios Corporativos y de Hoteles</span>
             <span style="font-size:14px;color:oklch(70% .006 270)">Equipamiento Premium para Hogar</span>
-            <span style="font-size:14px;color:oklch(70% .006 270)">Equipos 100% Americanos</span>
+            <span style="font-size:14px;color:oklch(70% .006 270)">Marcas Americanas &amp; Distribución Autorizada</span>
           </div>
         </div>
         <div>
@@ -1461,8 +1495,8 @@ $seriesJson = json_encode($series);
       <div style="border-top:1px solid oklch(30% .006 270);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px">
         <span style="font-size:12px;color:oklch(70% .006 270)">© 2026 Fitness Life S.A.S — Todos los derechos reservados. Importador Directo Autorizado en Colombia.</span>
         <div style="display:flex;gap:20px">
-          <span style="font-size:12px;color:oklch(70% .006 270)">Términos de Uso</span>
-          <span style="font-size:12px;color:oklch(70% .006 270)">Política de Privacidad</span>
+          <button type="button" onClick="{{openTermsModal}}" style="background:none;border:none;padding:0;font-size:12px;color:oklch(70% .006 270);cursor:pointer;text-decoration:underline;" style-hover="color:oklch(95% 0 0)">Términos de Uso</button>
+          <button type="button" onClick="{{openPrivacyModal}}" style="background:none;border:none;padding:0;font-size:12px;color:oklch(70% .006 270);cursor:pointer;text-decoration:underline;" style-hover="color:oklch(95% 0 0)">Política de Privacidad (Ley 1581)</button>
         </div>
       </div>
     </div>
@@ -1476,6 +1510,104 @@ $seriesJson = json_encode($series);
       <div style="display:flex;flex-direction:column">
         <span style="font-size:14px;font-weight:700;line-height:1">Ver Cotización</span>
         <span style="font-size:11px;opacity:0.9">{{cartCount}} equipos añadidos</span>
+      </div>
+    </div>
+  <!-- Modal Legal: Términos y Política de Privacidad (Ley 1581 de 2012) -->
+  <sc-if value="{{legalModalOpen}}">
+    <div style="position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(6px);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;box-sizing:border-box">
+      <div style="background:#ffffff;width:100%;max-width:760px;max-height:85vh;border-radius:16px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.4);display:flex;flex-direction:column;overflow:hidden;position:relative;animation:slideFade .3s ease-out">
+        
+        <!-- Header con selector de pestañas -->
+        <div style="padding:20px 24px;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;justify-content:space-between;background:#f8fafc">
+          <div style="display:flex;gap:10px">
+            <button type="button" onClick="{{setLegalTabPrivacy}}" style="background:{{legalTabPrivacyBg}};color:{{legalTabPrivacyColor}};border:none;padding:10px 16px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;transition:all .2s">Política de Datos (Ley 1581)</button>
+            <button type="button" onClick="{{setLegalTabTerms}}" style="background:{{legalTabTermsBg}};color:{{legalTabTermsColor}};border:none;padding:10px 16px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer;transition:all .2s">Términos de Uso</button>
+          </div>
+          <button type="button" onClick="{{closeLegalModal}}" aria-label="Cerrar" style="background:#f1f5f9;border:none;width:34px;height:34px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:#475569;font-weight:700" style-hover="background:#e2e8f0">✕</button>
+        </div>
+
+        <!-- Contenido -->
+        <div style="padding:28px 24px;overflow-y:auto;font-size:14px;color:#334155;line-height:1.7">
+          <sc-if value="{{isLegalPrivacy}}">
+            <h2 style="font-family:Oswald,sans-serif;font-size:22px;color:#0f172a;margin:0 0 14px;text-transform:uppercase">Política de Tratamiento de Datos Personales</h2>
+            <div style="display:inline-block;background:#f1f5f9;color:#475569;padding:6px 12px;border-radius:6px;font-size:12px;font-weight:600;margin-bottom:18px">Ley Estatutaria 1581 de 2012 · Decreto 1377 de 2013 (Colombia)</div>
+            
+            <h3 style="font-size:15px;color:#1e293b;margin:16px 0 6px;font-weight:700">1. Identificación del Responsable del Tratamiento</h3>
+            <p style="margin:0 0 14px"><strong>Razón Social:</strong> FITNESS LIFE S.A.S<br><strong>Sede Principal:</strong> Cra 1 # 30-75 barrio Fátima, Cali, Colombia.<br><strong>Correo Electrónico Oficial:</strong> <a href="mailto:fitnesslifesas@gmail.com" style="color:#e63946;font-weight:600">fitnesslifesas@gmail.com</a><br><strong>Líneas Comerciales / WhatsApp:</strong> +57 (312) 801-1838 · +57 (312) 719-9008</p>
+
+            <h3 style="font-size:15px;color:#1e293b;margin:16px 0 6px;font-weight:700">2. Finalidades del Tratamiento</h3>
+            <p style="margin:0 0 8px">Los datos personales recolectados a través de formularios web, cotizaciones o chats autorizados serán utilizados exclusivamente para:</p>
+            <ul style="padding-left:20px;margin:0 0 14px">
+              <li>Elaborar y remitir cotizaciones comerciales personalizadas de equipamiento de fuerza y cardio.</li>
+              <li>Asesoría técnica, diseño y distribución espacial de gimnasios comerciales, instituciones y hogares.</li>
+              <li>Gestión logística de despacho, entrega, instalación y cumplimiento de garantías a nivel nacional.</li>
+              <li>Envío de catálogos solicitados y novedades sobre líneas remanufacturadas o nuevos ingresos.</li>
+            </ul>
+
+            <h3 style="font-size:15px;color:#1e293b;margin:16px 0 6px;font-weight:700">3. Derechos del Titular (Hábeas Data)</h3>
+            <p style="margin:0 0 8px">Conforme al Art. 8 de la Ley 1581 de 2012, el titular de la información tiene derecho a:</p>
+            <ul style="padding-left:20px;margin:0 0 14px">
+              <li>Conocer, actualizar y rectificar sus datos personales frente a Fitness Life S.A.S.</li>
+              <li>Solicitar prueba de la autorización otorgada para su recolección.</li>
+              <li>Revocar en cualquier momento la autorización y/o solicitar la supresión de sus datos de nuestras bases enviando un correo a <a href="mailto:fitnesslifesas@gmail.com" style="color:#e63946;font-weight:600">fitnesslifesas@gmail.com</a>.</li>
+            </ul>
+
+            <h3 style="font-size:15px;color:#1e293b;margin:16px 0 6px;font-weight:700">4. Confidencialidad y Seguridad</h3>
+            <p style="margin:0">Fitness Life S.A.S aplica protocolos de protección de datos y bajo ninguna circunstancia vende, cede ni transfiere información a terceros con fines publicitarios no autorizados.</p>
+          </sc-if>
+
+          <sc-if value="{{isLegalTerms}}">
+            <h2 style="font-family:Oswald,sans-serif;font-size:22px;color:#0f172a;margin:0 0 14px;text-transform:uppercase">Términos y Condiciones de Uso</h2>
+            
+            <h3 style="font-size:15px;color:#1e293b;margin:16px 0 6px;font-weight:700">1. Objeto y Alcance del Catálogo Digital</h3>
+            <p style="margin:0 0 14px">El portal <strong>fitnesslifesas.com</strong> tiene como objetivo la exhibición comercial y generación de solicitudes de cotización de equipamiento deportivo. Las especificaciones técnicas, dimensiones y material multimedia corresponden a las referencias de fábrica suministradas por cada fabricante.</p>
+
+            <h3 style="font-size:15px;color:#1e293b;margin:16px 0 6px;font-weight:700">2. Cotizaciones y Validez Comercial</h3>
+            <p style="margin:0 0 14px">La generación de un listado de cotización o pre-orden en línea no constituye una obligación contractual de compraventa inmediata hasta que sea formalizada mediante propuesta comercial oficial emitida por un asesor de Fitness Life S.A.S, sujeta a verificación de existencias y condiciones de entrega.</p>
+
+            <h3 style="font-size:15px;color:#1e293b;margin:16px 0 6px;font-weight:700">3. Garantía y Respaldo</h3>
+            <p style="margin:0 0 14px">Todos los equipos nuevos cuentan con garantía de fábrica según la marca correspondiente. Los circuitos remanufacturados son certificados bajo rigurosos estándares de inspección mecánica y estética con garantía directa en repuestos y soporte técnico oficial.</p>
+
+            <h3 style="font-size:15px;color:#1e293b;margin:16px 0 6px;font-weight:700">4. Propiedad Intelectual</h3>
+            <p style="margin:0">Las marcas, logos y denominaciones comerciales exhibidas (Life Fitness, Precor, Matrix, Cybex, Realleader Fitness, etc.) pertenecen a sus respectivos propietarios y se exhiben únicamente para identificar el origen y compatibilidad de los equipos distribuidos.</p>
+          </sc-if>
+        </div>
+
+        <!-- Footer -->
+        <div style="padding:16px 24px;border-top:1px solid #e2e8f0;background:#f8fafc;display:flex;justify-content:flex-end">
+          <button type="button" onClick="{{closeLegalModal}}" style="background:oklch(20% .005 270);color:#ffffff;border:none;padding:10px 22px;border-radius:8px;font-weight:700;font-size:13px;cursor:pointer">Entendido y Cerrar</button>
+        </div>
+
+      </div>
+    </div>
+  </sc-if>
+
+  <!-- Modal Video Demostrativo -->
+  <sc-if value="{{demoVideoModalOpen}}">
+    <div style="position:fixed;inset:0;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;box-sizing:border-box">
+      <div style="background:#0f172a;width:100%;max-width:820px;border-radius:16px;box-shadow:0 30px 60px -15px rgba(0,0,0,0.6);display:flex;flex-direction:column;overflow:hidden;position:relative;animation:slideFade .3s ease-out;border:1px solid rgba(255,255,255,0.1)">
+        
+        <div style="padding:16px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.1)">
+          <div style="color:#ffffff;font-family:Oswald,sans-serif;font-size:18px;text-transform:uppercase;letter-spacing:0.04em">Demostración de Equipos — Fitness Life</div>
+          <button type="button" onClick="{{closeDemoVideo}}" aria-label="Cerrar" style="background:rgba(255,255,255,0.1);border:none;width:34px;height:34px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:#ffffff" style-hover="background:rgba(255,255,255,0.2)">✕</button>
+        </div>
+
+        <div style="position:relative;aspect-ratio:16/9;background:#000000;display:flex;align-items:center;justify-content:center">
+          <video controls autoplay playsinline style="width:100%;height:100%;object-fit:contain">
+            <source src="https://www.realleadermex.com/galeriavideo/inicio3.mp4" type="video/mp4">
+            Tu navegador no soporta reproducción de video.
+          </video>
+        </div>
+
+        <div style="padding:18px 24px;background:#1e293b;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+          <div style="color:#94a3b8;font-size:13px">
+            ¿Deseas una videollamada o video específico del equipo en showroom?
+          </div>
+          <a href="https://wa.me/573128011838?text=Hola,%20me%20gustar%C3%ADa%20solicitar%20un%20video%20demostrativo%20o%20recorrido%20virtual%20de%20los%20circuitos." target="_blank" rel="noopener" style="background:#25D366;color:#ffffff;padding:10px 18px;border-radius:8px;font-weight:700;font-size:13px;text-decoration:none;display:inline-flex;align-items:center;gap:8px">
+            Solicitar video por WhatsApp &rarr;
+          </a>
+        </div>
+
       </div>
     </div>
   </sc-if>
@@ -1559,6 +1691,16 @@ class Component extends DCLogic {
     marcasVisible: true,
     clientesVisible: true,
     whyUsVisible: true,
+    legalModalOpen: false,
+    legalModalTab: 'privacidad',
+    demoVideoModalOpen: false,
+    formError: null,
+    quoteError: null,
+    quoteSubmitting: false,
+    newsletterEmail: '',
+    newsletterSuccess: false,
+    newsletterError: null,
+    newsletterSubmitting: false,
   };
 
   componentDidMount() {
@@ -1841,20 +1983,55 @@ class Component extends DCLogic {
   };
 
 
+  syncUrlState = (params = {}) => {
+    try {
+      const url = new URL(window.location.href);
+      if (params.q !== undefined) {
+        if (params.q && params.q.trim()) url.searchParams.set('q', params.q.trim());
+        else url.searchParams.delete('q');
+      }
+      if (params.cat !== undefined) {
+        if (params.cat && params.cat !== 'todos') url.searchParams.set('cat', params.cat);
+        else url.searchParams.delete('cat');
+      }
+      const newPath = url.pathname + url.search + (window.location.hash || '#catalogo');
+      window.history.replaceState(null, '', newPath);
+    } catch (e) {}
+  };
+
   handlePopState = () => {
-    const hash = window.location.hash;
-    if (hash === '#catalogo') {
-      this.setState({ page: 'catalogo', catalogoFilter: 'todos' });
-    } else if (hash.startsWith('#catalogo=')) {
-      this.setState({ page: 'catalogo', catalogoFilter: hash.split('=')[1] });
-    } else if (hash.startsWith('#categoria=')) {
-      this.setState({ page: 'catalogo', catalogoFilter: hash.split('=')[1] });
-    } else if (hash === '#contacto') {
-      this.setState({ page: 'contacto' });
-    } else {
+    try {
+      const url = new URL(window.location.href);
+      const qParam = url.searchParams.get('q') || '';
+      const catParam = url.searchParams.get('cat') || '';
+      const hash = window.location.hash || '';
+
+      if (qParam || catParam) {
+        this.setState({
+          page: 'catalogo',
+          catalogoFilter: catParam || 'todos',
+          catalogoSearch: qParam,
+          catalogoPage: 1
+        });
+        window.scrollTo(0, 0);
+        return;
+      }
+
+      if (hash === '#catalogo') {
+        this.setState({ page: 'catalogo', catalogoFilter: 'todos' });
+      } else if (hash.startsWith('#catalogo=')) {
+        this.setState({ page: 'catalogo', catalogoFilter: hash.split('=')[1] });
+      } else if (hash.startsWith('#categoria=')) {
+        this.setState({ page: 'catalogo', catalogoFilter: hash.split('=')[1] });
+      } else if (hash === '#contacto') {
+        this.setState({ page: 'contacto' });
+      } else {
+        this.setState({ page: 'home' });
+      }
+      window.scrollTo(0,0);
+    } catch (e) {
       this.setState({ page: 'home' });
     }
-    window.scrollTo(0,0);
   };
 
   handleResize = () => {
@@ -2037,21 +2214,31 @@ class Component extends DCLogic {
     else if (digits.length < 7) errors.phone = 'Teléfono incompleto';
     if (Object.keys(errors).length) { this.setState({ quoteErrors: errors }); return; }
     
+    this.setState({ quoteSubmitting: true, quoteError: null });
     try {
-      await fetch('v1/cotizaciones/send_quote.php', {
+      const res = await fetch('v1/cotizaciones/send_quote.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ ...q, items: [] })
       });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const json = await res.json();
+      if (!json.success) throw new Error(json.msg || 'Error al procesar solicitud');
+
+      this.setState({
+        quoteSent: true,
+        quoteSubmitting: false,
+        quoteName: q.name.trim().split(' ')[0],
+        quoteErrors: {},
+        quoteError: null,
+      });
     } catch(err) {
       console.error(err);
+      this.setState({
+        quoteSubmitting: false,
+        quoteError: 'No pudimos enviar tu solicitud en este momento por un fallo de conexión. Por favor inténtalo de nuevo o escríbenos directamente a nuestro WhatsApp: 312-8011838.'
+      });
     }
-    
-    this.setState({
-      quoteSent: true,
-      quoteName: q.name.trim().split(' ')[0],
-      quoteErrors: {},
-    });
   };
   resetQuote = () => this.setState({ quoteSent: false, quote: { name: '', company: '', email: '', phone: '', type: '', message: '' }, quoteErrors: {} });
   scrollTo_personalizacion = (e) => this.navTo('personalizacion')(e);
@@ -2208,7 +2395,8 @@ class Component extends DCLogic {
   
   onHeaderSearch = (e) => {
     const val = e.target.value;
-    this.setState({ catalogoSearch: val });
+    this.setState({ catalogoSearch: val, catalogoPage: 1 });
+    this.syncUrlState({ q: val });
     if (this.state.page !== 'catalogo') {
       window.history.pushState(null, '', '#catalogo');
       this.setState({ page: 'catalogo', categorySlug: null, catalogoPage: 1, menuOpen: false });
@@ -2337,7 +2525,9 @@ class Component extends DCLogic {
   };
 
   onCatalogoSearch = (e) => {
-    this.setState({ catalogoSearch: e.target.value, catalogoPage: 1 });
+    const val = e.target.value;
+    this.setState({ catalogoSearch: val, catalogoPage: 1 });
+    this.syncUrlState({ q: val });
   };
   onBrandSearch = (e) => {
     this.setState({ brandSearch: e.target.value });
@@ -2348,6 +2538,7 @@ class Component extends DCLogic {
   setCatalogoFilter = (filter) => (e) => {
     if (e) e.preventDefault();
     const isGlute = filter === 'gluteleader';
+    this.syncUrlState({ cat: filter });
     this.setState({
       catalogoFilter: filter,
       catalogoPage: 1,
@@ -2420,7 +2611,7 @@ class Component extends DCLogic {
     e.preventDefault();
     if (this.state.formSubmitting) return;
 
-    this.setState({ formSubmitting: true });
+    this.setState({ formSubmitting: true, formError: null });
     const fd = new FormData(e.target);
     const data = Object.fromEntries(fd.entries());
     data.items = this.state.cart.map(c => ({
@@ -2432,17 +2623,79 @@ class Component extends DCLogic {
     }));
     
     try {
-      await fetch('v1/cotizaciones/send_quote.php', {
+      const res = await fetch('v1/cotizaciones/send_quote.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const json = await res.json();
+      if (!json.success) throw new Error(json.msg || 'Error al procesar la cotización');
+
+      this.setState({ formSubmitted: true, formSubmitting: false, cart: [], formError: null });
     } catch (err) {
       console.error(err);
+      this.setState({
+        formSubmitting: false,
+        formError: 'Hubo un inconveniente de conexión y no pudimos procesar tu solicitud. Tus equipos siguen guardados en el carrito. Por favor intenta de nuevo o escríbenos directamente a nuestro WhatsApp oficial: 312-8011838.'
+      });
     }
-    
-    this.setState({ formSubmitted: true, formSubmitting: false, cart: [] });
   };
+
+  onNewsletterInput = (e) => {
+    this.setState({ newsletterEmail: e.target.value, newsletterError: null });
+  };
+
+  submitNewsletter = async (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    if (this.state.newsletterSubmitting) return;
+    const email = (this.state.newsletterEmail || '').trim();
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+      this.setState({ newsletterError: 'Por favor ingresa un correo electrónico válido' });
+      return;
+    }
+
+    this.setState({ newsletterSubmitting: true, newsletterError: null });
+    try {
+      const res = await fetch('v1/cotizaciones/send_quote.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: 'Solicitud de Catálogos Web',
+          email: email,
+          type: 'Descarga / Suscripción de Catálogos',
+          message: 'Solicitud para recibir catálogos de equipamiento comercial desde el pie de página.',
+          items: []
+        })
+      });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      this.setState({ newsletterSuccess: true, newsletterSubmitting: false, newsletterEmail: '' });
+    } catch (err) {
+      console.error(err);
+      this.setState({
+        newsletterSubmitting: false,
+        newsletterError: 'No se pudo registrar en este momento. Escríbenos al WhatsApp 312-8011838.'
+      });
+    }
+  };
+
+  openPrivacyModal = (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    this.setState({ legalModalOpen: true, legalModalTab: 'privacidad' });
+  };
+  openTermsModal = (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    this.setState({ legalModalOpen: true, legalModalTab: 'terminos' });
+  };
+  setLegalTabPrivacy = () => this.setState({ legalModalTab: 'privacidad' });
+  setLegalTabTerms = () => this.setState({ legalModalTab: 'terminos' });
+  closeLegalModal = () => this.setState({ legalModalOpen: false });
+
+  openDemoVideo = (e) => {
+    if (e && e.preventDefault) e.preventDefault();
+    this.setState({ demoVideoModalOpen: true });
+  };
+  closeDemoVideo = () => this.setState({ demoVideoModalOpen: false });
 
   renderVals() {
     const heroData = [
@@ -2710,10 +2963,132 @@ class Component extends DCLogic {
         const cat = (window.DB_CATEGORIAS || []).find(c => c.slug === f);
         if (cat && p.categoria_id != cat.id) return false;
       }
-      const q = this.state.catalogoSearch.trim().toLowerCase();
-      if (q) {
-        const searchStr = ((p.name||'') + ' ' + (p.series||'') + ' ' + (p.serie||'') + ' ' + (p.item_no||'')).toLowerCase();
-        if (!searchStr.includes(q)) return false;
+      const rawQ = (this.state.catalogoSearch || '').trim();
+      if (rawQ) {
+        const normalizeStr = (s) => (s || '')
+          .toString()
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .replace(/[^\w\s-]/g, " ")
+          .replace(/\s+/g, " ")
+          .trim();
+
+        const qNorm = normalizeStr(rawQ);
+        const nameNorm = normalizeStr(p.name);
+        const seriesNorm = normalizeStr(p.series);
+        const serieNorm = normalizeStr(p.serie);
+        const skuNorm = normalizeStr(p.item_no);
+        const skuClean = skuNorm.replace(/[^a-z0-9]/g, '');
+        const fullSearchStr = `${nameNorm} ${seriesNorm} ${serieNorm} ${skuNorm} ${skuClean}`;
+
+        const SYNONYMS = {
+          'bicicleta': ['bike', 'cycle', 'spinning', 'estatica', 'indoor'],
+          'bicicletas': ['bike', 'cycle', 'spinning', 'estatica', 'indoor'],
+          'bici': ['bike', 'cycle', 'spinning'],
+          'bike': ['bicicleta', 'estatica', 'spinning'],
+          'caminadora': ['treadmill', 'trotadora', 'runner', 'banda'],
+          'caminadoras': ['treadmill', 'trotadora', 'runner', 'banda'],
+          'trotadora': ['treadmill', 'caminadora', 'runner', 'banda'],
+          'trotadoras': ['treadmill', 'caminadora', 'runner', 'banda'],
+          'treadmill': ['trotadora', 'caminadora'],
+          'eliptica': ['elliptical', 'cross trainer'],
+          'elipticas': ['elliptical', 'cross trainer'],
+          'elliptical': ['eliptica', 'elipticas'],
+          'escalera': ['stair', 'climber', 'escaladora', 'stepper'],
+          'escaleras': ['stair', 'climber', 'escaladora', 'stepper'],
+          'escaladora': ['stair', 'climber', 'escalera'],
+          'escaladoras': ['stair', 'climber', 'escalera'],
+          'banco': ['bench', 'banca'],
+          'bancos': ['bench', 'banca'],
+          'bench': ['banco', 'banca'],
+          'pesas': ['dumbbell', 'plate', 'peso libre', 'mancuerna', 'barbell', 'kettlebell'],
+          'mancuerna': ['dumbbell', 'mancuernas'],
+          'mancuernas': ['dumbbell'],
+          'dumbbell': ['mancuerna', 'mancuernas', 'pesas'],
+          'disco': ['plate', 'discos'],
+          'discos': ['plate'],
+          'plate': ['disco', 'discos'],
+          'barra': ['barbell', 'barras'],
+          'barras': ['barbell'],
+          'barbell': ['barra', 'barras'],
+          'pecho': ['chest', 'incline', 'decline', 'press'],
+          'chest': ['pecho', 'pectoral'],
+          'espalda': ['lat', 'row', 'back', 'pulldown', 'remo'],
+          'lat': ['espalda', 'pulldown'],
+          'row': ['remo', 'espalda'],
+          'remo': ['row', 'espalda'],
+          'pierna': ['leg', 'squat', 'press', 'extension', 'curl', 'prensa', 'sentadilla'],
+          'piernas': ['leg', 'squat', 'press', 'extension', 'curl', 'prensa', 'sentadilla'],
+          'leg': ['pierna', 'piernas'],
+          'prensa': ['leg press', 'press'],
+          'sentadilla': ['squat', 'hack'],
+          'squat': ['sentadilla'],
+          'hombro': ['shoulder'],
+          'hombros': ['shoulder'],
+          'shoulder': ['hombro', 'hombros'],
+          'brazo': ['bicep', 'tricep', 'arm', 'curl'],
+          'brazos': ['bicep', 'tricep', 'arm', 'curl'],
+          'bicep': ['brazo', 'curl'],
+          'tricep': ['brazo', 'extension'],
+          'polea': ['cable', 'pulley', 'crossover'],
+          'poleas': ['cable', 'pulley', 'crossover'],
+          'cable': ['polea', 'poleas'],
+          'gluteo': ['glute', 'gluteos'],
+          'gluteos': ['glute', 'gluteo'],
+          'glute': ['gluteo', 'gluteos'],
+          'abdominal': ['abs', 'ab', 'crunch', 'abdominales'],
+          'abdominales': ['abs', 'ab', 'crunch', 'abdominal'],
+          'crunch': ['abdominal', 'abdominales', 'abs']
+        };
+
+        const qClean = qNorm.replace(/[^a-z0-9]/g, '');
+
+        if (/^\d+$/.test(qClean)) {
+          const numRegex = new RegExp(`(^|[^0-9])${qClean}([^0-9]|$)`);
+          const matchesNum = numRegex.test(skuNorm) || numRegex.test(nameNorm);
+          if (!matchesNum) return false;
+        } else {
+          const tokens = qNorm.split(/\s+/).filter(Boolean);
+          const allTokensMatch = tokens.every(token => {
+            if (fullSearchStr.includes(token)) return true;
+
+            const tokenClean = token.replace(/[^a-z0-9]/g, '');
+            if (tokenClean && fullSearchStr.includes(tokenClean)) return true;
+
+            const syns = SYNONYMS[token] || [];
+            if (syns.some(s => fullSearchStr.includes(normalizeStr(s)))) return true;
+
+            if (token.length >= 5 && !/\d/.test(token)) {
+              const prefix = token.slice(0, 4);
+              const pWords = fullSearchStr.split(/\s+/);
+              const hasTypoMatch = pWords.some(w => {
+                if (w.startsWith(prefix) && Math.abs(w.length - token.length) <= 2) return true;
+                if (Math.abs(w.length - token.length) <= 1 && w.length >= 4) {
+                  let diff = 0;
+                  for (let i = 0, j = 0; i < token.length && j < w.length;) {
+                    if (token[i] !== w[j]) {
+                      diff++;
+                      if (diff > 1) break;
+                      if (token.length > w.length) i++;
+                      else if (w.length > token.length) j++;
+                      else { i++; j++; }
+                    } else {
+                      i++; j++;
+                    }
+                  }
+                  if (diff <= 1) return true;
+                }
+                return false;
+              });
+              if (hasTypoMatch) return true;
+            }
+
+            return false;
+          });
+
+          if (!allTokensMatch) return false;
+        }
       }
       
       const b = this.state.catalogoBrands;
@@ -2784,17 +3159,27 @@ class Component extends DCLogic {
 
 
     const solutionsData = [
-      { title: 'Línea Comercial', desc: 'Equipos profesionales para dotar tu gimnasio.', slug: 'comercial' },
-      { title: 'Línea Institucional', desc: 'Soluciones para hoteles, clubes y conjuntos.', slug: 'institucional' },
-      { title: 'Equipos para Hogar', desc: 'Mantente en forma en casa con equipos premium.', slug: 'hogar' },
-      { title: 'Accesorios', desc: 'Pesas libres y elementos de entrenamiento funcional.', slug: 'accesorios' },
+      { title: 'Línea Comercial', desc: 'Equipos profesionales para dotar tu gimnasio.', slug: 'comercial', projectType: 'Línea Comercial de Alto Tráfico' },
+      { title: 'Línea Institucional', desc: 'Soluciones para hoteles, clubes y conjuntos.', slug: 'institucional', projectType: 'Equipos para Conjunto / Institucional' },
+      { title: 'Equipos para Hogar', desc: 'Mantente en forma en casa con equipos premium.', slug: 'hogar', projectType: 'Equipos de Fuerza & Cardio para Hogar' },
+      { title: 'Accesorios', desc: 'Pesas libres y elementos de entrenamiento funcional.', slug: 'accesorios', projectType: 'Accesorios' },
     ].map((s, i) => {
       const hov = this.state.isMobile ? this.state.activeSolution === i : this.state.hoveredSolution === i;
       const imageVisible = this.state.isMobile ? this.state.solucionesVisible : hov;
       const bgImgs = [R('assets/sol_comercial.webp'), R('assets/sol_institucional.webp'), R('assets/sol_hogar.webp'), R('assets/sol_accesorios.webp')];
       return {
         ...s,
-        onClick: () => this.goToCategory(s.slug),
+        onClick: () => {
+          if (s.slug === 'accesorios') {
+            this.goToCategory('accesorios');
+          } else {
+            this.setState(prevState => ({
+              quote: { ...prevState.quote, type: s.projectType }
+            }), () => {
+              this.scrollToId('contacto');
+            });
+          }
+        },
         bgImg: bgImgs[i],
         kicker: s.title.startsWith('Línea') ? 'Línea' : (s.title.startsWith('Equipos') ? 'Equipos para' : ''),
         main: s.title.startsWith('Línea') ? s.title.slice(6) : (s.title.startsWith('Equipos') ? 'Hogar' : s.title),
@@ -2861,7 +3246,7 @@ class Component extends DCLogic {
     }));
 
     const whyUsData = [
-      { icon: 'US', title: 'Equipos 100% Americanos', desc: 'Biomecánica original importada de EE.UU., el estándar de oro global en durabilidad y ergonomía.' },
+      { icon: '⭐', title: 'Marcas Líderes Globales', desc: 'Equipos con biomecánica de precisión: marcas americanas de élite y distribución autorizada Realleader Fitness.' },
       { icon: '✓', title: 'Calidad Garantizada', desc: 'Equipos con garantía real y respaldo total de repuestos y soporte técnico oficial.' },
       { icon: '→', title: 'Importación & Entrega', desc: 'Importadores directos con logística propia y entregas seguras a nivel nacional en Colombia.' },
       { icon: '★', title: 'Soporte Experto', desc: 'Acompañamiento post-venta con técnicos especializados durante toda la vida útil de tus máquinas.' },
@@ -2896,6 +3281,7 @@ class Component extends DCLogic {
         const cartBg = inCart ? 'oklch(96% 0 0)' : 'oklch(20% .005 270)';
         const cartColor = inCart ? 'oklch(20% .005 270)' : 'white';
         const cartBorder = inCart ? '1px solid oklch(80% 0 0)' : '1px solid transparent';
+        const descText = (mp.description && mp.description.trim()) ? mp.description.trim() : 'Equipamiento profesional de alto rendimiento para gimnasios comerciales, instituciones y entrenamiento de alta exigencia. Diseñado con biomecánica de precisión para máxima durabilidad, ergonomía y seguridad.';
         return { 
           ...mp, 
           prodId,
@@ -2904,6 +3290,7 @@ class Component extends DCLogic {
           cartBg, 
           cartColor, 
           cartBorder,
+          descText,
           onToggleCart: this.toggleCart({ ...mp, item_no, id: prodId }) 
         };
       })(),
@@ -3169,7 +3556,37 @@ class Component extends DCLogic {
       brands: brandsData,
       brandsTicker: [...brandsData, ...brandsData].map((b, i) => ({ img: b.img, name: b.name, w: b.w, h: b.h, key: i })),
       clients: clientsData,
-      clientsTicker: [...clientsData, ...clientsData].map((c, i) => ({ img: c.img, name: c.name, w: c.w, h: c.h, key: i })),
+      quoteProjectType: this.state.quote.type || '',
+      hasFormError: !!this.state.formError,
+      formErrorText: this.state.formError || '',
+      hasQuoteError: !!this.state.quoteError,
+      quoteError: this.state.quoteError || '',
+      quoteSubmitting: !!this.state.quoteSubmitting,
+      quoteBtnOpacity: this.state.quoteSubmitting ? 0.7 : 1,
+      quoteBtnText: this.state.quoteSubmitting ? 'Enviando...' : 'Enviar solicitud',
+      legalModalOpen: this.state.legalModalOpen,
+      openPrivacyModal: this.openPrivacyModal,
+      openTermsModal: this.openTermsModal,
+      closeLegalModal: this.closeLegalModal,
+      setLegalTabPrivacy: this.setLegalTabPrivacy,
+      setLegalTabTerms: this.setLegalTabTerms,
+      isLegalPrivacy: this.state.legalModalTab === 'privacidad',
+      isLegalTerms: this.state.legalModalTab === 'terminos',
+      legalTabPrivacyBg: this.state.legalModalTab === 'privacidad' ? 'oklch(58% .22 25)' : '#e2e8f0',
+      legalTabPrivacyColor: this.state.legalModalTab === 'privacidad' ? '#ffffff' : '#475569',
+      legalTabTermsBg: this.state.legalModalTab === 'terminos' ? 'oklch(58% .22 25)' : '#e2e8f0',
+      legalTabTermsColor: this.state.legalModalTab === 'terminos' ? '#ffffff' : '#475569',
+      demoVideoModalOpen: this.state.demoVideoModalOpen,
+      openDemoVideo: this.openDemoVideo,
+      closeDemoVideo: this.closeDemoVideo,
+      newsletterEmail: this.state.newsletterEmail,
+      onNewsletterInput: this.onNewsletterInput,
+      submitNewsletter: this.submitNewsletter,
+      newsletterSuccess: this.state.newsletterSuccess,
+      newsletterNotSuccess: !this.state.newsletterSuccess,
+      hasNewsletterError: !!this.state.newsletterError,
+      newsletterError: this.state.newsletterError || '',
+      newsletterSubmitting: !!this.state.newsletterSubmitting,
       whyUs: whyUsData,
     };
   }
