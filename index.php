@@ -1495,8 +1495,8 @@ $seriesJson = json_encode($series);
       <div style="border-top:1px solid oklch(30% .006 270);padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px">
         <span style="font-size:12px;color:oklch(70% .006 270)">© 2026 Fitness Life S.A.S — Todos los derechos reservados. Importador Directo Autorizado en Colombia.</span>
         <div style="display:flex;gap:20px">
-          <button type="button" onClick="{{openTermsModal}}" style="background:none;border:none;padding:0;font-size:12px;color:oklch(70% .006 270);cursor:pointer;text-decoration:underline;" style-hover="color:oklch(95% 0 0)">Términos de Uso</button>
-          <button type="button" onClick="{{openPrivacyModal}}" style="background:none;border:none;padding:0;font-size:12px;color:oklch(70% .006 270);cursor:pointer;text-decoration:underline;" style-hover="color:oklch(95% 0 0)">Política de Privacidad (Ley 1581)</button>
+          <a href="#terminos" onClick="{{openTermsModal}}" style="background:none;border:none;padding:0;font-size:12px;color:oklch(70% .006 270);cursor:pointer;text-decoration:underline;" style-hover="color:oklch(95% 0 0)">Términos de Uso</a>
+          <a href="#privacidad" onClick="{{openPrivacyModal}}" style="background:none;border:none;padding:0;font-size:12px;color:oklch(70% .006 270);cursor:pointer;text-decoration:underline;" style-hover="color:oklch(95% 0 0)">Política de Privacidad (Ley 1581)</a>
         </div>
       </div>
     </div>
@@ -1512,6 +1512,7 @@ $seriesJson = json_encode($series);
         <span style="font-size:11px;opacity:0.9">{{cartCount}} equipos añadidos</span>
       </div>
     </div>
+  </sc-if>
   <!-- Modal Legal: Términos y Política de Privacidad (Ley 1581 de 2012) -->
   <sc-if value="{{legalModalOpen}}">
     <div style="position:fixed;inset:0;background:rgba(0,0,0,0.65);backdrop-filter:blur(6px);z-index:99999;display:flex;align-items:center;justify-content:center;padding:20px;box-sizing:border-box">
@@ -1712,6 +1713,7 @@ class Component extends DCLogic {
     window.addEventListener('resize', this.handleResize);
     window.addEventListener('scroll', this.handleScroll, { passive: true });
     window.addEventListener('popstate', this.handlePopState);
+    window.addEventListener('hashchange', this.handlePopState);
     
     // Also parse initial hash on load
     setTimeout(this.handlePopState, 100);
@@ -1737,6 +1739,8 @@ class Component extends DCLogic {
     window.removeEventListener('mouseup', this._onPortfolioMouseUp);
     window.removeEventListener('resize', this.handleResize);
     window.removeEventListener('scroll', this.handleScroll);
+    window.removeEventListener('popstate', this.handlePopState);
+    window.removeEventListener('hashchange', this.handlePopState);
     Object.values(this._solObservers).forEach((o) => o.disconnect());
     if (this._categoriasObserver) this._categoriasObserver.disconnect();
     Object.values(this._sectionObservers).forEach((o) => o.disconnect());
@@ -2014,6 +2018,15 @@ class Component extends DCLogic {
           catalogoPage: 1
         });
         window.scrollTo(0, 0);
+        return;
+      }
+
+      if (hash === '#privacidad' || hash === '#datos' || hash === '#habeasdata') {
+        this.setState({ legalModalOpen: true, legalModalTab: 'privacidad' });
+        return;
+      }
+      if (hash === '#terminos' || hash === '#terminos-de-uso') {
+        this.setState({ legalModalOpen: true, legalModalTab: 'terminos' });
         return;
       }
 
@@ -2682,14 +2695,29 @@ class Component extends DCLogic {
   openPrivacyModal = (e) => {
     if (e && e.preventDefault) e.preventDefault();
     this.setState({ legalModalOpen: true, legalModalTab: 'privacidad' });
+    try { window.history.replaceState(null, '', '#privacidad'); } catch (err) {}
   };
   openTermsModal = (e) => {
     if (e && e.preventDefault) e.preventDefault();
     this.setState({ legalModalOpen: true, legalModalTab: 'terminos' });
+    try { window.history.replaceState(null, '', '#terminos'); } catch (err) {}
   };
-  setLegalTabPrivacy = () => this.setState({ legalModalTab: 'privacidad' });
-  setLegalTabTerms = () => this.setState({ legalModalTab: 'terminos' });
-  closeLegalModal = () => this.setState({ legalModalOpen: false });
+  setLegalTabPrivacy = () => {
+    this.setState({ legalModalTab: 'privacidad' });
+    try { window.history.replaceState(null, '', '#privacidad'); } catch (err) {}
+  };
+  setLegalTabTerms = () => {
+    this.setState({ legalModalTab: 'terminos' });
+    try { window.history.replaceState(null, '', '#terminos'); } catch (err) {}
+  };
+  closeLegalModal = () => {
+    this.setState({ legalModalOpen: false });
+    try {
+      if (window.location.hash === '#privacidad' || window.location.hash === '#terminos' || window.location.hash === '#datos' || window.location.hash === '#habeasdata') {
+        window.history.replaceState(null, '', window.location.pathname + window.location.search);
+      }
+    } catch (err) {}
+  };
 
   openDemoVideo = (e) => {
     if (e && e.preventDefault) e.preventDefault();
