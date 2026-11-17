@@ -24,4 +24,8 @@ patch_api.php
 patch_api_2.php
 query_db.php
 fitnesslife_produccion 2/
-
+backups/
+backups_claude/
+*.zip
+*.bak*
+*.bak_*

@@ -7,16 +7,38 @@
 // ==============================================================================
 // ⚠️ REEMPLAZA con la contraseña real de la base de datos
 // ==============================================================================
-define('DB_HOST', 'mysql.advantascience.com');
-define('DB_PORT', 3306);
-define('DB_NAME', 'cotizacioneslifefitness');
-define('DB_USER', 'lifefitnesdb');
-define('DB_PASS', 'JT-sq16cy21');
+$serverName = $_SERVER['SERVER_NAME'] ?? 'localhost';
+$isFitnessLife = (strpos($serverName, 'fitnesslifesas.com') !== false);
+$isLocal = ($serverName === 'localhost' || $serverName === '127.0.0.1' || strpos($serverName, '.local') !== false || strpos($serverName, '192.168.') !== false || php_sapi_name() === 'cli');
 
-// Dominios autorizados a consumir la API. Cambia por tu dominio real.
+if ($isFitnessLife) {
+    define('DB_HOST', 'localhost');
+    define('DB_PORT', 3306);
+    define('DB_NAME', 'fitnessl_cotizaciones');
+    define('DB_USER', 'fitnessl_user');
+    define('DB_PASS', 'FitLife_2026*Prod!Db');
+} else if ($isLocal) {
+    define('DB_HOST', '127.0.0.1');
+    define('DB_PORT', 8889);
+    define('DB_NAME', 'cotizacioneslifefitness');
+    define('DB_USER', 'root');
+    define('DB_PASS', 'root');
+} else {
+    define('DB_HOST', 'mysql.advantascience.com');
+    define('DB_PORT', 3306);
+    define('DB_NAME', 'cotizacioneslifefitness');
+    define('DB_USER', 'lifefitnesdb');
+    define('DB_PASS', 'JT-sq16cy21');
+}
+
+// Dominios autorizados a consumir la API.
 $ALLOWED_ORIGINS = [
+    'https://fitnesslifesas.com',
+    'https://www.fitnesslifesas.com',
     'https://advantascience.com',
     'https://www.advantascience.com',
+    'http://localhost',
+    'http://localhost:8888',
 ];
 
 function cors(array $allowed, $methods = 'GET, OPTIONS') {

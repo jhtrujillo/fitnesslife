@@ -1,0 +1,19 @@
+# Fitness Life S.A.S - Configuración Apache / LiteSpeed
+DirectoryIndex index.php index.html
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Reescritura para rutas con prefijo cotizaciones/ (compatibilidad de imágenes)
+    RewriteRule ^cotizaciones/(.*)$ $1 [L]
+
+    # Forzar HTTPS
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# Seguridad y compresión básica
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
+</IfModule>

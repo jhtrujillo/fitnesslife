@@ -107,7 +107,21 @@ $stmt = $pdo->query($sql);
 $productos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $cats = $pdo->query("SELECT id, name FROM categorias ORDER BY pos ASC")->fetchAll(PDO::FETCH_ASSOC);
 $marcas = $pdo->query("SELECT name FROM marcas ORDER BY name ASC")->fetchAll(PDO::FETCH_ASSOC);
-$seriesList = $pdo->query("SELECT name FROM series ORDER BY pos ASC, name ASC")->fetchAll(PDO::FETCH_ASSOC);
+// Obtener listado de series único y deduplicado (de series y productos)
+$seriesDb = $pdo->query("SELECT DISTINCT TRIM(name) AS name FROM series WHERE name IS NOT NULL AND TRIM(name) != ''")->fetchAll(PDO::FETCH_COLUMN);
+$seriesProds = $pdo->query("SELECT DISTINCT TRIM(serie) AS name FROM productos WHERE serie IS NOT NULL AND TRIM(serie) != ''")->fetchAll(PDO::FETCH_COLUMN);
+$uniqueSeriesMap = [];
+foreach (array_merge($seriesDb, $seriesProds) as $s) {
+    $clean = trim((string)$s);
+    if ($clean === '') continue;
+    $lower = mb_strtolower($clean, 'UTF-8');
+    if (!isset($uniqueSeriesMap[$lower])) {
+        $uniqueSeriesMap[$lower] = $clean;
+    }
+}
+$uniqueSeries = array_values($uniqueSeriesMap);
+natcasesort($uniqueSeries);
+$seriesList = array_map(function($s) { return ['name' => $s]; }, array_values($uniqueSeries));
 $catMap = [];
 foreach ($cats as $c) { $catMap[$c['id']] = $c['name']; }
 include 'header.php';
