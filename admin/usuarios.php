@@ -5,10 +5,10 @@ if (!isset($_SESSION['user_id'])) {
     exit; 
 }
 
-// Solo administradores (Web o Cotizador) pueden gestionar usuarios
-$isAdmin = (($_SESSION['rol'] ?? '') === 'admin') || (($_SESSION['rol_web'] ?? '') === 'admin') || (($_SESSION['rol_cotizador'] ?? '') === 'admin');
-if (!$isAdmin) {
-    die("<div style='font-family:sans-serif;padding:30px;text-align:center;'><h2>Acceso denegado</h2><p>Solo usuarios con rol Administrador pueden gestionar los perfiles de usuario.</p><p><a href='index.php'>Regresar al inicio</a></p></div>");
+// Solo administradores del Administrador Web (productos y catálogo) pueden gestionar usuarios y permisos
+if (!isset($_SESSION['acceso_web']) || $_SESSION['acceso_web'] == 0 || (($_SESSION['rol_web'] ?? '') !== 'admin' && ($_SESSION['rol'] ?? '') !== 'admin')) {
+    header("Location: index.php");
+    exit;
 }
 
 // Eliminar usuario

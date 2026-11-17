@@ -475,17 +475,6 @@ try {
                     <span class="nav-item-badge" style="background:#fee2e2;color:#b91c1c"><?= $stats['cotizaciones_app'] ?></span>
                     <?php endif; ?>
                 </a>
-                <?php if ($isAdminCotiz): ?>
-                <a href="usuarios.php" class="nav-item" style="border-left:3px solid #e63946;">
-                    <div class="nav-item-left">
-                        <span class="nav-icon">👥</span>
-                        <span>Usuarios & Permisos de Acceso</span>
-                    </div>
-                    <?php if ($stats['usuarios'] > 0): ?>
-                    <span class="nav-item-badge"><?= $stats['usuarios'] ?></span>
-                    <?php endif; ?>
-                </a>
-                <?php endif; ?>
             </div>
             <div class="card-footer">
                 <a href="../v1/cotizaciones/cotizador.html" class="btn-cta btn-cta-accent">

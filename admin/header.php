@@ -62,7 +62,7 @@ if (in_array($currScript, $webCatalogPages) && isset($_SESSION['acceso_web']) &&
             </a>
             <?php endif; ?>
 
-            <?php if ($isAdmin): ?>
+            <?php if ($hasWeb && (($_SESSION['rol_web'] ?? '') === 'admin' || (($_SESSION['rol'] ?? '') === 'admin' && empty($_SESSION['rol_web'])))): ?>
             <a href="usuarios.php" class="btn-nav <?= $curr=='usuarios.php'||$curr=='usuario_form.php' ? 'active' : '' ?>">
                 <span style="font-size:16px; margin-bottom:4px;">👥</span><span>Usuarios</span>
             </a>
