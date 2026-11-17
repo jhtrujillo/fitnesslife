@@ -5,18 +5,9 @@ if (!isset($_SESSION['user_id'])) {
     exit; 
 }
 
-// Control de acceso al módulo web
-if (isset($_SESSION['acceso_web']) && $_SESSION['acceso_web'] == 0) {
-    if (isset($_SESSION['acceso_cotizador']) && $_SESSION['acceso_cotizador'] == 1) {
-        header("Location: ../v1/cotizaciones/cotizador.html");
-    } else {
-        header("Location: logout.php");
-    }
-    exit;
-}
-
-// Solo administradores pueden gestionar usuarios
-if (($_SESSION['rol'] ?? '') !== 'admin') {
+// Solo administradores (Web o Cotizador) pueden gestionar usuarios
+$isAdmin = (($_SESSION['rol'] ?? '') === 'admin') || (($_SESSION['rol_web'] ?? '') === 'admin') || (($_SESSION['rol_cotizador'] ?? '') === 'admin');
+if (!$isAdmin) {
     die("<div style='font-family:sans-serif;padding:30px;text-align:center;'><h2>Acceso denegado</h2><p>Solo usuarios con rol Administrador pueden gestionar los perfiles de usuario.</p><p><a href='index.php'>Regresar al inicio</a></p></div>");
 }
 

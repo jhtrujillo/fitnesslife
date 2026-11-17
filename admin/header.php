@@ -1,4 +1,12 @@
-<?php require_once 'config.php'; ?>
+<?php 
+require_once 'config.php'; 
+$currScript = basename($_SERVER['PHP_SELF']);
+$webCatalogPages = ['productos.php', 'producto_form.php', 'categorias.php', 'categoria_form.php', 'marcas.php', 'marca_form.php', 'series.php', 'serie_form.php', 'productos_crear_masa.php', 'productos_imagenes.php'];
+if (in_array($currScript, $webCatalogPages) && isset($_SESSION['acceso_web']) && $_SESSION['acceso_web'] == 0) {
+    header("Location: index.php");
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>

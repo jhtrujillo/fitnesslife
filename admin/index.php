@@ -376,7 +376,7 @@ try {
     <div class="user-nav">
         <div class="user-info">
             <div class="user-name"><?= htmlspecialchars($_SESSION['nombre'] ?? $_SESSION['username'] ?? 'Administrador') ?></div>
-            <div class="user-role"><?= htmlspecialchars($_SESSION['rol'] ?? 'Admin') ?></div>
+            <div class="user-role"><?= ($_SESSION['rol_web'] === 'admin' && $_SESSION['rol_cotizador'] === 'admin') ? 'Super Admin' : (($_SESSION['rol_web'] === 'admin') ? 'Admin Web' : (($_SESSION['rol_cotizador'] === 'admin') ? 'Admin Cotizador' : 'Asesor Comercial')) ?></div>
         </div>
         <a href="logout.php" class="btn-logout">Cerrar Sesión</a>
     </div>

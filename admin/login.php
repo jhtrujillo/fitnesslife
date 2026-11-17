@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($_SESSION['acceso_web'] == 1 && $_SESSION['acceso_cotizador'] == 0) {
                 header("Location: productos.php");
                 exit;
-            } elseif ($_SESSION['acceso_web'] == 0 && $_SESSION['acceso_cotizador'] == 1) {
+            } elseif ($_SESSION['acceso_web'] == 0 && $_SESSION['acceso_cotizador'] == 1 && ($_SESSION['rol_cotizador'] ?? '') === 'comercial') {
                 header("Location: ../v1/cotizaciones/cotizador.html");
                 exit;
             } else {

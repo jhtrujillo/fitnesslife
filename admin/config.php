@@ -2,9 +2,16 @@
 session_start();
 
 $serverName = $_SERVER['SERVER_NAME'] ?? 'localhost';
-$entorno = ($serverName === 'localhost' || $serverName === '127.0.0.1' || strpos($serverName, '.local') !== false || strpos($serverName, '192.168.') !== false || php_sapi_name() === 'cli') ? 'LOCAL' : 'PRODUCCION';
+$isFitnessLife = (strpos($serverName, 'fitnesslifesas.com') !== false);
+$isLocal = ($serverName === 'localhost' || $serverName === '127.0.0.1' || strpos($serverName, '.local') !== false || strpos($serverName, '192.168.') !== false || php_sapi_name() === 'cli');
 
-if ($entorno === "LOCAL") {
+if ($isFitnessLife) {
+    $host = "localhost";
+    $port = "3306";
+    $dbname = "fitnessl_cotizaciones";
+    $username = "fitnessl_user";
+    $password = "FitLife_2026*Prod!Db";
+} else if ($isLocal) {
     $host = "127.0.0.1";
     $port = "8889";
     $dbname = "cotizacioneslifefitness";

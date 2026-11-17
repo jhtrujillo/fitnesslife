@@ -1,6 +1,7 @@
 <?php
 require_once 'config.php';
 if (!isset($_SESSION['user_id'])) { header("Location: login.php"); exit; }
+if (isset($_SESSION['acceso_web']) && $_SESSION['acceso_web'] == 0) { header("Location: index.php"); exit; }
 
 if (isset($_GET['delete'])) {
     $stmt = $pdo->prepare("DELETE FROM productos WHERE id = ?");
