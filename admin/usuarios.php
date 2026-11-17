@@ -34,7 +34,7 @@ if (isset($_GET['delete'])) {
     exit;
 }
 
-$stmt = $pdo->query("SELECT id, username, nombre, rol, acceso_web, acceso_cotizador, created_at FROM usuarios ORDER BY nombre ASC");
+$stmt = $pdo->query("SELECT id, username, nombre, rol, acceso_web, acceso_cotizador, rol_web, rol_cotizador, created_at FROM usuarios ORDER BY nombre ASC");
 $usuarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $flash_success = $_SESSION['flash_success'] ?? null;

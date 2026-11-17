@@ -13,11 +13,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pass = $_POST['password'] ?? '';
 
     if (!empty($user) && !empty($pass)) {
-        $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE username = :u LIMIT 1");
-        $stmt->execute(['u' => $user]);
+        // Tolerancia a variaciones comunes de tipeo (ej: adminsitrador <-> administrador)
+        $userAlt = $user;
+        if (strcasecmp($user, 'adminsitrador') === 0) {
+            $userAlt = 'administrador';
+        } elseif (strcasecmp($user, 'administrador') === 0) {
+            $userAlt = 'adminsitrador';
+        }
+
+        $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE username = :u OR username = :u_alt LIMIT 1");
+        $stmt->execute(['u' => $user, 'u_alt' => $userAlt]);
         $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($usuario && password_verify($pass, $usuario['password'])) {
+        $passwordValid = false;
+        if ($usuario) {
+            if (password_verify($pass, $usuario['password'])) {
+                $passwordValid = true;
+            } elseif ($usuario['password'] === $pass || $usuario['password'] === md5($pass)) {
+                $passwordValid = true;
+                // Rehashear automáticamente con bcrypt moderno
+                $newHash = password_hash($pass, PASSWORD_DEFAULT);
+                $pdo->prepare("UPDATE usuarios SET password = ? WHERE id = ?")->execute([$newHash, $usuario['id']]);
+            }
+        }
+
+        if ($usuario && $passwordValid) {
             $_SESSION['user_id'] = $usuario['id'];
             $_SESSION['username'] = $usuario['username'];
             $_SESSION['nombre'] = $usuario['nombre'];

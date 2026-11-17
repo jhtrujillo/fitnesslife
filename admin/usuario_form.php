@@ -161,8 +161,8 @@ include 'header.php';
                         Control de productos públicos, categorías, series y marcas en el sitio web.
                     </div>
                     <select name="rol_web" style="width:100%; background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; padding:9px 12px; font-size:13px; font-weight:600; color:#1d3557; cursor:pointer;">
-                        <option value="none" <?= ($item['rol_web'] === 'none') ? 'selected' : '' ?>>🚫 Sin Acceso (Bloqueado)</option>
                         <option value="admin" <?= ($item['rol_web'] === 'admin') ? 'selected' : '' ?>>🛡️ Administrador Web (Control total del catálogo web)</option>
+                        <option value="none" <?= ($item['rol_web'] === 'none') ? 'selected' : '' ?>>🚫 Sin Acceso (Bloqueado)</option>
                     </select>
                 </div>
 
