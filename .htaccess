@@ -1,19 +1,74 @@
-# Fitness Life S.A.S - Configuración Apache / LiteSpeed
+# Fitness Life S.A.S - Configuración Apache / LiteSpeed & Blindaje de Seguridad
 DirectoryIndex index.php index.html
 
+# 1. Deshabilitar listado de directorios (evita ver carpetas / archivos en el navegador)
+Options -Indexes
+
+# 2. Forzar HTTPS y Reglas de Reescritura
 <IfModule mod_rewrite.c>
     RewriteEngine On
     RewriteBase /
 
+    # Bloquear métodos HTTP inseguros (TRACE, TRACK)
+    RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK) [NC]
+    RewriteRule ^.*$ - [F]
+
+    # Bloquear patrones de inyección y ataques comunes en la URL
+    RewriteCond %{QUERY_STRING} (eval\(|base64_decode|boot\.ini|etc/passwd|proc/self) [NC,OR]
+    RewriteCond %{QUERY_STRING} (GLOBALS|_REQUEST)(=|\[|%) [NC,OR]
+    RewriteCond %{QUERY_STRING} (<|%3C).*script.*(>|%3E) [NC]
+    RewriteRule ^.*$ - [F]
+
     # Reescritura para rutas con prefijo cotizaciones/ (compatibilidad de imágenes)
     RewriteRule ^cotizaciones/(.*)$ $1 [L]
 
-    # Forzar HTTPS
+    # Forzar HTTPS en todas las peticiones
     RewriteCond %{HTTPS} off
     RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 </IfModule>
 
-# Seguridad y compresión básica
+# 3. Bloquear acceso a archivos y carpetas ocultas (.git, .env, .htaccess, etc.)
+<IfModule mod_rewrite.c>
+    RewriteRule (^|/)\.(?!well-known/) - [F]
+</IfModule>
+
+# 4. Proteger archivos sensibles contra descargas públicas
+<FilesMatch "\.(sql|bak|config|env|log|ini|sh|py|git|tar|gz|zip)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order deny,allow
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# 5. Proteger copias de seguridad JSON (pero permitir manifest.json para PWA)
+<FilesMatch "(backup|export|dump|data_payload).*\.json$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order deny,allow
+        Deny from all
+    </IfModule>
+</FilesMatch>
+
+# 6. Cabeceras de Seguridad HTTP
+<IfModule mod_headers.c>
+    # Prevenir Clickjacking (impedir que metan la web en un iframe de un sitio malicioso)
+    Header always set X-Frame-Options "SAMEORIGIN"
+    # Prevenir ataques de sniffing MIME
+    Header always set X-Content-Type-Options "nosniff"
+    # Filtro XSS en navegadores antiguos
+    Header always set X-XSS-Protection "1; mode=block"
+    # No filtrar datos privados en la cabecera Referer
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    # HSTS para garantizar conexiones HTTPS seguras
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains" env=HTTPS
+</IfModule>
+
+# 7. Compresión básica para velocidad y rendimiento
 <IfModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json
 </IfModule>

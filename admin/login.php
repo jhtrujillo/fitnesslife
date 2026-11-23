@@ -8,69 +8,121 @@ if (isset($_SESSION['user_id'])) {
 
 $error = "";
 
+// Protección contra Fuerza Bruta
+try {
+    $pdo->exec("CREATE TABLE IF NOT EXISTS intentos_login (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        ip VARCHAR(45) NOT NULL UNIQUE,
+        intentos INT DEFAULT 1,
+        bloqueado_hasta DATETIME NULL,
+        ultimo_intento DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
+} catch (Exception $e) {}
+
+$rawIp = $_SERVER['HTTP_CF_CONNECTING_IP'] ?? $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'] ?? '0.0.0.0';
+$clientIp = trim(explode(',', $rawIp)[0]);
+
+$isLocked = false;
+$stmtLock = $pdo->prepare("SELECT intentos, bloqueado_hasta FROM intentos_login WHERE ip = ?");
+$stmtLock->execute([$clientIp]);
+$lockData = $stmtLock->fetch(PDO::FETCH_ASSOC);
+
+if ($lockData && !empty($lockData['bloqueado_hasta'])) {
+    $blockExpiry = strtotime($lockData['bloqueado_hasta']);
+    if ($blockExpiry > time()) {
+        $isLocked = true;
+        $minsLeft = ceil(($blockExpiry - time()) / 60);
+        $error = "Demasiados intentos fallidos. Acceso temporalmente bloqueado por seguridad ($minsLeft min restantes).";
+    } else {
+        $pdo->prepare("UPDATE intentos_login SET intentos = 0, bloqueado_hasta = NULL WHERE ip = ?")->execute([$clientIp]);
+        $lockData['intentos'] = 0;
+    }
+}
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $user = trim($_POST['username'] ?? '');
-    $pass = $_POST['password'] ?? '';
+    if ($isLocked) {
+        // Mantener mensaje de bloqueo
+    } else {
+        $user = trim($_POST['username'] ?? '');
+        $pass = $_POST['password'] ?? '';
 
-    if (!empty($user) && !empty($pass)) {
-        // Tolerancia a variaciones comunes de tipeo (ej: adminsitrador <-> administrador)
-        $userAlt = $user;
-        if (strcasecmp($user, 'adminsitrador') === 0) {
-            $userAlt = 'administrador';
-        } elseif (strcasecmp($user, 'administrador') === 0) {
-            $userAlt = 'adminsitrador';
-        }
-
-        $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE username = :u OR username = :u_alt LIMIT 1");
-        $stmt->execute(['u' => $user, 'u_alt' => $userAlt]);
-        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        $passwordValid = false;
-        if ($usuario) {
-            if (password_verify($pass, $usuario['password'])) {
-                $passwordValid = true;
-            } elseif ($usuario['password'] === $pass || $usuario['password'] === md5($pass)) {
-                $passwordValid = true;
-                // Rehashear automáticamente con bcrypt moderno
-                $newHash = password_hash($pass, PASSWORD_DEFAULT);
-                $pdo->prepare("UPDATE usuarios SET password = ? WHERE id = ?")->execute([$newHash, $usuario['id']]);
+        if (!empty($user) && !empty($pass)) {
+            // Tolerancia a variaciones comunes de tipeo (ej: adminsitrador <-> administrador)
+            $userAlt = $user;
+            if (strcasecmp($user, 'adminsitrador') === 0) {
+                $userAlt = 'administrador';
+            } elseif (strcasecmp($user, 'administrador') === 0) {
+                $userAlt = 'adminsitrador';
             }
-        }
 
-        if ($usuario && $passwordValid) {
-            $_SESSION['user_id'] = $usuario['id'];
-            $_SESSION['username'] = $usuario['username'];
-            $_SESSION['nombre'] = $usuario['nombre'];
-            $_SESSION['rol'] = $usuario['rol'];
-            $_SESSION['rol_web'] = $usuario['rol_web'] ?? (!empty($usuario['acceso_web']) ? ($usuario['rol'] === 'admin' ? 'admin' : 'admin') : 'none');
-            $_SESSION['rol_cotizador'] = $usuario['rol_cotizador'] ?? (!empty($usuario['acceso_cotizador']) ? ($usuario['rol'] === 'admin' ? 'admin' : 'comercial') : 'none');
-            $_SESSION['acceso_web'] = ($_SESSION['rol_web'] !== 'none') ? 1 : 0;
-            $_SESSION['acceso_cotizador'] = ($_SESSION['rol_cotizador'] !== 'none') ? 1 : 0;
+            $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE username = :u OR username = :u_alt LIMIT 1");
+            $stmt->execute(['u' => $user, 'u_alt' => $userAlt]);
+            $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            // Generar o reusar token para que el cotizador no pida contraseña nuevamente (Single Sign-On)
-            $token = $usuario['token'] ?? '';
-            if (empty($token)) {
-                $token = bin2hex(random_bytes(32));
-                $pdo->prepare("UPDATE usuarios SET token = ? WHERE id = ?")->execute([$token, $usuario['id']]);
+            $passwordValid = false;
+            if ($usuario) {
+                if (password_verify($pass, $usuario['password'])) {
+                    $passwordValid = true;
+                } elseif ($usuario['password'] === $pass || $usuario['password'] === md5($pass)) {
+                    $passwordValid = true;
+                    // Rehashear automáticamente con bcrypt moderno
+                    $newHash = password_hash($pass, PASSWORD_DEFAULT);
+                    $pdo->prepare("UPDATE usuarios SET password = ? WHERE id = ?")->execute([$newHash, $usuario['id']]);
+                }
             }
-            $_SESSION['token'] = $token;
 
-            // Redirección inteligente si solo tiene acceso a un módulo
-            if ($_SESSION['acceso_web'] == 1 && $_SESSION['acceso_cotizador'] == 0) {
-                header("Location: productos.php");
-                exit;
-            } elseif ($_SESSION['acceso_web'] == 0 && $_SESSION['acceso_cotizador'] == 1 && ($_SESSION['rol_cotizador'] ?? '') === 'comercial') {
-                header("Location: ../v1/cotizaciones/cotizador.html");
-                exit;
+            if ($usuario && $passwordValid) {
+                // Éxito: limpiar intentos fallidos de esta IP
+                $pdo->prepare("DELETE FROM intentos_login WHERE ip = ?")->execute([$clientIp]);
+
+                $_SESSION['user_id'] = $usuario['id'];
+                $_SESSION['username'] = $usuario['username'];
+                $_SESSION['nombre'] = $usuario['nombre'];
+                $_SESSION['rol'] = $usuario['rol'];
+                $_SESSION['rol_web'] = $usuario['rol_web'] ?? (!empty($usuario['acceso_web']) ? ($usuario['rol'] === 'admin' ? 'admin' : 'admin') : 'none');
+                $_SESSION['rol_cotizador'] = $usuario['rol_cotizador'] ?? (!empty($usuario['acceso_cotizador']) ? ($usuario['rol'] === 'admin' ? 'admin' : 'comercial') : 'none');
+                $_SESSION['acceso_web'] = ($_SESSION['rol_web'] !== 'none') ? 1 : 0;
+                $_SESSION['acceso_cotizador'] = ($_SESSION['rol_cotizador'] !== 'none') ? 1 : 0;
+
+                // Generar o reusar token para que el cotizador no pida contraseña nuevamente (Single Sign-On)
+                $token = $usuario['token'] ?? '';
+                if (empty($token)) {
+                    $token = bin2hex(random_bytes(32));
+                    $pdo->prepare("UPDATE usuarios SET token = ? WHERE id = ?")->execute([$token, $usuario['id']]);
+                }
+                $_SESSION['token'] = $token;
+
+                // Redirección inteligente si solo tiene acceso a un módulo
+                if ($_SESSION['acceso_web'] == 1 && $_SESSION['acceso_cotizador'] == 0) {
+                    header("Location: productos.php");
+                    exit;
+                } elseif ($_SESSION['acceso_web'] == 0 && $_SESSION['acceso_cotizador'] == 1 && ($_SESSION['rol_cotizador'] ?? '') === 'comercial') {
+                    header("Location: ../v1/cotizaciones/cotizador.html");
+                    exit;
+                } else {
+                    header("Location: index.php");
+                    exit;
+                }
             } else {
-                header("Location: index.php");
-                exit;
+                // Pausa anti-bot de 400ms para neutralizar ataques automatizados
+                usleep(400000);
+
+                $attempts = ($lockData['intentos'] ?? 0) + 1;
+                if ($attempts >= 5) {
+                    $blockUntil = date('Y-m-d H:i:s', time() + (15 * 60));
+                    $stmtUpd = $pdo->prepare("INSERT INTO intentos_login (ip, intentos, bloqueado_hasta, ultimo_intento) VALUES (?, ?, ?, NOW()) ON DUPLICATE KEY UPDATE intentos = ?, bloqueado_hasta = ?, ultimo_intento = NOW()");
+                    $stmtUpd->execute([$clientIp, $attempts, $blockUntil, $attempts, $blockUntil]);
+                    $error = "Has superado el límite de 5 intentos. Acceso bloqueado por 15 minutos.";
+                } else {
+                    $stmtUpd = $pdo->prepare("INSERT INTO intentos_login (ip, intentos, bloqueado_hasta, ultimo_intento) VALUES (?, ?, NULL, NOW()) ON DUPLICATE KEY UPDATE intentos = ?, ultimo_intento = NOW()");
+                    $stmtUpd->execute([$clientIp, $attempts, $attempts]);
+                    $restantes = 5 - $attempts;
+                    $error = "Usuario o contraseña incorrectos. (Intentos restantes: $restantes)";
+                }
             }
         } else {
-            $error = "Usuario o contraseña incorrectos.";
+            $error = "Por favor completa ambos campos.";
         }
-    } else {
-        $error = "Por favor completa ambos campos.";
     }
 }
 ?>
