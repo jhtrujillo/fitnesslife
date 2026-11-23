@@ -359,7 +359,36 @@ $seriesJson = json_encode($series);
                   aspect-ratio: 16/9 !important;
                 }
               }
+              /* Protección anti-copia de imágenes del catálogo */
+              img, .product-card img, .modal img, [data-prevent-copy] {
+                -webkit-user-drag: none;
+                -khtml-user-drag: none;
+                -moz-user-drag: none;
+                -o-user-drag: none;
+                user-drag: none;
+                user-select: none;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                -webkit-touch-callout: none;
+              }
             </style>
+<script>
+// Protección anti-copia: bloquea clic derecho y arrastre en imágenes del catálogo
+document.addEventListener('contextmenu', function(e) {
+  if (e.target && (e.target.tagName === 'IMG' || e.target.closest('img'))) {
+    e.preventDefault();
+    return false;
+  }
+}, { capture: true });
+
+document.addEventListener('dragstart', function(e) {
+  if (e.target && (e.target.tagName === 'IMG' || e.target.closest('img'))) {
+    e.preventDefault();
+    return false;
+  }
+}, { capture: true });
+</script>
 </head>
 <body>
 <x-dc>
@@ -433,6 +462,7 @@ $seriesJson = json_encode($series);
   @keyframes slideFade{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:translateY(0)}}
   input::placeholder, textarea::placeholder{color:oklch(42% .01 270)}
   input, textarea, select{font-family:Inter,sans-serif}
+  img { -webkit-user-drag: none; user-drag: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
 </style>
 </helmet>
 

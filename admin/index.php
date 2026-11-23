@@ -441,6 +441,13 @@ try {
                     </div>
                     <span class="nav-item-badge" style="background:#e0f2fe;color:#0369a1;"><?= $stats['usuarios'] ?></span>
                 </a>
+                <a href="respaldos.php" class="nav-item" style="border-left:3px solid #e63946;">
+                    <div class="nav-item-left">
+                        <span class="nav-icon">💾</span>
+                        <span>Copias de Seguridad (BD & Archivos)</span>
+                    </div>
+                    <span class="nav-item-badge" style="background:#fee2e2;color:#b91c1c;">Backup</span>
+                </a>
                 <?php endif; ?>
             </div>
             <div class="card-footer">

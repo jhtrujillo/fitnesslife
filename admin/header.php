@@ -66,6 +66,9 @@ if (in_array($currScript, $webCatalogPages) && isset($_SESSION['acceso_web']) &&
             <a href="usuarios.php" class="btn-nav <?= $curr=='usuarios.php'||$curr=='usuario_form.php' ? 'active' : '' ?>">
                 <span style="font-size:16px; margin-bottom:4px;">👥</span><span>Usuarios</span>
             </a>
+            <a href="respaldos.php" class="btn-nav <?= $curr=='respaldos.php' ? 'active' : '' ?>">
+                <span style="font-size:16px; margin-bottom:4px;">💾</span><span>Respaldos</span>
+            </a>
             <?php endif; ?>
             <a href="logout.php" class="btn-nav" style="color:#ffcccc;border-color:rgba(255,0,0,0.3);background:rgba(255,0,0,0.1)">
                 <span style="font-size:16px; margin-bottom:4px;">🚪</span><span>Salir</span>
