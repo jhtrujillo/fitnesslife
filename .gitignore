@@ -29,3 +29,4 @@ backups_claude/
 *.zip
 *.bak*
 *.bak_*
+__pycache__/
