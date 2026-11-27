@@ -1252,7 +1252,7 @@ document.addEventListener('dragstart', function(e) {
                  <span style="background:oklch(96% 0 0);color:oklch(40% .01 270);border:1px solid oklch(88% 0 0);padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase">Disponibilidad Inmediata</span>
                </div>
 
-               <p style="font-size:15px;color:oklch(40% .005 270);line-height:1.6;margin-bottom:32px;flex-grow:1">
+               <p style="font-size:15px;color:oklch(40% .005 270);line-height:1.6;margin-bottom:32px;flex-grow:1;white-space:pre-line">
                  {{modalProd.descText}}
                </p>
 
@@ -3362,7 +3362,15 @@ class Component extends DCLogic {
         const cartBg = inCart ? 'oklch(96% 0 0)' : 'oklch(20% .005 270)';
         const cartColor = inCart ? 'oklch(20% .005 270)' : 'white';
         const cartBorder = inCart ? '1px solid oklch(80% 0 0)' : '1px solid transparent';
-        const descText = (mp.description && mp.description.trim()) ? mp.description.trim() : 'Equipamiento profesional de alto rendimiento para gimnasios comerciales, instituciones y entrenamiento de alta exigencia. Diseñado con biomecánica de precisión para máxima durabilidad, ergonomía y seguridad.';
+        let descText = (mp.description && mp.description.trim()) ? mp.description.trim() : '';
+        if (!descText) {
+          const isCircuitoOptima = (mp.name && mp.name.toLowerCase().includes('circuito') && mp.name.toLowerCase().includes('optima')) || mp.id == 369;
+          if (isCircuitoOptima) {
+            descText = "Circuito integral de acondicionamiento físico de 30 minutos, remanufacturado bajo estrictos estándares de fábrica.\n\nCompuesto por 10 estaciones biomecánicas de fuerza:\n• Chest Press (Press de Pecho)\n• Shoulder Press (Press de Hombros)\n• Lat Pulldown (Jalón Dorsal)\n• Seated Row (Remo Sentado)\n• Biceps Curl (Curl de Bíceps)\n• Triceps Extension (Extensión de Tríceps)\n• Leg Press (Prensa de Piernas)\n• Leg Extension (Extensión de Cuádriceps)\n• Leg Curl (Curl Femoral)\n• Abdominal (Flexión Abdominal)";
+          } else {
+            descText = 'Equipamiento profesional de alto rendimiento para gimnasios comerciales, instituciones y entrenamiento de alta exigencia. Diseñado con biomecánica de precisión para máxima durabilidad, ergonomía y seguridad.';
+          }
+        }
         return { 
           ...mp, 
           prodId,
