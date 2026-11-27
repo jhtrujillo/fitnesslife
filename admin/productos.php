@@ -144,7 +144,7 @@ function getProductImgUrl($rawImg, $mediaJson = null) {
     }
     $img = ltrim($img, '/');
     
-    return '../cotizaciones/' . $img;
+    return '../' . $img;
 }
 
 $sql = "SELECT id, name, item_no, series, serie, categoria_id, price, img, media_json, COALESCE(activo, 1) AS activo FROM productos ORDER BY id DESC ";

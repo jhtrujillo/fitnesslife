@@ -21,7 +21,7 @@ function getProductImgUrl($rawImg, $mediaJson = null) {
     }
     $img = ltrim($img, '/');
     
-    return '../cotizaciones/' . $img;
+    return '../' . $img;
 }
 
 $id = $_GET['id'] ?? null;
@@ -44,8 +44,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // File upload logic (Base64 payload from Drag & Drop / Canvas Resize)
     $rawPayload = $_POST['img_payload'] ?? $_POST['img_base64'] ?? '';
     if (!empty($rawPayload)) {
-        $uploadDir = '../cotizaciones/uploads/';
-        if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
+        $primaryDir = '../uploads/';
+        if (!is_dir($primaryDir)) @mkdir($primaryDir, 0777, true);
         
         // Strip data URI scheme prefix if present (or handle raw base64)
         if (strpos($rawPayload, ',') !== false) {
@@ -58,9 +58,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $data = base64_decode($b64data);
         if ($data !== false && strlen($data) > 0) {
             $filename = uniqid('prod_') . '.jpg';
-            $destPath = $uploadDir . $filename;
+            $destPath = $primaryDir . $filename;
             if (file_put_contents($destPath, $data)) {
                 $img = 'uploads/' . $filename;
+                @copy($destPath, '../v1/cotizaciones/uploads/' . $filename);
+                @copy($destPath, '../cotizaciones/uploads/' . $filename);
             } else {
                 $uploadErrorMsg = "Error al guardar la imagen procesada en el servidor.";
             }
@@ -71,13 +73,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Fallback normal file upload
     else if (isset($_FILES['img_file']) && $_FILES['img_file']['error'] !== UPLOAD_ERR_NO_FILE) {
         if ($_FILES['img_file']['error'] === UPLOAD_ERR_OK) {
-            $uploadDir = '../cotizaciones/uploads/';
-            if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
+            $primaryDir = '../uploads/';
+            if (!is_dir($primaryDir)) @mkdir($primaryDir, 0777, true);
             $filename = uniqid('prod_') . '_' . basename($_FILES['img_file']['name']);
             $filename = preg_replace('/[^a-zA-Z0-9_.-]/', '', $filename);
-            $destPath = $uploadDir . $filename;
+            $destPath = $primaryDir . $filename;
             if (move_uploaded_file($_FILES['img_file']['tmp_name'], $destPath)) {
                 $img = 'uploads/' . $filename;
+                @copy($destPath, '../v1/cotizaciones/uploads/' . $filename);
+                @copy($destPath, '../cotizaciones/uploads/' . $filename);
             } else {
                 $uploadErrorMsg = "Error al mover el archivo subido al servidor.";
             }

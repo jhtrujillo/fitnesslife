@@ -24,7 +24,7 @@ function getProductImgUrl($rawImg, $mediaJson = null) {
     }
     $img = ltrim($img, '/');
     
-    return '../cotizaciones/' . $img;
+    return '../' . $img;
 }
 
 // Obtener los IDs solicitados
@@ -43,9 +43,9 @@ $updatedCount = 0;
 $errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'save_batch_images') {
-    $uploadDir = '../cotizaciones/uploads/';
-    if (!is_dir($uploadDir)) {
-        mkdir($uploadDir, 0777, true);
+    $primaryDir = '../uploads/';
+    if (!is_dir($primaryDir)) {
+        @mkdir($primaryDir, 0777, true);
     }
 
     $productIds = $_POST['product_ids'] ?? [];
@@ -64,9 +64,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                 if (count($parts) === 2) {
                     $data = base64_decode($parts[1]);
                     $filename = uniqid('prod_') . '.jpg';
-                    $destPath = $uploadDir . $filename;
+                    $destPath = $primaryDir . $filename;
                     if (file_put_contents($destPath, $data)) {
                         $newImgPath = 'uploads/' . $filename;
+                        @copy($destPath, '../v1/cotizaciones/uploads/' . $filename);
+                        @copy($destPath, '../cotizaciones/uploads/' . $filename);
                     } else {
                         $errors[] = "Error al guardar imagen del producto ID: $pid";
                     }
@@ -77,9 +79,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                 $file = $_FILES['img_file_' . $pid];
                 $filename = uniqid('prod_') . '_' . basename($file['name']);
                 $filename = preg_replace('/[^a-zA-Z0-9_.-]/', '', $filename);
-                $destPath = $uploadDir . $filename;
+                $destPath = $primaryDir . $filename;
                 if (move_uploaded_file($file['tmp_name'], $destPath)) {
                     $newImgPath = 'uploads/' . $filename;
+                    @copy($destPath, '../v1/cotizaciones/uploads/' . $filename);
+                    @copy($destPath, '../cotizaciones/uploads/' . $filename);
                 } else {
                     $errors[] = "Error al mover imagen subida del producto ID: $pid";
                 }

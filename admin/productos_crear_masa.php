@@ -33,9 +33,9 @@ $flash_error = null;
 // Procesar guardado en masa
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'create_batch_products') {
     $rows = $_POST['products'] ?? [];
-    $uploadDir = '../cotizaciones/uploads/';
-    if (!is_dir($uploadDir)) {
-        mkdir($uploadDir, 0777, true);
+    $primaryDir = '../uploads/';
+    if (!is_dir($primaryDir)) {
+        @mkdir($primaryDir, 0777, true);
     }
 
     $createdCount = 0;
@@ -80,9 +80,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             if (count($parts) === 2) {
                 $data = base64_decode($parts[1]);
                 $filename = uniqid('prod_') . '.jpg';
-                $destPath = $uploadDir . $filename;
+                $destPath = $primaryDir . $filename;
                 if (file_put_contents($destPath, $data)) {
                     $img = 'uploads/' . $filename;
+                    @copy($destPath, '../v1/cotizaciones/uploads/' . $filename);
+                    @copy($destPath, '../cotizaciones/uploads/' . $filename);
                 }
             }
         } 
@@ -92,9 +94,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
             $tmp = $_FILES['products']['tmp_name'][$index]['img_file'];
             $filename = uniqid('prod_') . '_' . basename($file);
             $filename = preg_replace('/[^a-zA-Z0-9_.-]/', '', $filename);
-            $destPath = $uploadDir . $filename;
+            $destPath = $primaryDir . $filename;
             if (move_uploaded_file($tmp, $destPath)) {
                 $img = 'uploads/' . $filename;
+                @copy($destPath, '../v1/cotizaciones/uploads/' . $filename);
+                @copy($destPath, '../cotizaciones/uploads/' . $filename);
             }
         }
 
