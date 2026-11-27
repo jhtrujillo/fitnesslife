@@ -3365,8 +3365,11 @@ class Component extends DCLogic {
         let descText = (mp.description && mp.description.trim()) ? mp.description.trim() : '';
         if (!descText) {
           const isCircuitoOptima = (mp.name && mp.name.toLowerCase().includes('circuito') && mp.name.toLowerCase().includes('optima')) || mp.id == 369;
+          const isCircuitoMatrix = (mp.name && mp.name.toLowerCase().includes('matrix') && mp.name.toLowerCase().includes('respaldo')) || mp.id == 368;
           if (isCircuitoOptima) {
             descText = "Circuito integral de acondicionamiento físico de 30 minutos, remanufacturado bajo estrictos estándares de fábrica.\n\nCompuesto por 10 estaciones biomecánicas de fuerza:\n• Chest Press (Press de Pecho)\n• Shoulder Press (Press de Hombros)\n• Lat Pulldown (Jalón Dorsal)\n• Seated Row (Remo Sentado)\n• Biceps Curl (Curl de Bíceps)\n• Triceps Extension (Extensión de Tríceps)\n• Leg Press (Prensa de Piernas)\n• Leg Extension (Extensión de Cuádriceps)\n• Leg Curl (Curl Femoral)\n• Abdominal (Flexión Abdominal)";
+          } else if (isCircuitoMatrix) {
+            descText = "Circuito comercial de fuerza Matrix de alto rendimiento, seleccionado, revisado y avalado con la garantía integral de Fitness Life. Diseñado para un entrenamiento completo, ergonómico y biomecánicamente óptimo.\n\nCompuesto por 10 estaciones de fuerza:\n• Chest Press (Press de Pecho)\n• Shoulder Press (Press de Hombros)\n• Lat Pulldown (Jalón Dorsal)\n• Seated Row (Remo Sentado)\n• Biceps Curl (Curl de Bíceps)\n• Triceps Extension (Extensión de Tríceps)\n• Leg Press (Prensa de Piernas)\n• Leg Extension (Extensión de Cuádriceps)\n• Seated Leg Curl (Femoral Sentado)\n• Abdominal (Flexión Abdominal)";
           } else {
             descText = 'Equipamiento profesional de alto rendimiento para gimnasios comerciales, instituciones y entrenamiento de alta exigencia. Diseñado con biomecánica de precisión para máxima durabilidad, ergonomía y seguridad.';
           }
