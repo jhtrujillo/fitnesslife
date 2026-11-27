@@ -609,8 +609,12 @@ document.addEventListener('dragstart', function(e) {
           <div style="display:flex;align-items:center;gap:12px;font-size:12px;letter-spacing:0.3em;color:oklch(68% .22 27);font-weight:700;text-transform:uppercase"><span style="width:44px;height:2px;background:oklch(58% .22 25)"></span>Diseño 3D</div>
           <h2 style="font-family:Oswald,sans-serif;font-size:clamp(32px,4.4vw,56px);line-height:1.05;font-weight:700;margin:0;text-transform:uppercase;color:white;text-wrap:balance">Diseñamos tu gimnasio en 3D <span style="color:oklch(64% .23 27)">gratis</span> al equiparlo con nosotros</h2>
           <p style="color:oklch(80% .006 270);font-size:17px;line-height:1.6;margin:0;text-wrap:pretty">Visualiza la distribución de tus equipos, zonas y circulación antes de invertir. Nuestro equipo modela tu espacio para que tomes decisiones con seguridad.</p>
-          <div style="display:flex;flex-wrap:wrap;gap:12px">
+          <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:center">
             <a href="#" onClick="{{goToContacto}}" style="display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg, oklch(58% .22 25), oklch(65% .24 27));color:white;padding:16px 30px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;font-size:13px;min-height:52px;box-sizing:border-box;border-radius:999px;transition:transform .3s ease,box-shadow .3s ease" style-hover="transform:translateY(-3px);box-shadow:0 18px 36px -12px oklch(58% .22 25 / .6);color:white">Solicita tu diseño 3D →</a>
+            <a href="https://designer.fitnesslifesas.com" target="_blank" rel="noopener noreferrer" style="display:inline-flex;align-items:center;gap:8px;background:oklch(100% 0 0 / .08);color:white;border:1px solid oklch(100% 0 0 / .28);padding:16px 26px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;font-size:13px;min-height:52px;box-sizing:border-box;border-radius:999px;backdrop-filter:blur(8px);transition:transform .3s ease,background .3s ease,border-color .3s ease" style-hover="transform:translateY(-3px);background:oklch(100% 0 0 / .16);border-color:oklch(64% .23 27);color:white">
+              Abrir Diseñador 3D
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+            </a>
           </div>
         </div>
       </div>
