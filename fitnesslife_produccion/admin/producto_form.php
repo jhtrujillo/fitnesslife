@@ -25,7 +25,7 @@ function getProductImgUrl($rawImg, $mediaJson = null) {
 }
 
 $id = $_GET['id'] ?? null;
-$producto = ['name' => '', 'item_no' => '', 'series' => '', 'serie' => '', 'categoria_id' => '', 'price' => 0, 'img' => '', 'media_json' => '[]'];
+$producto = ['name' => '', 'item_no' => '', 'series' => '', 'serie' => '', 'categoria_id' => '', 'price' => 0, 'img' => '', 'media_json' => '[]', 'activo' => 1];
 $success = false;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = $_POST['name'] ?? '';
@@ -35,27 +35,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $categoria_id = $_POST['categoria_id'] ?? null;
     if ($categoria_id === '') $categoria_id = null;
     $price = $_POST['price'] ?? 0;
+    $activo = isset($_POST['activo']) ? (intval($_POST['activo']) ? 1 : 0) : 1;
 
     $img = $_POST['img'] ?? '';
     
     $uploadErrorMsg = '';
     
-    // File upload logic (Base64 from Drag & Drop / Resize)
-    if (!empty($_POST['img_base64'])) {
+    // File upload logic (Base64 payload from Drag & Drop / Canvas Resize)
+    $rawPayload = $_POST['img_payload'] ?? $_POST['img_base64'] ?? '';
+    if (!empty($rawPayload)) {
         $uploadDir = '../cotizaciones/uploads/';
         if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
         
-        $base64_string = $_POST['img_base64'];
-        $parts = explode(',', $base64_string);
-        if (count($parts) === 2) {
-            $data = base64_decode($parts[1]);
+        // Strip data URI scheme prefix if present (or handle raw base64)
+        if (strpos($rawPayload, ',') !== false) {
+            $parts = explode(',', $rawPayload, 2);
+            $b64data = $parts[1];
+        } else {
+            $b64data = $rawPayload;
+        }
+        
+        $data = base64_decode($b64data);
+        if ($data !== false && strlen($data) > 0) {
             $filename = uniqid('prod_') . '.jpg';
             $destPath = $uploadDir . $filename;
             if (file_put_contents($destPath, $data)) {
                 $img = 'uploads/' . $filename;
             } else {
-                $uploadErrorMsg = "Error al guardar la imagen procesada.";
+                $uploadErrorMsg = "Error al guardar la imagen procesada en el servidor.";
             }
+        } else {
+            $uploadErrorMsg = "Error: datos de imagen no válidos.";
         }
     } 
     // Fallback normal file upload
@@ -105,11 +115,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if ($id) {
-        $stmt = $pdo->prepare("UPDATE productos SET name=:name, item_no=:item_no, series=:series, serie=:serie, categoria_id=:cat, price=:price, img=:img, media_json=:media_json WHERE id=:id");
-        $stmt->execute(['name'=>$name, 'item_no'=>$item_no, 'series'=>$series, 'serie'=>$serie, 'cat'=>$categoria_id, 'price'=>$price, 'img'=>$img, 'media_json'=>$media_json, 'id'=>$id]);
+        $stmt = $pdo->prepare("UPDATE productos SET name=:name, item_no=:item_no, series=:series, serie=:serie, categoria_id=:cat, price=:price, img=:img, media_json=:media_json, activo=:activo WHERE id=:id");
+        $stmt->execute(['name'=>$name, 'item_no'=>$item_no, 'series'=>$series, 'serie'=>$serie, 'cat'=>$categoria_id, 'price'=>$price, 'img'=>$img, 'media_json'=>$media_json, 'activo'=>$activo, 'id'=>$id]);
     } else {
-        $stmt = $pdo->prepare("INSERT INTO productos (name, item_no, series, serie, categoria_id, price, img, media_json) VALUES (:name, :item_no, :series, :serie, :cat, :price, :img, :media_json)");
-        $stmt->execute(['name'=>$name, 'item_no'=>$item_no, 'series'=>$series, 'serie'=>$serie, 'cat'=>$categoria_id, 'price'=>$price, 'img'=>$img, 'media_json'=>$media_json]);
+        $stmt = $pdo->prepare("INSERT INTO productos (name, item_no, series, serie, categoria_id, price, img, media_json, activo) VALUES (:name, :item_no, :series, :serie, :cat, :price, :img, :media_json, :activo)");
+        $stmt->execute(['name'=>$name, 'item_no'=>$item_no, 'series'=>$series, 'serie'=>$serie, 'cat'=>$categoria_id, 'price'=>$price, 'img'=>$img, 'media_json'=>$media_json, 'activo'=>$activo]);
         $id = $pdo->lastInsertId();
     }
     $success = true;
@@ -123,8 +133,21 @@ $stmt = $pdo->query("SELECT * FROM categorias ORDER BY pos ASC");
 $categorias = $stmt->fetchAll(PDO::FETCH_ASSOC);
 $stmt = $pdo->query("SELECT * FROM marcas ORDER BY name ASC");
 $marcas = $stmt->fetchAll(PDO::FETCH_ASSOC);
-$stmt = $pdo->query("SELECT * FROM series ORDER BY pos ASC, name ASC");
-$seriesList = $stmt->fetchAll(PDO::FETCH_ASSOC);
+// Obtener listado de series único y deduplicado (de series y productos)
+$seriesDb = $pdo->query("SELECT DISTINCT TRIM(name) AS name FROM series WHERE name IS NOT NULL AND TRIM(name) != ''")->fetchAll(PDO::FETCH_COLUMN);
+$seriesProds = $pdo->query("SELECT DISTINCT TRIM(serie) AS name FROM productos WHERE serie IS NOT NULL AND TRIM(serie) != ''")->fetchAll(PDO::FETCH_COLUMN);
+$uniqueSeriesMap = [];
+foreach (array_merge($seriesDb, $seriesProds) as $s) {
+    $clean = trim((string)$s);
+    if ($clean === '') continue;
+    $lower = mb_strtolower($clean, 'UTF-8');
+    if (!isset($uniqueSeriesMap[$lower])) {
+        $uniqueSeriesMap[$lower] = $clean;
+    }
+}
+$uniqueSeries = array_values($uniqueSeriesMap);
+natcasesort($uniqueSeries);
+$seriesList = array_map(function($s) { return ['name' => $s]; }, array_values($uniqueSeries));
 include 'header.php';
 ?>
 <div class="panel-card" style="max-width:600px; margin: 0 auto;">
@@ -144,6 +167,13 @@ include 'header.php';
             <div class="form-group" style="flex:1;">
                 <label>Precio</label>
                 <input type="number" step="0.01" name="price" value="<?= htmlspecialchars($producto['price'] ?? 0) ?>">
+            </div>
+            <div class="form-group" style="flex:1;">
+                <label>Estado en Catálogo Web</label>
+                <select name="activo">
+                    <option value="1" <?= (!isset($producto['activo']) || (int)$producto['activo'] === 1) ? 'selected' : '' ?>>🟢 Activo (Visible)</option>
+                    <option value="0" <?= (isset($producto['activo']) && (int)$producto['activo'] === 0) ? 'selected' : '' ?>>⚪ Inactivo (Oculto)</option>
+                </select>
             </div>
         </div>
         <div style="display:flex; gap:16px; flex-wrap:wrap;">
@@ -195,7 +225,7 @@ include 'header.php';
                             <span style="font-size:12px; color:#718096;">Se comprimirá automáticamente para cargar rápido.</span>
                         </div>
                         <input type="file" id="img_file_input" name="img_file" accept="image/*" style="position:absolute; inset:0; width:100%; height:100%; opacity:0; cursor:pointer;">
-                        <input type="hidden" id="img_base64" name="img_base64" value="">
+                        <input type="hidden" id="img_payload" name="img_payload" value="">
                         
                         <div id="preview-container" style="display:none; margin-top:12px;">
                             <img id="preview-img" src="" style="max-height:120px; max-width:100%; object-fit:contain; border-radius:4px; border:1px solid #e2e8f0;">
@@ -221,7 +251,7 @@ include 'header.php';
 document.addEventListener("DOMContentLoaded", function() {
     const dropzone = document.getElementById('dropzone');
     const fileInput = document.getElementById('img_file_input');
-    const base64Input = document.getElementById('img_base64');
+    const base64Input = document.getElementById('img_payload');
     const previewContainer = document.getElementById('preview-container');
     const previewImg = document.getElementById('preview-img');
     const dropzoneText = document.getElementById('dropzone-text');
@@ -289,7 +319,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 // Compress to JPEG with 80% quality
                 const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
                 
-                base64Input.value = dataUrl;
+                // Store raw base64 data without ";base64," prefix to prevent LiteSpeed/WAF false-positives
+                const commaIdx = dataUrl.indexOf(',');
+                base64Input.value = (commaIdx !== -1) ? dataUrl.substring(commaIdx + 1) : dataUrl;
+                
                 previewImg.src = dataUrl;
                 previewContainer.style.display = 'block';
                 dropzoneText.style.display = 'none';

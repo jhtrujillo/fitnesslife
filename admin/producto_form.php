@@ -41,22 +41,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     $uploadErrorMsg = '';
     
-    // File upload logic (Base64 from Drag & Drop / Resize)
-    if (!empty($_POST['img_base64'])) {
+    // File upload logic (Base64 payload from Drag & Drop / Canvas Resize)
+    $rawPayload = $_POST['img_payload'] ?? $_POST['img_base64'] ?? '';
+    if (!empty($rawPayload)) {
         $uploadDir = '../cotizaciones/uploads/';
         if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
         
-        $base64_string = $_POST['img_base64'];
-        $parts = explode(',', $base64_string);
-        if (count($parts) === 2) {
-            $data = base64_decode($parts[1]);
+        // Strip data URI scheme prefix if present (or handle raw base64)
+        if (strpos($rawPayload, ',') !== false) {
+            $parts = explode(',', $rawPayload, 2);
+            $b64data = $parts[1];
+        } else {
+            $b64data = $rawPayload;
+        }
+        
+        $data = base64_decode($b64data);
+        if ($data !== false && strlen($data) > 0) {
             $filename = uniqid('prod_') . '.jpg';
             $destPath = $uploadDir . $filename;
             if (file_put_contents($destPath, $data)) {
                 $img = 'uploads/' . $filename;
             } else {
-                $uploadErrorMsg = "Error al guardar la imagen procesada.";
+                $uploadErrorMsg = "Error al guardar la imagen procesada en el servidor.";
             }
+        } else {
+            $uploadErrorMsg = "Error: datos de imagen no válidos.";
         }
     } 
     // Fallback normal file upload
@@ -216,7 +225,7 @@ include 'header.php';
                             <span style="font-size:12px; color:#718096;">Se comprimirá automáticamente para cargar rápido.</span>
                         </div>
                         <input type="file" id="img_file_input" name="img_file" accept="image/*" style="position:absolute; inset:0; width:100%; height:100%; opacity:0; cursor:pointer;">
-                        <input type="hidden" id="img_base64" name="img_base64" value="">
+                        <input type="hidden" id="img_payload" name="img_payload" value="">
                         
                         <div id="preview-container" style="display:none; margin-top:12px;">
                             <img id="preview-img" src="" style="max-height:120px; max-width:100%; object-fit:contain; border-radius:4px; border:1px solid #e2e8f0;">
@@ -242,7 +251,7 @@ include 'header.php';
 document.addEventListener("DOMContentLoaded", function() {
     const dropzone = document.getElementById('dropzone');
     const fileInput = document.getElementById('img_file_input');
-    const base64Input = document.getElementById('img_base64');
+    const base64Input = document.getElementById('img_payload');
     const previewContainer = document.getElementById('preview-container');
     const previewImg = document.getElementById('preview-img');
     const dropzoneText = document.getElementById('dropzone-text');
@@ -310,7 +319,10 @@ document.addEventListener("DOMContentLoaded", function() {
                 // Compress to JPEG with 80% quality
                 const dataUrl = canvas.toDataURL('image/jpeg', 0.8);
                 
-                base64Input.value = dataUrl;
+                // Store raw base64 data without ";base64," prefix to prevent LiteSpeed/WAF false-positives
+                const commaIdx = dataUrl.indexOf(',');
+                base64Input.value = (commaIdx !== -1) ? dataUrl.substring(commaIdx + 1) : dataUrl;
+                
                 previewImg.src = dataUrl;
                 previewContainer.style.display = 'block';
                 dropzoneText.style.display = 'none';
