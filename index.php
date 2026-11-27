@@ -719,7 +719,6 @@ document.addEventListener('dragstart', function(e) {
           </div>
           <div style="display:flex;gap:16px;flex-wrap:wrap">
             <a href="#" onClick="{{goToContacto}}" style="background:linear-gradient(135deg, oklch(58% .22 25), oklch(65% .24 27));color:white;padding:14px 26px;font-weight:700;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s ease" style-hover="transform:translateY(-3px);box-shadow:0 14px 26px -10px oklch(58% .22 25 / .6)">Cotizar Circuito</a>
-            <button type="button" onClick="{{openDemoVideo}}" style="border:1px solid oklch(83% .006 270);background:transparent;color:oklch(20% .005 270);padding:14px 26px;font-weight:700;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:border-color .3s ease,transform .3s ease,background .3s ease" style-hover="border-color:oklch(58% .22 25);transform:translateY(-3px);background:oklch(96% .01 25)">Video Demostrativo</button>
           </div>
         </div>
       </div>
@@ -736,7 +735,6 @@ document.addEventListener('dragstart', function(e) {
           </div>
           <div style="display:flex;gap:16px;flex-wrap:wrap">
             <a href="#" onClick="{{goToContacto}}" style="background:linear-gradient(135deg, oklch(58% .22 25), oklch(65% .24 27));color:white;padding:14px 26px;font-weight:700;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;transition:transform .3s cubic-bezier(.2,.8,.2,1),box-shadow .3s ease" style-hover="transform:translateY(-3px);box-shadow:0 14px 26px -10px oklch(58% .22 25 / .6)">Cotizar Circuito</a>
-            <button type="button" onClick="{{openDemoVideo}}" style="border:1px solid oklch(83% .006 270);background:transparent;color:oklch(20% .005 270);padding:14px 26px;font-weight:700;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;cursor:pointer;transition:border-color .3s ease,transform .3s ease,background .3s ease" style-hover="border-color:oklch(58% .22 25);transform:translateY(-3px);background:oklch(96% .01 25)">Video Demostrativo</button>
           </div>
         </div>
         <div style="order:1;position:relative;aspect-ratio:16/11;overflow:hidden;border-radius:22px;background:oklch(91% .004 270);box-shadow:0 16px 38px -14px oklch(20% .01 270 / .3);opacity:{{circRow2ImgOpacity}};transform:{{circRow2ImgTransform}};transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1),box-shadow .45s ease" style-hover="box-shadow:0 36px 68px -22px oklch(58% .22 25 / .48);transform:translateY(-10px)">
